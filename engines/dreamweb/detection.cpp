@@ -32,7 +32,7 @@
 #include "dreamweb/detection.h"
 #include "dreamweb/dreamweb.h"
 
-#define GAMEOPTION_TTS_NARRATOR 	GUIO_GAMEOPTIONS1
+#define GAMEOPTION_TTS 	GUIO_GAMEOPTIONS1
 
 static const PlainGameDescriptor dreamWebGames[] = {
 	{ "dreamweb", "DreamWeb" },
@@ -70,7 +70,7 @@ static const ADExtraGuiOptionsMap gameGuiOptions[] = {
 
 #ifdef USE_TTS
 	{
-		GAMEOPTION_TTS_NARRATOR,
+		GAMEOPTION_TTS,
 		{
 			_s("Enable Text to Speech"),
 			_s("Use TTS to read the descriptions (if TTS is available)"),
@@ -79,7 +79,7 @@ static const ADExtraGuiOptionsMap gameGuiOptions[] = {
 		}
 	},
 #endif
-	
+
 	AD_EXTRA_GUI_OPTIONS_TERMINATOR
 };
 

@@ -101,7 +101,9 @@ void DreamWebEngine::gettingShot() {
 }
 
 void DreamWebEngine::bibleQuote() {
-	const char *story = "And I heard a great voice out of the temple saying to the seven angels. Go your ways and pour out the vails of the wrath of god upon the earth. Book of revelation. Chapter 16 verse 7.";
+	const char *story = "And I heard a great voice out of the temple saying to the seven angels. "
+						"Go your ways and pour out the vails of the wrath of god upon the earth. "
+						"Book of revelation Chapter 16 verse 7.";
 	Common::TextToSpeechManager *ttsMan = g_system->getTextToSpeechManager();
 
 	initGraphics(640, 480);

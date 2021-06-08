@@ -930,7 +930,7 @@ void DreamWebEngine::processTrigger() {
 	}
 }
 
-const char* lastText = "";
+const char *lastText = "";
 void DreamWebEngine::useTimedText() {
 	Common::TextToSpeechManager *ttsMan = g_system->getTextToSpeechManager();
 	if (_previousTimedTemp._string) {
@@ -966,7 +966,7 @@ void DreamWebEngine::useTimedText() {
 
 	const uint8 *string = (const uint8 *)_timedTemp._string;
 	printDirect(string, _timedTemp._x, _timedTemp._y, 237, true);
-	const char* theText = (const char*)string;
+	const char *theText = (const char*)string;
 	if (lastText != theText) {
 		if (ttsMan != nullptr && ConfMan.getBool("tts_enabled")) {
 			ttsMan->say(theText, Common::TextToSpeechManager::QUEUE_NO_REPEAT);
@@ -1190,7 +1190,7 @@ void DreamWebEngine::commandOnly(uint8 command) {
 	if (ttsMan != nullptr && ConfMan.getBool("tts_enabled")) {
 		ttsMan->say((const char*)string);
 	}
-	
+
 	_newTextLine = 1;
 }
 
@@ -1278,7 +1278,7 @@ void DreamWebEngine::copyName(uint8 type, uint8 index, uint8 *dst) {
 
 void DreamWebEngine::commandWithOb(uint8 command, uint8 type, uint8 index) {
 	Common::TextToSpeechManager *ttsMan = g_system->getTextToSpeechManager();
-	Common::String theText = "";
+	Common::String theText;
 
 	uint8 commandLine[64] = "OBJECT NAME ONE                         ";
 	delTextLine();
