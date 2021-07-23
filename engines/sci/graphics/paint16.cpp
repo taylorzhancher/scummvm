@@ -493,8 +493,6 @@ void GfxPaint16::textToSpeech(const char *text) {
 			ttsMan->say(text, Common::TextToSpeechManager::QUEUE_NO_REPEAT);
 		if (g_sci->getGameId() == GID_CASTLEBRAIN && g_sci->isDemo() == true)
 			ttsMan->say(text, Common::TextToSpeechManager::QUEUE_NO_REPEAT);
-		if (g_sci->getGameId() == GID_LAURABOW && g_sci->isDemo() == true)
-			ttsMan->say(text, Common::TextToSpeechManager::QUEUE_NO_REPEAT);
 		thelastText = text;
 	}
 }

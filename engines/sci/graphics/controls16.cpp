@@ -315,8 +315,6 @@ int GfxControls16::getPicNotValid() {
 }
 
 void GfxControls16::kernelDrawButton(Common::Rect rect, reg_t obj, const char *text, uint16 languageSplitter, int16 fontId, int16 style, bool hilite) {
-	if (_ttsMan != nullptr && ConfMan.getBool("tts_enabled"))
-		_ttsMan->say(text, Common::TextToSpeechManager::QUEUE);
 	int16 sci0EarlyPen = 0, sci0EarlyBack = 0;
 	if (!hilite) {
 		if (getSciVersion() == SCI_VERSION_0_EARLY) {
@@ -355,12 +353,10 @@ void GfxControls16::kernelDrawButton(Common::Rect rect, reg_t obj, const char *t
 }
 
 void GfxControls16::kernelDrawText(Common::Rect rect, reg_t obj, const char *text, uint16 languageSplitter, int16 fontId, TextAlignment alignment, int16 style, bool hilite) {
-	if (_ttsMan != nullptr && ConfMan.getBool("tts_enabled") && g_sci->getGameId() == GID_LAURABOW2)
-		_ttsMan->say(text, Common::TextToSpeechManager::INTERRUPT);
-	if (_ttsMan != nullptr && ConfMan.getBool("tts_enabled") && g_sci->getGameId() == GID_CASTLEBRAIN && g_sci->isDemo() == false)
-		_ttsMan->say(text, Common::TextToSpeechManager::INTERRUPT);
-	if (_ttsMan != nullptr && ConfMan.getBool("tts_enabled") && g_sci->getGameId() == GID_LAURABOW)
-		_ttsMan->say(text, Common::TextToSpeechManager::INTERRUPT);
+	// if (_ttsMan != nullptr && ConfMan.getBool("tts_enabled") && g_sci->getGameId() == GID_LAURABOW2)
+	// 	_ttsMan->say(text, Common::TextToSpeechManager::INTERRUPT);
+	// if (_ttsMan != nullptr && ConfMan.getBool("tts_enabled") && g_sci->getGameId() == GID_CASTLEBRAIN && g_sci->isDemo() == false)
+	// 	_ttsMan->say(text, Common::TextToSpeechManager::INTERRUPT);
 	if (!hilite) {
 		rect.grow(1);
 		_paint16->eraseRect(rect);

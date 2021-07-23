@@ -23,6 +23,9 @@
 #include "common/util.h"
 #include "common/stack.h"
 #include "common/unicode-bidi.h"
+#include "common/text-to-speech.h"
+#include "common/config-manager.h"
+#include "common/system.h"
 #include "graphics/primitives.h"
 
 #include "sci/sci.h"
@@ -538,6 +541,9 @@ void GfxText16::Show(const char *text, int16 from, int16 len, GuiResourceId orgF
 
 // Draws a text in rect.
 void GfxText16::Box(const char *text, uint16 languageSplitter, bool show, const Common::Rect &rect, TextAlignment alignment, GuiResourceId fontId) {
+	Common::TextToSpeechManager *ttsMan = g_system->getTextToSpeechManager();
+	if (ttsMan != nullptr && ConfMan.getBool("tts_enabled"))
+		ttsMan->say(text, Common::TextToSpeechManager::QUEUE_NO_REPEAT);
 	int16 textWidth, maxTextWidth, textHeight, charCount;
 	int16 offset = 0;
 	int16 hline = 0;
