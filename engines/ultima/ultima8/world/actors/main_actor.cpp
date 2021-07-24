@@ -194,7 +194,7 @@ int16 MainActor::addItemCru(Item *item, bool showtoast) {
 			item->callUsecodeEvent_combine();
 			item->moveToContainer(this);
 			if (showtoast)
-				pickupArea->addPickup(item, true);
+				pickupArea->addPickup(item, false);
 			return 1;
 		} else {
 			// already have this, add some ammo.
@@ -203,7 +203,7 @@ int16 MainActor::addItemCru(Item *item, bool showtoast) {
 				ammo->setQuality(q + 1);
 				ammo->callUsecodeEvent_combine();
 				if (showtoast)
-					pickupArea->addPickup(item, true);
+					pickupArea->addPickup(item, false);
 				item->destroy();
 				return 1;
 			}
@@ -327,6 +327,11 @@ int16 MainActor::addItemCru(Item *item, bool showtoast) {
 	return 0;
 }
 
+bool MainActor::removeItemCru(Item *item) {
+	warning("TODO: Implement MainActor::removeItemCru");
+	return false;
+}
+
 const ShapeInfo *MainActor::getShapeInfoFromGameInstance() const {
 	const ShapeInfo *info = Item::getShapeInfoFromGameInstance();
 
@@ -347,6 +352,17 @@ const ShapeInfo *MainActor::getShapeInfoFromGameInstance() const {
 	}
 
 	return _kneelingShapeInfo;
+}
+
+void MainActor::move(int32 x, int32 y, int32 z) {
+	Actor::move(x, y, z);
+	if (_shieldSpriteProc != 0) {
+		SpriteProcess *sprite = dynamic_cast<SpriteProcess *>(
+			Kernel::get_instance()->getProcess(_shieldSpriteProc));
+		if (sprite) {
+			sprite->move(x, y, z);
+		}
+	}
 }
 
 void MainActor::teleport(int mapNum, int32 x, int32 y, int32 z) {
@@ -915,6 +931,21 @@ uint32 MainActor::I_switchMap(const uint8 *args,
 	}
 	return 0;
 }
+
+uint32 MainActor::I_removeItemCru(const uint8 *args,
+								 unsigned int /*argsize*/) {
+	MainActor *av = getMainActor();
+	ARG_ITEM_FROM_ID(item);
+
+	if (!av || !item)
+		return 0;
+
+	if (av->removeItemCru(item))
+		return 1;
+
+	return 0;
+}
+
 
 void MainActor::useInventoryItem(uint32 shapenum) {
 	Item *item = getFirstItemWithShape(shapenum, true);

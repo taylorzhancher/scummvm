@@ -67,7 +67,6 @@ class WriteStream;
 class HardwareInputSet;
 class Keymap;
 class KeymapperDefaultBindings;
-class Encoding;
 
 typedef Array<Keymap *> KeymapArray;
 }
@@ -138,7 +137,6 @@ enum Type {
  * - Sound output
  */
 class OSystem : Common::NonCopyable {
-	friend class Common::Encoding;
 protected:
 	OSystem();
 	virtual ~OSystem();
@@ -1230,7 +1228,8 @@ public:
 	virtual void clearOverlay() = 0;
 
 	/**
-	 * Copy the content of the overlay into a buffer provided by the caller.
+	 * Copy the content of the overlay into a surface provided by the
+	 * caller.
 	 *
 	 * This is only used to implement fake alpha blending.
 	 */
@@ -1367,7 +1366,7 @@ public:
 	 * On many systems, this corresponds to the combination of time()
 	 * and localtime().
 	 */
-	virtual void getTimeAndDate(TimeDate &t) const = 0;
+	virtual void getTimeAndDate(TimeDate &td, bool skipRecord = false) const = 0;
 
 	/**
 	 * Return the timer manager singleton.

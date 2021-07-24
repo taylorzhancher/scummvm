@@ -122,6 +122,7 @@ void b_unLoad(int nargs);
 void b_unLoadCast(int nargs);
 void b_updateStage(int nargs);
 void b_zoomBox(int nargs);
+void b_immediateSprite(int nargs);
 
 void b_abort(int nargs);
 void b_continue(int nargs);
@@ -195,11 +196,8 @@ void b_numberofwords(int nargs);
 void b_scummvmassert(int nargs);
 void b_scummvmassertequal(int nargs);
 
-// XCOD/XFCN (HyperCard), normally exposed
+// XCMD/XFCN (HyperCard), normally exposed
 void b_getVolumes(int nargs);
-
-// Used in "Eastern Mind", normally a TheEntity
-void b_colorQD(int nargs);
 
 } // End of namespace LB
 

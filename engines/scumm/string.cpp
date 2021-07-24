@@ -486,7 +486,7 @@ bool ScummEngine::newLine() {
 	return true;
 }
 
-void ScummEngine::fakeBidiString(byte *ltext, bool ignoreVerb) {
+void ScummEngine::fakeBidiString(byte *ltext, bool ignoreVerb) const {
 	// Provides custom made BiDi mechanism.
 	// Reverses texts on each line marked by control characters (considering different control characters used in verbs panel)
 	// While preserving original order of numbers (also negative numbers and comma separated)
@@ -741,6 +741,9 @@ void ScummEngine::CHARSET_1() {
 		fakeBidiString(_charsetBuffer + _charsetBufPos, true);
 	}
 
+	bool createTextBox = (_macScreen && _game.id == GID_INDY3);
+	bool drawTextBox = false;
+
 	while (handleNextCharsetCode(a, &c)) {
 		if (c == 0) {
 			// End of text reached, set _haveMsg accordingly
@@ -774,6 +777,13 @@ void ScummEngine::CHARSET_1() {
 
 		_charset->_left = _nextLeft;
 		_charset->_top = _nextTop;
+
+		if (createTextBox) {
+			if (!_keepText)
+				mac_createIndy3TextBox(a);
+			createTextBox = false;
+			drawTextBox = true;
+		}
 
 		if (_game.version >= 7) {
 #ifdef ENABLE_SCUMM_7_8
@@ -813,6 +823,9 @@ void ScummEngine::CHARSET_1() {
 			_nextLeft = _charset->_left;
 			_nextTop = _charset->_top;
 		}
+
+		if (drawTextBox)
+			mac_drawIndy3TextBox();
 
 		if (_game.version <= 2) {
 			_talkDelay += _defaultTalkDelay;
@@ -1023,8 +1036,8 @@ void ScummEngine::drawString(int a, const byte *msg) {
 	_charset->setCurID(_string[a].charset);
 
 	// HACK: Correct positions of text in books in Indy3 Mac.
-	// See also bug #8759.
-	if (_game.id == GID_INDY3 && _game.platform == Common::kPlatformMacintosh && a == 1) {
+	// See also bug #8759. Not needed when using the Mac font.
+	if (_game.id == GID_INDY3 && _game.platform == Common::kPlatformMacintosh && a == 1 && !_macScreen) {
 		if (_currentRoom == 75) {
 			// Grail Diary Page 1 (Library)
 			if (_charset->_startLeft < 160)
@@ -2060,6 +2073,40 @@ void ScummEngine::translateText(const byte *text, byte *trans_buff) {
 
 	// Default: just copy the string
 	memcpy(trans_buff, text, resStrLen(text) + 1);
+}
+
+bool ScummEngine::reverseIfNeeded(const byte *text, byte *reverseBuf) const {
+	if (_language != Common::HE_ISR)
+		return false;
+	if (_game.id != GID_LOOM && _game.id != GID_ZAK)
+		return false;
+	strcpy(reinterpret_cast<char *>(reverseBuf), reinterpret_cast<const char *>(text));
+	fakeBidiString(reverseBuf, true);
+	return true;
+}
+
+Common::CodePage ScummEngine::getDialogCodePage() const {
+	switch (_language) {
+	case Common::KO_KOR:
+		return Common::kWindows949;
+	case Common::JA_JPN:
+		return Common::kWindows932;
+	case Common::ZH_TWN:
+	case Common::ZH_CNA:
+		return Common::kWindows950;
+	case Common::RU_RUS:
+		return Common::kDos866;
+	case Common::HE_ISR:
+		switch (_game.id) {
+		case GID_LOOM:
+		case GID_ZAK:
+			return Common::kDos862;
+		default:
+			return Common::kWindows1255;
+		}
+	default:
+		return Common::kCodePageInvalid;
+	}
 }
 
 } // End of namespace Scumm

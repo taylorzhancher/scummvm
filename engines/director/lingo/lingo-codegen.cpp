@@ -81,6 +81,7 @@ LingoCompiler::LingoCompiler() {
 	_assemblyContext = nullptr;
 
 	_indef = false;
+	_methodVars = nullptr;
 
 	_linenumber = _colnumber = _bytenumber = 0;
 	_lines[0] = _lines[1] = _lines[2] = nullptr;
@@ -92,36 +93,29 @@ LingoCompiler::LingoCompiler() {
 	_hadError = false;
 }
 
-ScriptContext *LingoCompiler::compileAnonymous(const char *code) {
+ScriptContext *LingoCompiler::compileAnonymous(const Common::U32String &code) {
 	debugC(1, kDebugCompile, "Compiling anonymous lingo\n"
-			"***********\n%s\n\n***********", code);
+			"***********\n%s\n\n***********", code.encode().c_str());
 
-	return compileLingo(code, nullptr, kNoneScript, 0, "[anonymous]", true);
+	return compileLingo(code, nullptr, kNoneScript, CastMemberID(0, 0), "[anonymous]", true);
 }
 
-ScriptContext *LingoCompiler::compileLingo(const char *code, LingoArchive *archive, ScriptType type, uint16 id, const Common::String &scriptName, bool anonymous) {
+ScriptContext *LingoCompiler::compileLingo(const Common::U32String &code, LingoArchive *archive, ScriptType type, CastMemberID id, const Common::String &scriptName, bool anonymous) {
 	_assemblyArchive = archive;
 	_assemblyAST = nullptr;
-	ScriptContext *mainContext = _assemblyContext = new ScriptContext(scriptName, archive, type, id);
+	ScriptContext *mainContext = _assemblyContext = new ScriptContext(scriptName, type, id.member);
 	_currentAssembly = new ScriptData;
 
 	_methodVars = new VarTypeHash;
 	_linenumber = _colnumber = 1;
 	_hadError = false;
 
-	if (!strncmp(code, "menu:", 5) || scumm_strcasestr(code, "\nmenu:")) {
-		debugC(1, kDebugCompile, "Parsing menu");
-		parseMenu(code);
-
-		return nullptr;
-	}
-
 	// Preprocess the code for ease of the parser
-	Common::String codeNorm = codePreprocessor(code, archive, type, id);
-	code = codeNorm.c_str();
+	Common::String codeNorm = codePreprocessor(code, archive, type, id).encode(Common::kUtf8);
+	const char *utf8Code = codeNorm.c_str();
 
 	// Parse the Lingo and build an AST
-	parse(code);
+	parse(utf8Code);
 	if (!_assemblyAST) {
 		delete _assemblyContext;
 		delete _currentAssembly;
@@ -157,7 +151,7 @@ ScriptContext *LingoCompiler::compileLingo(const char *code, LingoArchive *archi
 			uint pc = 0;
 			while (pc < _currentAssembly->size()) {
 				uint spc = pc;
-				Common::String instr = g_lingo->decodeInstruction(_assemblyArchive, _currentAssembly, pc, &pc);
+				Common::String instr = g_lingo->decodeInstruction(_currentAssembly, pc, &pc);
 				debugC(2, kDebugCompile, "[%5d] %s", spc, instr.c_str());
 			}
 			debugC(2, kDebugCompile, "<end code>");
@@ -170,7 +164,6 @@ ScriptContext *LingoCompiler::compileLingo(const char *code, LingoArchive *archi
 		Common::String typeStr = Common::String(scriptType2str(type));
 		currentFunc.name = new Common::String("[" + typeStr + " " + _assemblyContext->getName() + "]");
 		currentFunc.ctx = _assemblyContext;
-		currentFunc.archive = archive;
 		currentFunc.anonymous = anonymous;
 		Common::Array<Common::String> *argNames = new Common::Array<Common::String>;
 		Common::Array<Common::String> *varNames = new Common::Array<Common::String>;
@@ -198,6 +191,13 @@ ScriptContext *LingoCompiler::compileLingo(const char *code, LingoArchive *archi
 		_assemblyContext->_eventHandlers[kEventGeneric] = currentFunc;
 	} else {
 		delete _currentAssembly;
+	}
+
+	// Register this context's functions with the containing archive.
+	for (SymbolHash::iterator it = _assemblyContext->_functionHandlers.begin(); it != _assemblyContext->_functionHandlers.end(); ++it) {
+		if (!_assemblyArchive->functionHandlers.contains(it->_key)) {
+			_assemblyArchive->functionHandlers[it->_key] = it->_value;
+		}
 	}
 
 	delete _methodVars;
@@ -353,15 +353,9 @@ void LingoCompiler::registerMethodVar(const Common::String &name, VarType type) 
 }
 
 void LingoCompiler::registerFactory(Common::String &name) {
-	// FIXME: The factory's context should not be tied to the LingoArchive
-	// but bytecode needs it to resolve names
 	_assemblyContext->setName(name);
 	_assemblyContext->setFactory(true);
-	if (!g_lingo->_globalvars.contains(name) || g_lingo->_globalvars[name].type == VOID) {
-		g_lingo->_globalvars[name] = _assemblyContext;
-	} else {
-		warning("BUILDBOT: Factory '%s' already defined", name.c_str());
-	}
+	g_lingo->_globalvars[name] = _assemblyContext;
 }
 
 void LingoCompiler::updateLoopJumps(uint nextTargetPos, uint exitTargetPos) {
@@ -382,10 +376,6 @@ void LingoCompiler::updateLoopJumps(uint nextTargetPos, uint exitTargetPos) {
 	}
 }
 
-void LingoCompiler::parseMenu(const char *code) {
-	warning("STUB: parseMenu");
-}
-
 /* ScriptNode */
 
 bool LingoCompiler::visitScriptNode(ScriptNode *node) {
@@ -398,7 +388,7 @@ bool LingoCompiler::visitScriptNode(ScriptNode *node) {
 bool LingoCompiler::visitFactoryNode(FactoryNode *node) {
 	_inFactory = true;
 	ScriptContext *mainContext = _assemblyContext;
-	_assemblyContext = new ScriptContext(mainContext->getName(), mainContext->_archive, mainContext->_scriptType, mainContext->_id);
+	_assemblyContext = new ScriptContext(*node->name, mainContext->_scriptType, mainContext->_id);
 
 	COMPILE_LIST(node->methods);
 	registerFactory(*node->name);
@@ -476,7 +466,7 @@ bool LingoCompiler::visitHandlerNode(HandlerNode *node) {
 /* CmdNode */
 
 bool LingoCompiler::visitCmdNode(CmdNode *node) {
-	int numargs = node->args->size();
+	uint numargs = node->args->size();
 
 	if (node->name->equalsIgnoreCase("go") && numargs == 1 && (*node->args)[0]->type == kVarNode){
 		VarNode *var = static_cast<VarNode *>((*node->args)[0]);
@@ -587,17 +577,14 @@ bool LingoCompiler::visitPutBeforeNode(PutBeforeNode *node) {
 
 /* SetNode */
 
-bool LingoCompiler::codeTheFieldSet(int entity, Node *id, const Common::String &field) {
-	Common::String fieldId = Common::String::format("%d%s", entity, field.c_str());
-	if (!g_lingo->_theEntityFields.contains(fieldId)) {
-		warning("BUILDBOT: LingoCompiler::codeTheFieldSet: Unhandled the field %s of %s", field.c_str(), g_lingo->entity2str(entity));
-		return false;
+int LingoCompiler::getTheFieldID(int entity, const Common::String &field, bool silent) {
+	Common::String fieldKey = Common::String::format("%d%s", entity, field.c_str());
+	if (!g_lingo->_theEntityFields.contains(fieldKey)) {
+		if (!silent)
+			warning("BUILDBOT: LingoCompiler::getTheFieldId: Unhandled the field %s of %s", field.c_str(), g_lingo->entity2str(entity));
+		return -1;
 	}
-	COMPILE(id);
-	code1(LC::c_theentityassign);
-	codeInt(entity);
-	codeInt(g_lingo->_theEntityFields[fieldId]->field);
-	return true;
+	return g_lingo->_theEntityFields[fieldKey]->field;
 }
 
 bool LingoCompiler::visitSetNode(SetNode *node) {
@@ -617,18 +604,49 @@ bool LingoCompiler::visitSetNode(SetNode *node) {
 	}
 
 	if (node->var->type == kTheOfNode) {
-		COMPILE(node->val);
 		TheOfNode *the = static_cast<TheOfNode *>(node->var);
 		switch (the->obj->type) {
+		case kChunkExprNode:
+			{
+				int fieldId = getTheFieldID(kTheChunk, *the->prop, true);
+				if (fieldId >= 0) {
+					COMPILE(node->val);
+					COMPILE_REF(the->obj);
+					code1(LC::c_theentityassign);
+					codeInt(kTheChunk);
+					codeInt(fieldId);
+					return true;
+				}
+				// fall back to generic object
+			}
+			break;
 		case kFuncNode:
 			{
 				FuncNode *func = static_cast<FuncNode *>(the->obj);
 				if (func->args->size() == 1) {
 					if (func->name->equalsIgnoreCase("cast")) {
-						return codeTheFieldSet(kTheCast, (*func->args)[0], *the->prop);
+						int fieldId = getTheFieldID(kTheCast, *the->prop, true);
+						if (fieldId >= 0) {
+							COMPILE(node->val);
+							COMPILE((*func->args)[0]);
+							code1(LC::c_theentityassign);
+							codeInt(kTheCast);
+							codeInt(fieldId);
+							return true;
+						}
+						// fall back to generic object
 					}
 					if (func->name->equalsIgnoreCase("field")) {
-						return codeTheFieldSet(kTheField, (*func->args)[0], *the->prop);
+						int fieldId = getTheFieldID(kTheField, *the->prop, true);
+						if (fieldId >= 0) {
+							COMPILE(node->val);
+							COMPILE((*func->args)[0]);
+							code1(LC::c_theentityassign);
+							codeInt(kTheField);
+							codeInt(fieldId);
+							return true;
+						}
+						// fall back to generic object
 					}
 					// window is an object and is handled by that case
 				}
@@ -637,41 +655,65 @@ bool LingoCompiler::visitSetNode(SetNode *node) {
 		case kMenuNode:
 			{
 				MenuNode *menu = static_cast<MenuNode *>(the->obj);
-				return codeTheFieldSet(kTheMenu, menu->arg, *the->prop);
+				int fieldId = getTheFieldID(kTheMenu, *the->prop);
+				if (fieldId < 0)
+					return false;
+				COMPILE(node->val);
+				COMPILE(menu->arg);
+				code1(LC::c_theentityassign);
+				codeInt(kTheMenu);
+				codeInt(fieldId);
+				return true;
 			}
 			break;
 		case kMenuItemNode:
 			{
 				MenuItemNode *menuItem = static_cast<MenuItemNode *>(the->obj);
-				Common::String fieldId = Common::String::format("%d%s", kTheMenuItem, the->prop->c_str());
-				if (!g_lingo->_theEntityFields.contains(fieldId)) {
-					warning("BUILDBOT: LingoCompiler:visitTheNode: Unhandled the field %s of menuItem", the->prop->c_str());
+				int fieldId = getTheFieldID(kTheMenuItem, *the->prop);
+				if (fieldId < 0)
 					return false;
-				}
+				COMPILE(node->val);
 				COMPILE(menuItem->arg1)
 				COMPILE(menuItem->arg2);
-				code1(LC::c_theentityassign);
+				code1(LC::c_themenuitementityassign);
 				codeInt(kTheMenuItem);
-				codeInt(g_lingo->_theEntityFields[fieldId]->field);
+				codeInt(fieldId);
 				return true;
 			}
 			break;
 		case kSoundNode:
 			{
 				SoundNode *sound = static_cast<SoundNode *>(the->obj);
-				return codeTheFieldSet(kTheSoundEntity, sound->arg, *the->prop);
+				int fieldId = getTheFieldID(kTheSoundEntity, *the->prop);
+				if (fieldId < 0)
+					return false;
+				COMPILE(node->val);
+				COMPILE(sound->arg);
+				code1(LC::c_theentityassign);
+				codeInt(kTheSoundEntity);
+				codeInt(fieldId);
+				return true;
 			}
 			break;
 		case kSpriteNode:
 			{
 				SpriteNode *sprite = static_cast<SpriteNode *>(the->obj);
-				return codeTheFieldSet(kTheSprite, sprite->arg, *the->prop);
+				int fieldId = getTheFieldID(kTheSprite, *the->prop);
+				if (fieldId < 0)
+					return false;
+				COMPILE(node->val);
+				COMPILE(sprite->arg);
+				code1(LC::c_theentityassign);
+				codeInt(kTheSprite);
+				codeInt(fieldId);
+				return true;
 			}
 			break;
 		case kVarNode:
 			{
 				VarNode *var = static_cast<VarNode *>(the->obj);
 				if (the->prop->equalsIgnoreCase("number") && var->name->equalsIgnoreCase("castMembers")) {
+					COMPILE(node->val);
 					code1(LC::c_intpush);
 					codeInt(0); // Put dummy id
 					code1(LC::c_theentityassign);
@@ -953,7 +995,8 @@ bool LingoCompiler::visitTellNode(TellNode *node) {
 /* WhenNode */
 
 bool LingoCompiler::visitWhenNode(WhenNode *node) {
-	COMPILE(node->code);
+	code1(LC::c_stringpush);
+	codeString(node->code->c_str());
 	code1(LC::c_whencode);
 	codeString(node->event->c_str());
 	return true;
@@ -1166,30 +1209,46 @@ bool LingoCompiler::visitTheNode(TheNode *node) {
 
 /* TheOfNode */
 
-bool LingoCompiler::codeTheFieldGet(int entity, Node *id, const Common::String &field) {
-	Common::String fieldId = Common::String::format("%d%s", entity, field.c_str());
-	if (!g_lingo->_theEntityFields.contains(fieldId)) {
-		warning("BUILDBOT: LingoCompiler::codeTheFieldGet: Unhandled the field %s of %s", field.c_str(), g_lingo->entity2str(entity));
-		return false;
-	}
-	COMPILE(id);
-	code1(LC::c_theentitypush);
-	codeInt(entity);
-	codeInt(g_lingo->_theEntityFields[fieldId]->field);
-	return true;
-}
-
 bool LingoCompiler::visitTheOfNode(TheOfNode *node) {
 	switch (node->obj->type) {
+	case kChunkExprNode:
+		{
+			int fieldId = getTheFieldID(kTheChunk, *node->prop, true);
+			if (fieldId >= 0) {
+				COMPILE_REF(node->obj);
+				code1(LC::c_theentitypush);
+				codeInt(kTheChunk);
+				codeInt(fieldId);
+				return true;
+			}
+			// fall back to generic object
+		}
+		break;
 	case kFuncNode:
 		{
 			FuncNode *func = static_cast<FuncNode *>(node->obj);
 			if (func->args->size() == 1) {
 				if (func->name->equalsIgnoreCase("cast")) {
-					return codeTheFieldGet(kTheCast, (*func->args)[0], *node->prop);
+					int fieldId = getTheFieldID(kTheCast, *node->prop, true);
+					if (fieldId >= 0) {
+						COMPILE((*func->args)[0]);
+						code1(LC::c_theentitypush);
+						codeInt(kTheCast);
+						codeInt(fieldId);
+						return true;
+					}
+					// fall back to generic object
 				}
 				if (func->name->equalsIgnoreCase("field")) {
-					return codeTheFieldGet(kTheField, (*func->args)[0], *node->prop);
+					int fieldId = getTheFieldID(kTheField, *node->prop, true);
+					if (fieldId >= 0) {
+						COMPILE((*func->args)[0]);
+						code1(LC::c_theentitypush);
+						codeInt(kTheField);
+						codeInt(fieldId);
+						return true;
+					}
+					// fall back to generic object
 				}
 				// window is an object and is handled by that case
 			}
@@ -1198,35 +1257,54 @@ bool LingoCompiler::visitTheOfNode(TheOfNode *node) {
 	case kMenuNode:
 		{
 			MenuNode *menu = static_cast<MenuNode *>(node->obj);
-			return codeTheFieldGet(kTheMenu, menu->arg, *node->prop);
+			int fieldId = getTheFieldID(kTheMenu, *node->prop);
+			if (fieldId < 0)
+				return false;
+			COMPILE(menu->arg);
+			code1(LC::c_theentitypush);
+			codeInt(kTheMenu);
+			codeInt(fieldId);
+			return true;
 		}
 		break;
 	case kMenuItemNode:
 		{
 			MenuItemNode *menuItem = static_cast<MenuItemNode *>(node->obj);
-			Common::String fieldId = Common::String::format("%d%s", kTheMenuItem, node->prop->c_str());
-			if (!g_lingo->_theEntityFields.contains(fieldId)) {
-				warning("BUILDBOT: LingoCompiler:visitTheNode: Unhandled the field %s of menuItem", node->prop->c_str());
+			int fieldId = getTheFieldID(kTheMenuItem, *node->prop);
+			if (fieldId < 0)
 				return false;
-			}
 			COMPILE(menuItem->arg1)
 			COMPILE(menuItem->arg2);
-			code1(LC::c_theentitypush);
+			code1(LC::c_themenuentitypush);
 			codeInt(kTheMenuItem);
-			codeInt(g_lingo->_theEntityFields[fieldId]->field);
+			codeInt(fieldId);
 			return true;
 		}
 		break;
 	case kSoundNode:
 		{
 			SoundNode *sound = static_cast<SoundNode *>(node->obj);
-			return codeTheFieldGet(kTheSoundEntity, sound->arg, *node->prop);
+			int fieldId = getTheFieldID(kTheSoundEntity, *node->prop);
+			if (fieldId < 0)
+				return false;
+			COMPILE(sound->arg);
+			code1(LC::c_theentitypush);
+			codeInt(kTheSoundEntity);
+			codeInt(fieldId);
+			return true;
 		}
 		break;
 	case kSpriteNode:
 		{
 			SpriteNode *sprite = static_cast<SpriteNode *>(node->obj);
-			return codeTheFieldGet(kTheSprite, sprite->arg, *node->prop);
+			int fieldId = getTheFieldID(kTheSprite, *node->prop);
+			if (fieldId < 0)
+				return false;
+			COMPILE(sprite->arg);
+			code1(LC::c_theentitypush);
+			codeInt(kTheSprite);
+			codeInt(fieldId);
+			return true;
 		}
 		break;
 	case kVarNode:

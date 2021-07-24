@@ -653,17 +653,17 @@ DECLARE_COMMAND_PARSER(give)  {
 
 	createCommand(_parser->_lookup);
 
-	ctxt.cmd->_object = 4 + atoi(_tokens[1]);
+	ctxt.cmd->_object = 4 + _vm->_objectsNames->lookup(_tokens[1]);
 	ctxt.nextToken++;
 
 	if (!scumm_stricmp("dino", _tokens[2])) {
-		ctxt.cmd->_characterId = 1;
+		ctxt.cmd->_characterName = "dino";
 	} else
 	if (!scumm_stricmp("doug", _tokens[2])) {
-		ctxt.cmd->_characterId = 2;
+		ctxt.cmd->_characterName = "doug";
 	} else
 	if (!scumm_stricmp("donna", _tokens[2])) {
-		ctxt.cmd->_characterId = 3;
+		ctxt.cmd->_characterName = "donna";
 	} else
 		error("unknown recipient '%s' in give command", _tokens[2]);
 

@@ -110,7 +110,7 @@ static struct FuncDescr {
 	{ LC::c_lt,				"c_lt",				"" },
 	{ LC::c_mod,			"c_mod",			"" },
 	{ LC::c_mul,			"c_mul",			"" },
-	{ LC::c_namepush,		"c_namepush",		"N" },
+	{ LC::c_namepush,		"c_namepush",		"s" },
 	{ LC::c_negate,			"c_negate",			"" },
 	{ LC::c_neq,			"c_neq",			"" },
 	{ LC::c_not,			"c_not",			"" },
@@ -143,31 +143,31 @@ static struct FuncDescr {
 	{ LC::c_wordToOf,		"c_wordToOf",		"" },	// D3
 	{ LC::c_wordToOfRef,	"c_wordToOfRef",	"" },	// D3
 	{ LC::c_xpop,			"c_xpop",			""  },
-	{ LC::cb_call,			"cb_call",			"N" },
+	{ LC::cb_call,			"cb_call",			"s" },
 	{ LC::cb_delete,		"cb_delete",		"i" },
 	{ LC::cb_hilite,		"cb_hilite",		"" },
-	{ LC::cb_globalassign,	"cb_globalassign",	"N" },
-	{ LC::cb_globalpush,	"cb_globalpush",	"N" },
+	{ LC::cb_globalassign,	"cb_globalassign",	"s" },
+	{ LC::cb_globalpush,	"cb_globalpush",	"s" },
 	{ LC::cb_list,			"cb_list",			"" },
 	{ LC::cb_proplist,		"cb_proplist",		"" },
 	{ LC::cb_localcall,		"cb_localcall",		"i" },
 	{ LC::cb_objectcall,	"cb_objectcall",	"i" },
-	{ LC::cb_objectfieldassign, "cb_objectfieldassign", "N" },
-	{ LC::cb_objectfieldpush, "cb_objectfieldpush", "N" },
-	{ LC::cb_varrefpush,	"cb_varrefpush",	"N" },
-	{ LC::cb_theassign,		"cb_theassign",		"N" },
-	{ LC::cb_theassign2,	"cb_theassign2",	"N" },
-	{ LC::cb_thepush,		"cb_thepush",		"N" },
-	{ LC::cb_thepush2,		"cb_thepush2",		"N" },
+	{ LC::cb_objectfieldassign, "cb_objectfieldassign", "s" },
+	{ LC::cb_objectfieldpush, "cb_objectfieldpush", "s" },
+	{ LC::cb_varrefpush,	"cb_varrefpush",	"s" },
+	{ LC::cb_theassign,		"cb_theassign",		"s" },
+	{ LC::cb_theassign2,	"cb_theassign2",	"s" },
+	{ LC::cb_thepush,		"cb_thepush",		"s" },
+	{ LC::cb_thepush2,		"cb_thepush2",		"s" },
 	{ LC::cb_unk,			"cb_unk",			"i" },
 	{ LC::cb_unk1,			"cb_unk1",			"ii" },
 	{ LC::cb_unk2,			"cb_unk2",			"iii" },
-	{ LC::cb_varassign,		"cb_varassign",		"N" },
-	{ LC::cb_varpush,		"cb_varpush",		"N" },
+	{ LC::cb_varassign,		"cb_varassign",		"s" },
+	{ LC::cb_varpush,		"cb_varpush",		"s" },
 	{ LC::cb_v4assign,		"cb_v4assign",		"i" },
 	{ LC::cb_v4assign2,		"cb_v4assign2",		"i" },
 	{ LC::cb_v4theentitypush,"cb_v4theentitypush","i" },
-	{ LC::cb_v4theentitynamepush,"cb_v4theentitynamepush","N" },
+	{ LC::cb_v4theentitynamepush,"cb_v4theentitynamepush","s" },
 	{ LC::cb_v4theentityassign,"cb_v4theentityassign","i" },
 	{ LC::cb_zeropush,		"cb_zeropush",		"" },
 	{ LC::c_stackpeek,		"c_stackpeek",		"i" },
@@ -221,13 +221,15 @@ void LC::c_xpop() {
 }
 
 void Lingo::pushContext(const Symbol funcSym, bool allowRetVal, Datum defaultRetVal) {
-	debugC(5, kDebugLingoExec, "Pushing frame %d", g_lingo->_callstack.size() + 1);
+	Common::Array<CFrame *> &callstack = _vm->getCurrentWindow()->_callstack;
+
+	debugC(5, kDebugLingoExec, "Pushing frame %d", callstack.size() + 1);
 	CFrame *fp = new CFrame;
 
 	fp->retpc = g_lingo->_pc;
 	fp->retscript = g_lingo->_currentScript;
 	fp->retctx = g_lingo->_currentScriptContext;
-	fp->retarchive = g_lingo->_currentArchive;
+	fp->retFreezeContext = g_lingo->_freezeContext;
 	fp->localvars = g_lingo->_localvars;
 	fp->retMe = g_lingo->_currentMe;
 	fp->sp = funcSym;
@@ -239,10 +241,11 @@ void Lingo::pushContext(const Symbol funcSym, bool allowRetVal, Datum defaultRet
 	if (funcSym.target)
 		g_lingo->_currentMe = funcSym.target;
 
-	if (funcSym.ctx)
+	if (funcSym.ctx) {
 		g_lingo->_currentScriptContext = funcSym.ctx;
-
-	g_lingo->_currentArchive = funcSym.archive;
+		*g_lingo->_currentScriptContext->_refCount += 1;
+	}
+	g_lingo->_freezeContext = false;
 
 	DatumHash *localvars = g_lingo->_localvars;
 	if (!funcSym.anonymous) {
@@ -287,7 +290,7 @@ void Lingo::pushContext(const Symbol funcSym, bool allowRetVal, Datum defaultRet
 
 	fp->stackSizeBefore = _stack.size();
 
-	g_lingo->_callstack.push_back(fp);
+	callstack.push_back(fp);
 
 	if (debugChannelSet(2, kDebugLingoExec)) {
 		g_lingo->printCallStack(0);
@@ -295,13 +298,15 @@ void Lingo::pushContext(const Symbol funcSym, bool allowRetVal, Datum defaultRet
 }
 
 void Lingo::popContext() {
-	debugC(5, kDebugLingoExec, "Popping frame %d", g_lingo->_callstack.size());
-	CFrame *fp = g_lingo->_callstack.back();
-	g_lingo->_callstack.pop_back();
+	Common::Array<CFrame *> &callstack = _vm->getCurrentWindow()->_callstack;
+
+	debugC(5, kDebugLingoExec, "Popping frame %d", callstack.size());
+	CFrame *fp = callstack.back();
+	callstack.pop_back();
 
 	if (_stack.size() == fp->stackSizeBefore + 1) {
 		if (!fp->allowRetVal) {
-			warning("dropping return value");
+			debugC(5, kDebugLingoExec, "dropping return value");
 			g_lingo->pop();
 		}
 	} else if (_stack.size() == fp->stackSizeBefore) {
@@ -315,14 +320,14 @@ void Lingo::popContext() {
 		error("handler %s popped extra %d values", fp->sp.name->c_str(), fp->stackSizeBefore - _stack.size());
 	}
 
-	// Destroy anonymous function context
-	if (fp->sp.anonymous) {
+	*g_lingo->_currentScriptContext->_refCount -= 1;
+	if (*g_lingo->_currentScriptContext->_refCount <= 0) {
 		delete g_lingo->_currentScriptContext;
 	}
 
 	g_lingo->_currentScript = fp->retscript;
 	g_lingo->_currentScriptContext = fp->retctx;
-	g_lingo->_currentArchive = fp->retarchive;
+	g_lingo->_freezeContext = fp->retFreezeContext;
 	g_lingo->_pc = fp->retpc;
 	g_lingo->_currentMe = fp->retMe;
 
@@ -385,8 +390,7 @@ void LC::c_symbolpush() {
 }
 
 void LC::c_namepush() {
-	int i = g_lingo->readInt();
-	Datum d(Common::String(g_lingo->_currentArchive->getName(i)));
+	Datum d(g_lingo->readString());
 	d.type = SYMBOL;
 	g_lingo->push(d);
 }
@@ -807,8 +811,8 @@ void LC::c_contains() {
 	Datum d2 = g_lingo->pop();
 	Datum d1 = g_lingo->pop();
 
-	Common::String s1 = toLowercaseMac(d1.asString());
-	Common::String s2 = toLowercaseMac(d2.asString());
+	Common::String s1 = g_lingo->normalizeString(d1.asString());
+	Common::String s2 = g_lingo->normalizeString(d2.asString());
 
 	int res = s1.contains(s2) ? 1 : 0;
 
@@ -819,8 +823,8 @@ void LC::c_starts() {
 	Datum d2 = g_lingo->pop();
 	Datum d1 = g_lingo->pop();
 
-	Common::String s1 = toLowercaseMac(d1.asString());
-	Common::String s2 = toLowercaseMac(d2.asString());
+	Common::String s1 = g_lingo->normalizeString(d1.asString());
+	Common::String s2 = g_lingo->normalizeString(d2.asString());
 
 	int res = s1.hasPrefix(s2) ? 1 : 0;
 
@@ -843,7 +847,8 @@ void LC::c_intersects() {
 		return;
 	}
 
-	if (sprite1->_sprite->_ink == kInkTypeMatte && sprite2->_sprite->_ink == kInkTypeMatte) {
+	// don't regard quick draw shape as matte type
+	if ((!sprite1->_sprite->isQDShape() && sprite1->_sprite->_ink == kInkTypeMatte) && (!sprite2->_sprite->isQDShape() && sprite2->_sprite->_ink == kInkTypeMatte)) {
 		g_lingo->push(Datum(sprite2->isMatteIntersect(sprite1)));
 	} else {
 		g_lingo->push(Datum(sprite2->getBbox().intersects(sprite1->getBbox())));
@@ -863,10 +868,11 @@ void LC::c_within() {
 		return;
 	}
 
-	if (sprite1->_sprite->_ink == kInkTypeMatte && sprite2->_sprite->_ink == kInkTypeMatte) {
+	// don't regard quick draw shape as matte type
+	if ((!sprite1->_sprite->isQDShape() && sprite1->_sprite->_ink == kInkTypeMatte) && (!sprite2->_sprite->isQDShape() && sprite2->_sprite->_ink == kInkTypeMatte)) {
 		g_lingo->push(Datum(sprite2->isMatteWithin(sprite1)));
 	} else {
-		g_lingo->push(Datum(sprite1->getBbox().contains(sprite2->getBbox())));
+		g_lingo->push(Datum(sprite2->getBbox().contains(sprite1->getBbox())));
 	}
 }
 
@@ -882,7 +888,7 @@ Datum LC::chunkRef(ChunkType type, int startChunk, int endChunk, const Datum &sr
 	if (endChunk < 1 || startChunk == -30000)
 		endChunk = startChunk;
 
-	Common::String str = src.eval().asString();
+	Common::U32String str = g_lingo->evalChunkRef(src);
 
 	// these hold the bounds of the last chunk in the expression
 	int chunkNum = 0;
@@ -942,7 +948,7 @@ Datum LC::chunkRef(ChunkType type, int startChunk, int endChunk, const Datum &sr
 	case kChunkItem:
 	case kChunkLine:
 		{
-			char delimiter = (type == kChunkItem) ? g_lingo->_itemDelimiter : '\n';
+			Common::u32char_type_t delimiter = (type == kChunkItem) ? g_lingo->_itemDelimiter : '\r';
 
 			int idx = 0;
 			while (true) {
@@ -1407,7 +1413,7 @@ void LC::call(const Common::String &name, int nargs, bool allowRetVal) {
 					g_lingo->_stack[g_lingo->_stack.size() - nargs] = funcSym.target; // Set first arg to target
 					call(funcSym, nargs, allowRetVal);
 				} else {
-					warning("Object <%s> has no method '%s'", obj.asString(true).c_str(), firstArg.u.s->c_str());
+					g_lingo->lingoError("Object <%s> has no method '%s'", obj.asString(true).c_str(), firstArg.u.s->c_str());
 				}
 				return;
 			}
@@ -1459,7 +1465,7 @@ void LC::call(const Symbol &funcSym, int nargs, bool allowRetVal) {
 	Datum target = funcSym.target;
 
 	if (funcSym.type == VOIDSYM) {
-		warning("Call to undefined handler. Dropping %d stack items", nargs);
+		g_lingo->lingoError("Call to undefined handler. Dropping %d stack items", nargs);
 
 		for (int i = 0; i < nargs; i++)
 			g_lingo->pop();
@@ -1558,7 +1564,9 @@ void LC::call(const Symbol &funcSym, int nargs, bool allowRetVal) {
 }
 
 void LC::c_procret() {
-	if (g_lingo->_callstack.size() == 0) {
+	Common::Array<CFrame *> &callstack = g_director->getCurrentWindow()->_callstack;
+
+	if (callstack.size() == 0) {
 		warning("LC::c_procret(): Call stack underflow");
 		g_lingo->_abort = true;
 		return;
@@ -1566,7 +1574,7 @@ void LC::c_procret() {
 
 	g_lingo->popContext();
 
-	if (g_lingo->_callstack.size() == 0) {
+	if (callstack.size() == 0) {
 		debugC(5, kDebugLingoExec, "Call stack empty, returning");
 		g_lingo->_abort = true;
 		return;
@@ -1588,7 +1596,7 @@ void LC::c_delete() {
 			field = field.u.cref->source;
 		}
 		if (!field.isVarRef() && !field.isCastRef()) {
-			warning("BUILDBOT: c_delete: bad chunk ref field type: %s", d.u.cref->source.type2str());
+			warning("BUILDBOT: c_delete: bad chunk ref field type: %s", field.type2str());
 			return;
 		}
 	} else if (d.isRef()) {
@@ -1603,7 +1611,7 @@ void LC::c_delete() {
 	if (start < 0)
 		return;
 
-	Common::String text = g_lingo->varFetch(field).asString();
+	Common::U32String text = g_lingo->evalChunkRef(field);
 	if (d.type == CHUNKREF) {
 		switch (d.u.cref->type) {
 		case kChunkChar:
@@ -1621,9 +1629,12 @@ void LC::c_delete() {
 		}
 	}
 
-	Common::String res = text.substr(0, start) + text.substr(end);
+	Common::U32String res = text.substr(0, start);
+	if (end >= 0) {
+		res += text.substr(end);
+	}
 	Datum s;
-	s.u.s = new Common::String(res);
+	s.u.s = new Common::String(res, Common::kUtf8);
 	s.type = STRING;
 	g_lingo->varAssign(field, s);
 }
@@ -1631,7 +1642,8 @@ void LC::c_delete() {
 void LC::c_hilite() {
 	Datum d = g_lingo->pop();
 
-	int fieldId, start, end;
+	CastMemberID fieldId;
+	int start, end;
 	if (d.type == CHUNKREF) {
 		start = d.u.cref->start;
 		end = d.u.cref->end;
@@ -1642,13 +1654,13 @@ void LC::c_hilite() {
 			src = src.u.cref->source;
 		}
 		if (src.isCastRef()) {
-			fieldId = src.u.i;
+			fieldId = *d.u.cast;
 		} else {
-			warning("BUILDBOT: c_hilite: bad chunk ref field type: %s", d.u.cref->source.type2str());
+			warning("BUILDBOT: c_hilite: bad chunk ref field type: %s", src.type2str());
 			return;
 		}
 	} else if (d.isCastRef()) {
-		fieldId = d.u.i;
+		fieldId = *d.u.cast;
 		start = 0;
 		end = -1;
 	} else {
@@ -1673,7 +1685,7 @@ void LC::c_hilite() {
 
 void LC::c_fieldref() {
 	Datum d = g_lingo->pop();
-	Datum res = d.asCastId();
+	Datum res = d.asMemberID();
 	res.type = FIELDREF;
 	g_lingo->push(res);
 }

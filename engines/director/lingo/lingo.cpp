@@ -63,12 +63,10 @@ Symbol::Symbol() {
 	*refCount = 1;
 	nargs = 0;
 	maxArgs = 0;
-	parens = true;
 	targetType = kNoneObj;
 	argNames = nullptr;
 	varNames = nullptr;
 	ctx = nullptr;
-	archive = nullptr;
 	target = nullptr;
 	anonymous = false;
 }
@@ -81,12 +79,10 @@ Symbol::Symbol(const Symbol &s) {
 	*refCount += 1;
 	nargs = s.nargs;
 	maxArgs = s.maxArgs;
-	parens = s.parens;
 	targetType = s.targetType;
 	argNames = s.argNames;
 	varNames = s.varNames;
 	ctx = s.ctx;
-	archive = s.archive;
 	target = s.target;
 	anonymous = s.anonymous;
 }
@@ -103,12 +99,10 @@ Symbol& Symbol::operator=(const Symbol &s) {
 	*refCount += 1;
 	nargs = s.nargs;
 	maxArgs = s.maxArgs;
-	parens = s.parens;
 	targetType = s.targetType;
 	argNames = s.argNames;
 	varNames = s.varNames;
 	ctx = s.ctx;
-	archive = s.archive;
 	target = s.target;
 	anonymous = s.anonymous;
 
@@ -152,13 +146,13 @@ PCell::PCell(const Datum &prop, const Datum &val) {
 Lingo::Lingo(DirectorEngine *vm) : _vm(vm) {
 	g_lingo = this;
 
-	_currentArchive = nullptr;
 	_currentScript = 0;
 	_currentScriptContext = nullptr;
 
 	_currentChannelId = -1;
 	_globalCounter = 0;
 	_pc = 0;
+	_freezeContext = false;
 	_abort = false;
 	_expectError = false;
 	_caughtError = false;
@@ -181,6 +175,7 @@ Lingo::Lingo(DirectorEngine *vm) : _vm(vm) {
 	_compiler = new LingoCompiler;
 
 	initEventHandlerTypes();
+	initCharNormalizations();
 
 	initBuiltIns();
 	initFuncs();
@@ -196,6 +191,7 @@ Lingo::~Lingo() {
 	resetLingo();
 	cleanupFuncs();
 	cleanupMethods();
+	delete _compiler;
 }
 
 void Lingo::reloadBuiltIns() {
@@ -213,7 +209,9 @@ void Lingo::reloadBuiltIns() {
 LingoArchive::~LingoArchive() {
 	for (int i = 0; i <= kMaxScriptType; i++) {
 		for (ScriptContextHash::iterator it = scriptContexts[i].begin(); it != scriptContexts[i].end(); ++it) {
-			delete it->_value;
+			*it->_value->_refCount -= 1;
+			if (*it->_value->_refCount <= 0)
+				delete it->_value;
 		}
 	}
 }
@@ -248,9 +246,9 @@ Symbol Lingo::getHandler(const Common::String &name) {
 	return Symbol();
 }
 
-void LingoArchive::addCode(const char *code, ScriptType type, uint16 id, const char *scriptName) {
+void LingoArchive::addCode(const Common::U32String &code, ScriptType type, uint16 id, const char *scriptName) {
 	debugC(1, kDebugCompile, "Add code for type %s(%d) with id %d in '%s%s'\n"
-			"***********\n%s\n\n***********", scriptType2str(type), type, id, g_director->getCurrentPath().c_str(), cast->getMacName().c_str(), code);
+			"***********\n%s\n\n***********", scriptType2str(type), type, id, g_director->getCurrentPath().c_str(), cast->getMacName().c_str(), code.encode().c_str());
 
 	if (getScriptContext(type, id)) {
 		// We can't undefine context data because it could be used in e.g. symbols.
@@ -265,7 +263,7 @@ void LingoArchive::addCode(const char *code, ScriptType type, uint16 id, const c
 	else
 		contextName = Common::String::format("%d", id);
 
-	ScriptContext *sc = g_lingo->_compiler->compileLingo(code, this, type, id, contextName);
+	ScriptContext *sc = g_lingo->_compiler->compileLingo(code, this, type, CastMemberID(id, cast->_castLibID), contextName);
 	if (sc) {
 		scriptContexts[type][id] = sc;
 		*sc->_refCount += 1;
@@ -283,20 +281,21 @@ void Lingo::printStack(const char *s, uint pc) {
 }
 
 void Lingo::printCallStack(uint pc) {
-	if (g_lingo->_callstack.size() == 0) {
+	Common::Array<CFrame *> &callstack = _vm->getCurrentWindow()->_callstack;
+	if (callstack.size() == 0) {
 		debugC(2, kDebugLingoExec, "\nEnd of execution");
 		return;
 	}
 	debugC(2, kDebugLingoExec, "\nCall stack:");
-	for (int i = 0; i < (int)g_lingo->_callstack.size(); i++) {
-		CFrame *frame = g_lingo->_callstack[i];
+	for (int i = 0; i < (int)callstack.size(); i++) {
+		CFrame *frame = callstack[i];
 		uint framePc = pc;
-		if (i < (int)g_lingo->_callstack.size() - 1)
-			framePc = g_lingo->_callstack[i + 1]->retpc;
+		if (i < (int)callstack.size() - 1)
+			framePc = callstack[i + 1]->retpc;
 
 		if (frame->sp.type != VOIDSYM) {
 			debugC(2, kDebugLingoExec, "#%d %s:%d", i + 1,
-				g_lingo->_callstack[i]->sp.name->c_str(),
+				callstack[i]->sp.name->c_str(),
 				framePc
 			);
 		} else {
@@ -307,7 +306,7 @@ void Lingo::printCallStack(uint pc) {
 	}
 }
 
-Common::String Lingo::decodeInstruction(LingoArchive *archive, ScriptData *sd, uint pc, uint *newPc) {
+Common::String Lingo::decodeInstruction(ScriptData *sd, uint pc, uint *newPc) {
 	Symbol sym;
 	Common::String res;
 
@@ -369,14 +368,6 @@ Common::String Lingo::decodeInstruction(LingoArchive *archive, ScriptData *sd, u
 					res += Common::String::format(" %s", field2str(v));
 					break;
 				}
-			case 'N':
-				{
-					i = (*sd)[pc++];
-					int v = READ_UINT32(&i);
-
-					res += Common::String::format(" \"%s\"", archive->names[v].c_str());
-					break;
-				}
 			default:
 				warning("decodeInstruction: Unknown parameter type: %c", pars[-1]);
 			}
@@ -394,17 +385,24 @@ Common::String Lingo::decodeInstruction(LingoArchive *archive, ScriptData *sd, u
 	return res;
 }
 
-void Lingo::execute(uint pc) {
+void Lingo::execute() {
 	uint localCounter = 0;
 
-	for (_pc = pc; !_abort && (*_currentScript)[_pc] != STOP;) {
+	while (!_abort && !_freezeContext && (*_currentScript)[_pc] != STOP) {
 		if (_globalCounter > 1000 && debugChannelSet(-1, kDebugFewFramesOnly)) {
 			warning("Lingo::execute(): Stopping due to debug few frames only");
 			_vm->getCurrentMovie()->getScore()->_playState = kPlayStopped;
 			break;
 		}
 
-		Common::String instr = decodeInstruction(_currentArchive, _currentScript, _pc);
+		// process events every so often
+		if (localCounter > 0 && localCounter % 100 == 0) {
+			_vm->processEvents();
+			if (_vm->getCurrentMovie()->getScore()->_playState == kPlayStopped)
+				break;
+		}
+
+		Common::String instr = decodeInstruction(_currentScript, _pc);
 		uint current = _pc;
 
 		if (debugChannelSet(5, kDebugLingoExec))
@@ -430,26 +428,29 @@ void Lingo::execute(uint pc) {
 			printAllVars();
 		}
 
+		_globalCounter++;
+		localCounter++;
+
 		if (!_abort && _pc >= (*_currentScript).size()) {
 			warning("Lingo::execute(): Bad PC (%d)", _pc);
 			break;
 		}
-
-		_globalCounter++;
-		localCounter++;
-
-		// process events every so often
-		if (localCounter % 100 == 0) {
-			_vm->processEvents();
-			if (_vm->getCurrentMovie()->getScore()->_playState == kPlayStopped)
-				break;
-		}
 	}
 
+	if (_abort) {
+		// Clean up call stack
+		while (_vm->getCurrentWindow()->_callstack.size()) {
+			popContext();
+		}
+	}
 	_abort = false;
+
+	if (_freezeContext) {
+		debugC(1, kDebugLingoExec, "Lingo::execute(): Context is frozen, pausing execution");
+	}
 }
 
-void Lingo::executeScript(ScriptType type, uint16 id) {
+void Lingo::executeScript(ScriptType type, CastMemberID id) {
 	Movie *movie = _vm->getCurrentMovie();
 	if (!movie) {
 		warning("Request to execute script with no movie");
@@ -459,27 +460,27 @@ void Lingo::executeScript(ScriptType type, uint16 id) {
 	ScriptContext *sc = movie->getScriptContext(type, id);
 
 	if (!sc) {
-		debugC(3, kDebugLingoExec, "Request to execute non-existent script type %d id %d", type, id);
+		debugC(3, kDebugLingoExec, "Request to execute non-existent script type %d id %d of castLib %d", type, id.member, id.castLib);
 		return;
 	}
 
 	if (!sc->_eventHandlers.contains(kEventGeneric)) {
-		debugC(3, kDebugLingoExec, "Request to execute script type %d id %d with no scopeless lingo", type, id);
+		debugC(3, kDebugLingoExec, "Request to execute script type %d id %d of castLib %d with no scopeless lingo", type, id.member, id.castLib);
 		return;
 	}
 
-	debugC(1, kDebugLingoExec, "Executing script type: %s, id: %d", scriptType2str(type), id);
+	debugC(1, kDebugLingoExec, "Executing script type: %s, id: %d, castLib %d", scriptType2str(type), id.member, id.castLib);
 
 	Symbol sym = sc->_eventHandlers[kEventGeneric];
 	LC::call(sym, 0, false);
-	execute(_pc);
+	execute();
 }
 
 void Lingo::executeHandler(const Common::String &name) {
 	debugC(1, kDebugLingoExec, "Executing script handler : %s", name.c_str());
 	Symbol sym = getHandler(name);
 	LC::call(sym, 0, false);
-	execute(_pc);
+	execute();
 }
 
 void Lingo::lingoError(const char *s, ...) {
@@ -625,6 +626,13 @@ Datum::Datum(AbstractObject *val) {
 	}
 }
 
+Datum::Datum(const CastMemberID &val) {
+	u.cast = new CastMemberID(val);
+	type = CASTREF;
+	refCount = new int;
+	*refCount = 1;
+}
+
 void Datum::reset() {
 	if (!refCount)
 		return;
@@ -663,6 +671,10 @@ void Datum::reset() {
 			break;
 		case CHUNKREF:
 			delete u.cref;
+			break;
+		case CASTREF:
+		case FIELDREF:
+			delete u.cast;
 			break;
 		default:
 			break;
@@ -802,20 +814,10 @@ Common::String Datum::asString(bool printonly) const {
 		s = Common::String::format("property: #%s", u.s->c_str());
 		break;
 	case CASTREF:
-		s = Common::String::format("cast %d", u.i);
+		s = Common::String::format("member %d of castLib %d", u.cast->member, u.cast->castLib);
 		break;
 	case FIELDREF:
-		{
-			int idx = u.i;
-			CastMember *member = g_director->getCurrentMovie()->getCastMember(idx);
-			if (!member) {
-				warning("asString(): Unknown cast id %d", idx);
-				s = "";
-				break;
-			}
-
-			s = Common::String::format("field: \"%s\"", ((TextCastMember *)member)->getText().c_str());
-		}
+		s = Common::String::format("field %d of castLib %d", u.cast->member, u.cast->castLib);
 		break;
 	case CHUNKREF:
 		{
@@ -875,40 +877,11 @@ Common::String Datum::asString(bool printonly) const {
 	return s;
 }
 
-int Datum::asCastId() const {
-	Movie *movie = g_director->getCurrentMovie();
-	if (!movie) {
-		warning("Datum::asCastId: No movie");
-		return 0;
-	}
+CastMemberID Datum::asMemberID() const {
+	if (type == CASTREF || type == FIELDREF)
+		return *u.cast;
 
-	int castId = 0;
-	switch (type) {
-	case STRING:
-		{
-			CastMember *member = movie->getCastMemberByName(asString());
-			if (member)
-				return member->getID();
-
-			g_lingo->lingoError("Datum::asCastId: reference to non-existent cast member: %s", asString().c_str());
-			return 0;
-		}
-		break;
-	case INT:
-	case CASTREF:
-		castId = u.i;
-		break;
-	case FLOAT:
-		castId = u.f;
-		break;
-	case VOID:
-		warning("Datum::asCastId: reference to VOID cast ID");
-		break;
-	default:
-		error("Datum::asCastId: unsupported cast ID type %s", type2str());
-	}
-
-	return castId;
+	return g_lingo->resolveCastMember(*this, 0);
 }
 
 bool Datum::isRef() const {
@@ -972,21 +945,21 @@ int Datum::equalTo(Datum &d, bool ignoreCase) const {
 	case STRING:
 	case SYMBOL:
 		if (ignoreCase) {
-			return toLowercaseMac(asString()).equals(toLowercaseMac(d.asString()));
+			return g_lingo->normalizeString(asString()).equals(g_lingo->normalizeString(d.asString()));
 		} else {
 			return asString().equals(d.asString());
 		}
 	case OBJECT:
 		return u.obj == d.u.obj;
 	case CASTREF:
-		return u.i == d.u.i;
+		return *u.cast == *d.u.cast;
 	default:
 		break;
 	}
 	return 0;
 }
 
-int Datum::compareTo(Datum &d, bool ignoreCase) const {
+int Datum::compareTo(Datum &d) const {
 	int alignType = g_lingo->getAlignedType(*this, d, false);
 
 	if (alignType == FLOAT) {
@@ -1010,11 +983,7 @@ int Datum::compareTo(Datum &d, bool ignoreCase) const {
 			return 1;
 		}
 	} else if (alignType == STRING) {
-		if (ignoreCase) {
-			return toLowercaseMac(asString()).compareTo(toLowercaseMac(d.asString()));
-		} else {
-			return asString().compareTo(d.asString());
-		}
+		return compareStrings(asString(), d.asString());
 	} else {
 		warning("Invalid comparison between types %s and %s", type2str(), d.type2str());
 		return 0;
@@ -1052,11 +1021,11 @@ void Lingo::runTests() {
 
 			debug(">> Compiling file %s of size %d, id: %d", fileList[i].c_str(), size, counter);
 
-			mainArchive->addCode(script, kTestScript, counter);
+			mainArchive->addCode(Common::U32String(script, Common::kMacRoman), kTestScript, counter);
 
 			if (!debugChannelSet(-1, kDebugCompileOnly)) {
 				if (!_compiler->_hadError)
-					executeScript(kTestScript, counter);
+					executeScript(kTestScript, CastMemberID(counter, 0));
 				else
 					debug(">> Skipping execution");
 			}
@@ -1072,7 +1041,7 @@ void Lingo::runTests() {
 
 void Lingo::executeImmediateScripts(Frame *frame) {
 	for (uint16 i = 0; i <= _vm->getCurrentMovie()->getScore()->_numChannelsDisplayed; i++) {
-		if (_vm->getCurrentMovie()->getScore()->_immediateActions.contains(frame->_sprites[i]->_scriptId)) {
+		if (_vm->getCurrentMovie()->getScore()->_immediateActions.contains(frame->_sprites[i]->_scriptId.member)) {
 			// From D5 only explicit event handlers are processed
 			// Before that you could specify commands which will be executed on mouse up
 			if (_vm->getVersion() < 500)
@@ -1092,7 +1061,7 @@ void Lingo::executePerFrameHook(int frame, int subframe) {
 			push(frame);
 			push(subframe);
 			LC::call(method, 3, false);
-			execute(_pc);
+			execute();
 		}
 	}
 }
@@ -1189,15 +1158,14 @@ void Lingo::varAssign(const Datum &var, const Datum &value) {
 				warning("varAssign: Assigning to a reference to an empty movie");
 				return;
 			}
-			int castId = var.u.i;
-			CastMember *member = movie->getCastMember(castId);
+			CastMember *member = movie->getCastMember(*var.u.cast);
 			if (!member) {
-				warning("varAssign: Unknown cast id %d", castId);
+				warning("varAssign: Unknown %s", var.u.cast->asString().c_str());
 				return;
 			}
 			switch (member->_type) {
 			case kCastText:
-				((TextCastMember *)member)->setText(value.asString().c_str());
+				((TextCastMember *)member)->setText(value.asString());
 				break;
 			default:
 				warning("varAssign: Unhandled cast type %d", member->_type);
@@ -1207,10 +1175,10 @@ void Lingo::varAssign(const Datum &var, const Datum &value) {
 		break;
 	case CHUNKREF:
 		{
-			Common::String src = var.u.cref->source.eval().asString();
-			Common::String res;
+			Common::U32String src = evalChunkRef(var.u.cref->source);
+			Common::U32String res;
 			if (var.u.cref->start >= 0) {
-				res = src.substr(0, var.u.cref->start) + value.asString() + src.substr(var.u.cref->end);
+				res = src.substr(0, var.u.cref->start) + value.asString().decode(Common::kUtf8) + src.substr(var.u.cref->end);
 			} else {
 				// non-existent chunk - insert more chars, items, or lines
 				res = src;
@@ -1232,14 +1200,14 @@ void Lingo::varAssign(const Datum &var, const Datum &value) {
 					break;
 				case kChunkLine:
 					while (numberOfChunks < var.u.cref->startChunk ) {
-						res += '\n';
+						res += '\r';
 						numberOfChunks++;
 					}
 					break;
 				}
 				res += value.asString();
 			}
-			varAssign(var.u.cref->source, res);
+			varAssign(var.u.cref->source, res.encode(Common::kUtf8));
 		}
 		break;
 	default:
@@ -1304,38 +1272,10 @@ Datum Lingo::varFetch(const Datum &var, bool silent) {
 		break;
 	case FIELDREF:
 	case CASTREF:
-		{
-			Movie *movie = g_director->getCurrentMovie();
-			if (!movie) {
-				warning("varFetch: Assigning to a reference to an empty movie");
-				return result;
-			}
-			int castId = var.u.i;
-			CastMember *member = movie->getCastMember(castId);
-			if (!member) {
-				warning("varFetch: Unknown cast id %d", castId);
-				return result;
-			}
-			switch (member->_type) {
-			case kCastText:
-				result.type = STRING;
-				result.u.s = new Common::String(((TextCastMember *)member)->getText());
-				break;
-			default:
-				warning("varFetch: Unhandled cast type %d", member->_type);
-				break;
-			}
-		}
-		break;
 	case CHUNKREF:
 		{
-			Common::String src = var.u.cref->source.eval().asString();
 			result.type = STRING;
-			if (var.u.cref->start < 0) {
-				result.u.s = new Common::String("");
-			} else {
-				result.u.s = new Common::String(src.substr(var.u.cref->start, var.u.cref->end - var.u.cref->start));
-			}
+			result.u.s = new Common::String(evalChunkRef(var), Common::kUtf8);
 		}
 		break;
 	default:
@@ -1344,6 +1284,87 @@ Datum Lingo::varFetch(const Datum &var, bool silent) {
 	}
 
 	return result;
+}
+
+Common::U32String Lingo::evalChunkRef(const Datum &var) {
+	Common::U32String result;
+
+	switch (var.type) {
+	case VARREF:
+	case GLOBALREF:
+	case LOCALREF:
+	case PROPREF:
+		result = varFetch(var).asString().decode(Common::kUtf8);
+		break;
+	case FIELDREF:
+	case CASTREF:
+		{
+			Movie *movie = g_director->getCurrentMovie();
+			if (!movie) {
+				warning("evalChunkRef: Assigning to a reference to an empty movie");
+				return result;
+			}
+			CastMember *member = movie->getCastMember(*var.u.cast);
+			if (!member) {
+				warning("evalChunkRef: Unknown %s", var.u.cast->asString().c_str());
+				return result;
+			}
+			switch (member->_type) {
+			case kCastText:
+				result = ((TextCastMember *)member)->getText();
+				break;
+			default:
+				warning("evalChunkRef: Unhandled cast type %d", member->_type);
+				break;
+			}
+		}
+		break;
+	case CHUNKREF:
+		{
+			Common::U32String src = evalChunkRef(var.u.cref->source);
+			if (var.u.cref->start >= 0) {
+				result = src.substr(var.u.cref->start, var.u.cref->end - var.u.cref->start);
+			}
+		}
+		break;
+	default:
+		result = var.asString().decode(Common::kUtf8);
+		break;
+	}
+
+	return result;
+}
+
+CastMemberID Lingo::resolveCastMember(const Datum &memberID, const Datum &castLib) {
+	Movie *movie = g_director->getCurrentMovie();
+	if (!movie) {
+		warning("Lingo::resolveCastMember: No movie");
+		return CastMemberID(-1, castLib.asInt());
+	}
+
+	switch (memberID.type) {
+	case STRING:
+		{
+			CastMember *member = movie->getCastMemberByName(memberID.asString(), castLib.asInt());
+			if (member)
+				return CastMemberID(member->getID(), castLib.asInt());
+
+			warning("Lingo::resolveCastMember: reference to non-existent cast member: %s", memberID.asString().c_str());
+			return CastMemberID(-1, castLib.asInt());
+		}
+		break;
+	case INT:
+	case FLOAT:
+		return CastMemberID(memberID.asInt(), castLib.asInt());
+		break;
+	case VOID:
+		warning("Lingo::resolveCastMember: reference to VOID member ID");
+		break;
+	default:
+		error("Lingo::resolveCastMember: unsupported member ID type %s", memberID.type2str());
+	}
+
+	return CastMemberID(-1, castLib.asInt());
 }
 
 } // End of namespace Director

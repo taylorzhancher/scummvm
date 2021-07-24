@@ -72,7 +72,7 @@ static bool play_video(Video::VideoDecoder *decoder, const char *name, int skip,
 
 	update_polled_stuff_if_runtime();
 
-	Graphics::Screen &scr = *::AGS::g_vm->_rawScreen;
+	Graphics::Screen scr;
 	bool stretchVideo = (flags % 10) != 0;
 	int canAbort = skip;
 	bool ignoreAudio = (flags >= 10);
@@ -112,9 +112,10 @@ static bool play_video(Video::VideoDecoder *decoder, const char *name, int skip,
 
 		if (canAbort) {
 			// Check for whether user aborted video
-			int key, mbut, mwheelz;
+			KeyInput key;
+			int mbut, mwheelz;
 			if (run_service_key_controls(key)) {
-				if (key == 27 && canAbort)
+				if (key.Key == 27 && canAbort)
 					return true;
 				if (canAbort >= 2)
 					return true;  // skip on any key
@@ -155,10 +156,6 @@ bool play_theora_video(const char *name, int skip, int flags, bool showError) {
 bool play_flc_file(int numb, int playflags) {
 	warning("TODO: play_flc_file");
 	return false;
-}
-
-void video_on_gfxmode_changed() {
-	warning("TODO: video_on_gfxmode_changed");
 }
 
 } // namespace AGS3

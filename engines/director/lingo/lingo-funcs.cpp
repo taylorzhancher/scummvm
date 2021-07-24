@@ -187,44 +187,46 @@ void Lingo::func_goto(Datum &frame, Datum &movie) {
 	if (!_vm->getCurrentMovie())
 		return;
 
+	if (movie.type == VOID && frame.type == VOID)
+		return;
+
+	Window *stage = _vm->getCurrentWindow();
+	Score *score = _vm->getCurrentMovie()->getScore();
+
+	_vm->_skipFrameAdvance = true;
+
+	// If there isn't already frozen Lingo (e.g. from a previous func_goto we haven't yet unfrozen),
+	// freeze this script context. We'll return to it after entering the next frame.
+	if (!stage->_hasFrozenLingo) {
+		g_lingo->_freezeContext = true;
+		stage->_hasFrozenLingo = true;
+	}
+
 	if (movie.type != VOID) {
 		Common::String movieFilenameRaw = movie.asString();
-		Window *stage = _vm->getCurrentWindow();
 
 		if (!stage->setNextMovie(movieFilenameRaw))
 			return;
 
-		stage->getCurrentMovie()->getScore()->_playState = kPlayStopped;
+		score->_playState = kPlayStopped;
 
 		stage->_nextMovie.frameS.clear();
 		stage->_nextMovie.frameI = -1;
 
-		if (frame.type == VOID)
-			return;
-
 		if (frame.type == STRING) {
 			stage->_nextMovie.frameS = *frame.u.s;
-			return;
+		} else if (frame.type != VOID) {
+			stage->_nextMovie.frameI = frame.asInt();
 		}
 
-		stage->_nextMovie.frameI = frame.asInt();
-
 		return;
 	}
-
-	if (frame.type == VOID)
-		return;
-
-	_vm->_skipFrameAdvance = true;
 
 	if (frame.type == STRING) {
-		if (_vm->getCurrentMovie())
-			_vm->getCurrentMovie()->getScore()->setStartToLabel(*frame.u.s);
-		return;
+		score->setStartToLabel(*frame.u.s);
+	} else {
+		score->setCurrentFrame(frame.asInt());
 	}
-
-	if (_vm->getCurrentMovie())
-		_vm->getCurrentMovie()->getScore()->setCurrentFrame(frame.asInt());
 }
 
 void Lingo::func_gotoloop() {
@@ -294,22 +296,30 @@ void Lingo::func_play(Datum &frame, Datum &movie) {
 		return;
 	}
 
+	if (movie.type != VOID) {
+		ref.movie = unixToMacPath(_vm->getCurrentMovie()->_movieArchive->getPathName());
+	}
 	ref.frameI = _vm->getCurrentMovie()->getScore()->getCurrentFrame();
+
+	// if we are issuing play command from script channel script. then play done should return to next frame
+	if (g_lingo->_currentChannelId == 0)
+		ref.frameI++;
 
 	stage->_movieStack.push_back(ref);
 
 	func_goto(frame, movie);
 }
 
-void Lingo::func_cursor(int cursorId, int maskId) {
+void Lingo::func_cursor(CastMemberID cursorId, CastMemberID maskId) {
 	Cursor cursor;
+	cursor.readFromCast(cursorId, maskId);
+	// TODO: Figure out why there are artifacts here
+	_vm->_wm->replaceCursor(cursor._cursorType, ((Graphics::Cursor *)&cursor));
+}
 
-	if (maskId == -1) {
-		cursor.readFromResource(cursorId);
-	} else {
-		cursor.readFromCast(cursorId, maskId);
-	}
-
+void Lingo::func_cursor(int cursorId) {
+	Cursor cursor;
+	cursor.readFromResource(cursorId);
 	// TODO: Figure out why there are artifacts here
 	_vm->_wm->replaceCursor(cursor._cursorType, ((Graphics::Cursor *)&cursor));
 }

@@ -50,6 +50,7 @@ TheEntity entities[] = {
 	{ kTheCenterStage,		"centerStage",		false, 200, false },	// D2 p
 	{ kTheCheckBoxAccess,	"checkBoxAccess",	false, 200, false },	// D2 p
 	{ kTheCheckBoxType,		"checkBoxType",		false, 200, false },	// D2 p
+	{ kTheChunk,			"chunk",			true,  300, false },	//		D3
 	{ kTheClickLoc,			"clickLoc",			false, 400, true },	// 			D4 function
 	{ kTheClickOn,			"clickOn",			false, 200, true },	// D2 f
 	{ kTheColorDepth,		"colorDepth",		false, 200, false },	// D2 p
@@ -248,6 +249,13 @@ TheEntityField fields[] = {
 	{ kTheField,	"textSize",		kTheTextSize,	300 },//		D3 p
 	{ kTheField,	"textStyle",	kTheTextStyle,	300 },//		D3 p
 
+	// Chunk fields
+	{ kTheChunk,	"foreColor",	kTheForeColor,	400 },//				D4 p
+	{ kTheChunk,	"textFont",		kTheTextFont,	300 },//		D3 p
+	{ kTheChunk,	"textHeight",	kTheTextHeight,	300 },//		D3 p
+	{ kTheChunk,	"textSize",		kTheTextSize,	300 },//		D3 p
+	{ kTheChunk,	"textStyle",	kTheTextStyle,	300 },//		D3 p
+
 	{ kTheWindow,	"drawRect",		kTheDrawRect,	400 },//				D4 p
 	{ kTheWindow,	"fileName",		kTheFileName,	400 },//				D4 p
 	{ kTheWindow,	"modal",		kTheModal,		400 },//				D4 p
@@ -391,6 +399,9 @@ Datum Lingo::getTheEntity(int entity, Datum &id, int field) {
 		d.type = INT;
 		d.u.i = g_director->getCurrentMovie()->_checkBoxType;
 		break;
+	case kTheChunk:
+		d = getTheChunk(id, field);
+		break;
 	case kTheClickLoc:
 		d.u.farr = new DatumArray;
 
@@ -471,8 +482,11 @@ Datum Lingo::getTheEntity(int entity, Datum &id, int field) {
 		d.u.i = 1;					// We always allow it in ScummVM
 		break;
 	case kTheItemDelimiter:
-		d.type = STRING;
-		d.u.s = new Common::String(g_lingo->_itemDelimiter);
+		{
+			Common::U32String ch(g_lingo->_itemDelimiter);
+			d.type = STRING;
+			d.u.s = new Common::String(ch, Common::kUtf8);
+		}
 		break;
 	case kTheKey:
 		d.type = STRING;
@@ -582,10 +596,11 @@ Datum Lingo::getTheEntity(int entity, Datum &id, int field) {
 		break;
 	case kTheMouseCast:
 		{
+			// TODO: How is this handled with multiple casts in D5?
 			Common::Point pos = g_director->getCurrentWindow()->getMousePos();
 			uint16 spriteId = score->getSpriteIDFromPos(pos);
 			d.type = INT;
-			d.u.i = score->getSpriteById(spriteId)->_castId;
+			d.u.i = score->getSpriteById(spriteId)->_castId.member;
 			if (d.u.i == 0)
 				d.u.i = -1;
 		}
@@ -732,7 +747,8 @@ Datum Lingo::getTheEntity(int entity, Datum &id, int field) {
 		d.u.i = (movie->_keyFlags & Common::KBD_SHIFT) ? 1 : 0;
 		break;
 	case kTheSoundEnabled:
-		getTheEntitySTUB(kTheSoundEnabled);
+		d.type = INT;
+		d.u.i = _vm->getSoundManager()->getSoundEnabled();
 		break;
 	case kTheSoundEntity:
 		{
@@ -753,7 +769,9 @@ Datum Lingo::getTheEntity(int entity, Datum &id, int field) {
 		}
 		break;
 	case kTheSoundLevel:
-		getTheEntitySTUB(kTheSoundLevel);
+		// getting sound level of channel 1, maybe need to be amended in higher version
+		d.type = INT;
+		d.u.i = _vm->getSoundManager()->getSoundLevel(1);
 		break;
 	case kTheSprite:
 		d = getTheSprite(id, field);
@@ -887,6 +905,9 @@ void Lingo::setTheEntity(int entity, Datum &id, int field, Datum &d) {
 	case kTheCheckBoxType:
 		g_director->getCurrentMovie()->_checkBoxType = d.asInt();
 		break;
+	case kTheChunk:
+		setTheChunk(id, field, d);
+		break;
 	case kTheColorDepth:
 		_vm->_colorDepth = d.asInt();
 
@@ -927,9 +948,9 @@ void Lingo::setTheEntity(int entity, Datum &id, int field, Datum &d) {
 		break;
 	case kTheItemDelimiter:
 		if (d.asString().size() == 0)
-			g_lingo->_itemDelimiter = *"";
+			g_lingo->_itemDelimiter = 0;
 		else
-			g_lingo->_itemDelimiter = d.asString()[0];
+			g_lingo->_itemDelimiter = d.asString().decode(Common::kUtf8)[0];
 		break;
 	case kTheKeyDownScript:
 		movie->setPrimaryEventHandler(kEventKeyDown, d.asString());
@@ -987,7 +1008,7 @@ void Lingo::setTheEntity(int entity, Datum &id, int field, Datum &d) {
 		}
 		break;
 	case kTheSoundEnabled:
-		setTheEntitySTUB(kTheSoundEnabled);
+		_vm->getSoundManager()->setSoundEnabled((bool)d.asInt());
 		break;
 	case kTheSoundEntity:
 		{
@@ -1007,7 +1028,8 @@ void Lingo::setTheEntity(int entity, Datum &id, int field, Datum &d) {
 		}
 		break;
 	case kTheSoundLevel:
-		setTheEntitySTUB(kTheSoundLevel);
+		// setting all of the channel for now
+		_vm->getSoundManager()->setSouldLevel(-1, d.asInt());
 		break;
 	case kTheSprite:
 		setTheSprite(id, field, d);
@@ -1125,7 +1147,8 @@ Datum Lingo::getTheSprite(Datum &id1, int field) {
 		d.u.i = channel->getBbox().bottom;
 		break;
 	case kTheCastNum:
-		d.u.i = sprite->_castId;
+		// TODO: How is this handled with multiple casts in D5?
+		d.u.i = sprite->_castId.member;
 		break;
 	case kTheConstraint:
 		d.u.i = channel->_constraint;
@@ -1137,8 +1160,9 @@ Datum Lingo::getTheSprite(Datum &id1, int field) {
 			d.type = ARRAY;
 			d.u.farr = new DatumArray(2);
 
-			d.u.farr->operator[](0) = (int)channel->_cursor._cursorCastId;
-			d.u.farr->operator[](1) = (int)channel->_cursor._cursorMaskId;
+			// TODO: How is this handled with multiple casts in D5?
+			d.u.farr->operator[](0) = (int)channel->_cursor._cursorCastId.member;
+			d.u.farr->operator[](1) = (int)channel->_cursor._cursorMaskId.member;
 		}
 		break;
 	case kTheEditableText:
@@ -1279,11 +1303,11 @@ void Lingo::setTheSprite(Datum &id1, int field, Datum &d) {
 		break;
 	case kTheCastNum:
 		{
-			int castId = d.asCastId();
+			CastMemberID castId = d.asMemberID();
 			CastMember *castMember = g_director->getCurrentMovie()->getCastMember(castId);
 
 			if (castMember && castMember->_type == kCastDigitalVideo) {
-				Common::String path = castMember->getCast()->getVideoPath(castId);
+				Common::String path = castMember->getCast()->getVideoPath(castId.member);
 				if (!path.empty()) {
 					((DigitalVideoCastMember *)castMember)->loadVideo(pathMakeRelative(path));
 					((DigitalVideoCastMember *)castMember)->startVideo(channel);
@@ -1307,9 +1331,9 @@ void Lingo::setTheSprite(Datum &id1, int field, Datum &d) {
 			if (d.type == CASTREF) {
 				// Reference: CastMember ID
 				// Find the first channel that uses this cast.
-				int castId = d.u.i;
+				CastMemberID memberID = *d.u.cast;
 				for (uint i = 0; i < score->_channels.size(); i++) {
-					if (score->_channels[i]->_sprite->_castId == castId) {
+					if (score->_channels[i]->_sprite->_castId == memberID) {
 						channelId = i;
 						break;
 					}
@@ -1328,8 +1352,8 @@ void Lingo::setTheSprite(Datum &id1, int field, Datum &d) {
 			channel->_cursor.readFromResource(d.asInt());
 			score->_cursorDirty = true;
 		} else if (d.type == ARRAY && d.u.farr->size() == 2) {
-			uint cursorId =	d.u.farr->operator[](0).asCastId();
-			uint maskId = d.u.farr->operator[](1).asCastId();
+			CastMemberID cursorId =	d.u.farr->operator[](0).asMemberID();
+			CastMemberID maskId = d.u.farr->operator[](1).asMemberID();
 
 			if (cursorId == channel->_cursor._cursorCastId &&
 					maskId == channel->_cursor._cursorMaskId)
@@ -1488,12 +1512,14 @@ Datum Lingo::getTheCast(Datum &id1, int field) {
 		return d;
 	}
 
-	int id = id1.asCastId();
+	CastMemberID id = id1.asMemberID();
 
 	CastMember *member = movie->getCastMember(id);
 	if (!member) {
 		if (field == kTheLoaded) {
 			d = 0;
+		} else if (field == kTheNumber) {
+			d = -1;
 		} else {
 			g_lingo->lingoError("Lingo::getTheCast(): CastMember %s not found", id1.asString().c_str());
 		}
@@ -1501,7 +1527,7 @@ Datum Lingo::getTheCast(Datum &id1, int field) {
 	}
 
 	if (!member->hasField(field)) {
-		warning("Lingo::getTheCast(): CastMember %d has no property '%s'", id, field2str(field));
+		warning("Lingo::getTheCast(): %s has no property '%s'", id.asString().c_str(), field2str(field));
 		return d;
 	}
 
@@ -1517,16 +1543,16 @@ void Lingo::setTheCast(Datum &id1, int field, Datum &d) {
 		return;
 	}
 
-	int id = id1.asCastId();
+	CastMemberID id = id1.asMemberID();
 
 	CastMember *member = movie->getCastMember(id);
 	if (!member) {
-		g_lingo->lingoError("Lingo::setTheCast(): CastMember %d not found", id);
+		g_lingo->lingoError("Lingo::setTheCast(): %s not found", id.asString().c_str());
 		return;
 	}
 
 	if (!member->hasField(field)) {
-		warning("Lingo::setTheCast(): CastMember %d has no property '%s'", id, field2str(field));
+		warning("Lingo::setTheCast(): %s has no property '%s'", id.asString().c_str(), field2str(field));
 		return;
 	}
 
@@ -1542,24 +1568,24 @@ Datum Lingo::getTheField(Datum &id1, int field) {
 		return d;
 	}
 
-	int id = id1.asCastId();
+	CastMemberID id = id1.asMemberID();
 
 	CastMember *member = movie->getCastMember(id);
 	if (!member) {
 		if (field == kTheLoaded) {
 			d = 0;
 		} else {
-			g_lingo->lingoError("Lingo::getTheField(): CastMember %d not found", id);
+			g_lingo->lingoError("Lingo::getTheField(): %s not found", id.asString().c_str());
 		}
 		return d;
 	}
 	if (member->_type != kCastText) {
-		g_lingo->lingoError("Lingo::getTheField(): CastMember %d is not a field", id);
+		g_lingo->lingoError("Lingo::getTheField(): %s is not a field", id.asString().c_str());
 		return d;
 	}
 
 	if (!member->hasField(field)) {
-		warning("Lingo::getTheField(): CastMember %d has no property '%s'", id, field2str(field));
+		warning("Lingo::getTheField(): %s has no property '%s'", id.asString().c_str(), field2str(field));
 		return d;
 	}
 
@@ -1575,24 +1601,118 @@ void Lingo::setTheField(Datum &id1, int field, Datum &d) {
 		return;
 	}
 
-	int id = id1.asCastId();
+	CastMemberID id = id1.asMemberID();
 
 	CastMember *member = movie->getCastMember(id);
 	if (!member) {
-		g_lingo->lingoError("Lingo::setTheField(): CastMember %d not found", id);
+		g_lingo->lingoError("Lingo::setTheField(): %s not found", id.asString().c_str());
 		return;
 	}
 	if (member->_type != kCastText) {
-		g_lingo->lingoError("Lingo::setTheField(): CastMember %d is not a field", id);
+		g_lingo->lingoError("Lingo::setTheField(): %s is not a field", id.asString().c_str());
 		return;
 	}
 
 	if (!member->hasField(field)) {
-		warning("Lingo::setTheField(): CastMember %d has no property '%s'", id, field2str(field));
+		warning("Lingo::setTheField(): %s has no property '%s'", id.asString().c_str(), field2str(field));
 		return;
 	}
 
 	member->setField(field, d);
+}
+
+Datum Lingo::getTheChunk(Datum &chunk, int field) {
+	Datum d;
+
+	Movie *movie = _vm->getCurrentMovie();
+	if (!movie) {
+		warning("Lingo::getTheChunk(): No movie loaded");
+		return d;
+	}
+
+	if (chunk.type != CHUNKREF) {
+		warning("BUILDBOT: Lingo::getTheChunk(): bad chunk ref type: %s", chunk.type2str());
+		return d;
+	}
+
+	int start, end;
+	start = chunk.u.cref->start;
+	end = chunk.u.cref->end;
+	Datum src = chunk.u.cref->source;
+	while (src.type == CHUNKREF) {
+		start += src.u.cref->start;
+		end += src.u.cref->start;
+		src = src.u.cref->source;
+	}
+	if (!src.isCastRef()) {
+		warning("BUILDBOT: Lingo::getTheChunk(): bad chunk ref field type: %s", src.type2str());
+		return d;
+	}
+
+	CastMemberID memberID = *src.u.cast;
+	CastMember *member = movie->getCastMember(memberID);
+	if (!member) {
+		g_lingo->lingoError("Lingo::getTheChunk(): %s not found", memberID.asString().c_str());
+		return d;
+	}
+	if (member->_type != kCastText) {
+		g_lingo->lingoError("Lingo::getTheChunk(): %s is not a field", memberID.asString().c_str());
+		return d;
+	}
+
+	if (!((TextCastMember *)member)->hasChunkField(field)) {
+		warning("Lingo::getTheChunk(): %s has no chunk property '%s'", memberID.asString().c_str(), field2str(field));
+		return d;
+	}
+
+	d = ((TextCastMember *)member)->getChunkField(field, start, end);
+
+	return d;
+}
+
+void Lingo::setTheChunk(Datum &chunk, int field, Datum &d) {
+	Movie *movie = _vm->getCurrentMovie();
+	if (!movie) {
+		warning("Lingo::setTheChunk(): No movie loaded");
+		return;
+	}
+
+	if (chunk.type != CHUNKREF) {
+		warning("BUILDBOT: Lingo::setTheChunk(): bad chunk ref type: %s", chunk.type2str());
+		return;
+	}
+
+	int start, end;
+	start = chunk.u.cref->start;
+	end = chunk.u.cref->end;
+	Datum src = chunk.u.cref->source;
+	while (src.type == CHUNKREF) {
+		start += src.u.cref->start;
+		end += src.u.cref->start;
+		src = src.u.cref->source;
+	}
+	if (!src.isCastRef()) {
+		warning("BUILDBOT: Lingo::setTheChunk(): bad chunk ref field type: %s", src.type2str());
+		return;
+	}
+
+	CastMemberID memberID = *src.u.cast;
+	CastMember *member = movie->getCastMember(memberID);
+	if (!member) {
+		g_lingo->lingoError("Lingo::setTheChunk(): %s not found", memberID.asString().c_str());
+		return;
+	}
+	if (member->_type != kCastText) {
+		g_lingo->lingoError("Lingo::setTheChunk(): %s is not a field", memberID.asString().c_str());
+		return;
+	}
+
+	if (!((TextCastMember *)member)->hasChunkField(field)) {
+		warning("Lingo::setTheChunk(): %s has no chunk property '%s'", memberID.asString().c_str(), field2str(field));
+		return;
+	}
+
+	((TextCastMember *)member)->setChunkField(field, start, end, d);
 }
 
 void Lingo::getObjectProp(Datum &obj, Common::String &propName) {
@@ -1601,7 +1721,7 @@ void Lingo::getObjectProp(Datum &obj, Common::String &propName) {
 		if (obj.u.obj->hasProp(propName)) {
 			d = obj.u.obj->getProp(propName);
 		} else {
-			warning("Lingo::getObjectProp: Object <%s> has no property '%s'", obj.asString(true).c_str(), propName.c_str());
+			g_lingo->lingoError("Lingo::getObjectProp: Object <%s> has no property '%s'", obj.asString(true).c_str(), propName.c_str());
 		}
 		g_lingo->push(d);
 		return;
@@ -1617,18 +1737,18 @@ void Lingo::getObjectProp(Datum &obj, Common::String &propName) {
 	if (obj.type == CASTREF) {
 		Movie *movie = _vm->getCurrentMovie();
 		if (!movie) {
-			warning("Lingo::getObjectProp(): No movie loaded");
+			g_lingo->lingoError("Lingo::getObjectProp(): No movie loaded");
 			g_lingo->push(d);
 			return;
 		}
 
-		int id = obj.u.i;
+		CastMemberID id = *obj.u.cast;
 		CastMember *member = movie->getCastMember(id);
 		if (!member) {
 			if (propName.equalsIgnoreCase("loaded")) {
 				d = 0;
 			} else {
-				warning("Lingo::getObjectProp(): CastMember %d not found", id);
+				g_lingo->lingoError("Lingo::getObjectProp(): %s not found", id.asString().c_str());
 			}
 			g_lingo->push(d);
 			return;
@@ -1637,7 +1757,7 @@ void Lingo::getObjectProp(Datum &obj, Common::String &propName) {
 		if (member->hasProp(propName)) {
 			d = member->getProp(propName);
 		} else {
-			warning("Lingo::getObjectProp(): CastMember %d has no property '%s'", id, propName.c_str());
+			g_lingo->lingoError("Lingo::getObjectProp(): %s has no property '%s'", id.asString().c_str(), propName.c_str());
 		}
 		g_lingo->push(d);
 		return;
@@ -1647,7 +1767,7 @@ void Lingo::getObjectProp(Datum &obj, Common::String &propName) {
 		LC::call(_builtinFuncs[propName], 1, true);
 		return;
 	}
-	warning("Lingo::getObjectProp: Invalid object: %s", obj.asString(true).c_str());
+	g_lingo->lingoError("Lingo::getObjectProp: Invalid object: %s", obj.asString(true).c_str());
 	g_lingo->push(d);
 }
 
@@ -1656,7 +1776,7 @@ void Lingo::setObjectProp(Datum &obj, Common::String &propName, Datum &val) {
 		if (obj.u.obj->hasProp(propName)) {
 			obj.u.obj->setProp(propName, val);
 		} else {
-			warning("Lingo::setObjectProp: Object <%s> has no property '%s'", obj.asString(true).c_str(), propName.c_str());
+			g_lingo->lingoError("Lingo::setObjectProp: Object <%s> has no property '%s'", obj.asString(true).c_str(), propName.c_str());
 		}
 	} else if (obj.type == PARRAY) {
 		int index = LC::compareArrays(LC::eqData, obj, propName, true).u.i;
@@ -1669,24 +1789,24 @@ void Lingo::setObjectProp(Datum &obj, Common::String &propName, Datum &val) {
 	} else if (obj.type == CASTREF) {
 		Movie *movie = _vm->getCurrentMovie();
 		if (!movie) {
-			warning("Lingo::setObjectProp(): No movie loaded");
+			g_lingo->lingoError("Lingo::setObjectProp(): No movie loaded");
 			return;
 		}
 
-		int id = obj.u.i;
+		CastMemberID id = *obj.u.cast;
 		CastMember *member = movie->getCastMember(id);
 		if (!member) {
-			warning("Lingo::setObjectProp(): CastMember %d not found", id);
+			g_lingo->lingoError("Lingo::setObjectProp(): %s not found", id.asString().c_str());
 			return;
 		}
 
 		if (member->hasProp(propName)) {
 			member->setProp(propName, val);
 		} else {
-			warning("Lingo::setObjectProp(): CastMember %d has no property '%s'", id, propName.c_str());
+			g_lingo->lingoError("Lingo::setObjectProp(): %s has no property '%s'", id.asString().c_str(), propName.c_str());
 		}
 	} else {
-		warning("Lingo::setObjectProp: Invalid object: %s", obj.asString(true).c_str());
+		g_lingo->lingoError("Lingo::setObjectProp: Invalid object: %s", obj.asString(true).c_str());
 	}
 }
 

@@ -61,21 +61,25 @@ const char *scriptType2str(ScriptType scr) {
 	return scriptTypes[scr];
 }
 
-Cast::Cast(Movie *movie, bool isShared) {
+Cast::Cast(Movie *movie, uint16 castLibID, bool isShared) {
 	_movie = movie;
 	_vm = _movie->getVM();
 	_lingo = _vm->getLingo();
 
+	_castLibID = castLibID;
 	_isShared = isShared;
 
 	_lingoArchive = new LingoArchive(this);
 
-	_movieScriptCount = 0;
 	_castArrayStart = _castArrayEnd = 0;
 
 	_castIDoffset = 0;
 
 	_castArchive = nullptr;
+	_version = 0;
+	_platform = Common::kPlatformMacintosh;
+
+	_stageColor = 0;
 
 	_loadedStxts = nullptr;
 	_loadedCast = nullptr;
@@ -101,6 +105,12 @@ Cast::~Cast() {
 	for (Common::HashMap<uint16, CastMemberInfo *>::iterator it = _castsInfo.begin(); it != _castsInfo.end(); ++it)
 		delete it->_value;
 
+	for (FontXPlatformMap::iterator it = _fontXPlatformMap.begin(); it != _fontXPlatformMap.end(); ++it)
+		delete it->_value;
+
+	for (FontMap::iterator it = _fontMap.begin(); it != _fontMap.end(); ++it)
+		delete it->_value;
+
 	delete _loadedStxts;
 	delete _loadedCast;
 	delete _lingoArchive;
@@ -113,6 +123,12 @@ CastMember *Cast::getCastMember(int castId) {
 		result = _loadedCast->getVal(castId);
 	}
 	return result;
+}
+
+void Cast::releaseCastMemberWidget() {
+	if (_loadedCast)
+		for (Common::HashMap<int, CastMember *>::iterator it = _loadedCast->begin(); it != _loadedCast->end(); ++it)
+			it->_value->releaseWidget();
 }
 
 CastMember *Cast::getCastMemberByName(const Common::String &name) {
@@ -168,30 +184,7 @@ void Cast::setCastMemberModified(int castId) {
 		return;
 	}
 
-	cast->_modified = 1;
-}
-
-Common::String Cast::getString(Common::String str) {
-	if (str.size() == 0) {
-		return str;
-	}
-
-	uint8 f = static_cast<uint8>(str.firstChar());
-
-	if (f == 0) {
-		return "";
-	}
-
-	//TODO: check if all versions need to cut off the first character.
-	if (_version >= kFileVer400) {
-		str.deleteChar(0);
-	}
-
-	if (str.lastChar() == '\x00') {
-		str.deleteLastChar();
-	}
-
-	return str;
+	cast->setModified(true);
 }
 
 void Cast::setArchive(Archive *archive) {
@@ -253,27 +246,41 @@ bool Cast::loadConfig() {
 	// uint16 stageColorG = stream.readUint16();
 	// uint16 stageColorB = stream.readUint16();
 
+	debugC(1, kDebugLoading, "Cast::loadConfig(): len: %d, fileVersion: %d, framerate: %d, light: %d, unk: %d, font: %d, size: %d"
+			", style: %d", len, fileVersion, currentFrameRate, lightswitch, unk1, commentFont, commentSize, commentStyle);
+	debugC(1, kDebugLoading, "Cast::loadConfig(): stagecolor: %d, depth: %d",
+			_stageColor, bitdepth);
+	if (debugChannelSet(1, kDebugLoading))
+		_movieRect.debugPrint(1, "Cast::loadConfig(): Movie rect: ");
+
 	_version = fileVersion;
-	if (_version >= kFileVer300) {
+
+	// D3 fields - Macromedia did not increment the fileVersion from D2 to D3
+	// so we just have to check if there are more bytes to read.
+	if (stream->pos() < stream->size()) {
 		for (int i = 0; i < 0x06; i++) {
 			stream->readByte();
 		}
-
 		_version = stream->readUint16();
-
 		for (int i = 0; i < 0x0a; i++) {
 			stream->readByte();
 		}
+		debugC(1, kDebugLoading, "Cast::loadConfig(): directorVersion: %d", _version);
+	}
 
-		if (_version >= kFileVer400) {
-			for (int i = 0; i < 0x16; i++)
-				stream->readByte();
-
-			_defaultPalette = (int16)stream->readUint16();
-
-			for (int i = 0; i < 0x08; i++)
-				stream->readByte();
+	if (_version >= kFileVer400) {
+		for (int i = 0; i < 0x08; i++) {
+			stream->readByte();
 		}
+		_platform = platformFromID(stream->readUint16());
+		for (int i = 0; i < 0x0c; i++) {
+			stream->readByte();
+		}
+		_defaultPalette = (int16)stream->readUint16();
+		for (int i = 0; i < 0x08; i++) {
+			stream->readByte();
+		}
+		debugC(1, kDebugLoading, "Cast::loadConfig(): platform: %s, defaultPalette: %d", getPlatformAbbrev(_platform), _defaultPalette);
 	}
 
 	uint16 humanVer = humanVersion(_version);
@@ -282,13 +289,6 @@ bool Cast::loadConfig() {
 			warning("Movie is from later version v%d", humanVer);
 		_vm->setVersion(humanVer);
 	}
-
-	debugC(1, kDebugLoading, "Cast::loadConfig(): len: %d, ver: %d, framerate: %d, light: %d, unk: %d, font: %d, size: %d"
-			", style: %d", len, fileVersion, currentFrameRate, lightswitch, unk1, commentFont, commentSize, commentStyle);
-	debugC(1, kDebugLoading, "Cast::loadConfig(): stagecolor: %d, depth: %d, directorVer: %d",
-			_stageColor, bitdepth, _version);
-	if (debugChannelSet(1, kDebugLoading))
-		_movieRect.debugPrint(1, "Cast::loadConfig(): Movie rect: ");
 
 	delete stream;
 	return true;
@@ -305,7 +305,13 @@ void Cast::loadCast() {
 
 			debugC(2, kDebugLoading, "****** Loading Palette CLUT, #%d", clutList[i]);
 			PaletteV4 p = loadPalette(*pal);
-			g_director->addPalette(clutList[i], p.palette, p.length);
+
+			// for D2, we are using palette cast member id to resolve palette Id, so we are using lowest 1 bit to represent cast id. see Also loadCastChildren
+			if (_version < kFileVer300)
+				g_director->addPalette(clutList[i] & 0xff, p.palette, p.length);
+			else
+				g_director->addPalette(clutList[i], p.palette, p.length);
+
 			delete pal;
 		}
 	}
@@ -328,9 +334,19 @@ void Cast::loadCast() {
 
 	// Font Mapping
 	if (_castArchive->hasResource(MKTAG('V', 'W', 'F', 'M'), -1)) {
-		_vm->_wm->_fontMan->clearFontMapping();
-
 		loadFontMap(*(r = _castArchive->getFirstResource(MKTAG('V', 'W', 'F', 'M'))));
+		delete r;
+	}
+
+	// Cross-Platform Font Mapping
+	if (_castArchive->hasResource(MKTAG('F', 'X', 'm', 'p'), -1)) {
+		loadFXmp(*(r = _castArchive->getFirstResource(MKTAG('F', 'X', 'm', 'p'))));
+		delete r;
+	}
+
+	// Font Mapping V4
+	if (_castArchive->hasResource(MKTAG('F', 'm', 'a', 'p'), -1)) {
+		loadFontMapV4(*(r = _castArchive->getFirstResource(MKTAG('F', 'm', 'a', 'p'))));
 		delete r;
 	}
 
@@ -353,7 +369,8 @@ void Cast::loadCast() {
 
 	// External sound files
 	if (_castArchive->hasResource(MKTAG('S', 'T', 'R', ' '), -1)) {
-		debug("STUB: Unhandled 'STR ' resource");
+		loadExternalSound(*(r = _castArchive->getFirstResource(MKTAG('S', 'T', 'R', ' '))));
+		delete r;
 	}
 
 	Common::Array<uint16> vwci = _castArchive->getResourceIDList(MKTAG('V', 'W', 'C', 'I'));
@@ -428,11 +445,11 @@ void Cast::loadCast() {
 		delete r;
 
 		// Try to load movie script, it starts with a comment
-		if (_version <= kFileVer300) {
+		if (_version < kFileVer400) {
 			if (debugChannelSet(-1, kDebugFewFramesOnly))
 				warning("Compiling STXT %d", *iterator);
 
-			loadScriptText(*(r = _castArchive->getResource(MKTAG('S','T','X','T'), *iterator)));
+			loadScriptText(*(r = _castArchive->getResource(MKTAG('S','T','X','T'), *iterator)), *iterator - _castIDoffset);
 			delete r;
 		}
 
@@ -481,9 +498,12 @@ void Cast::loadCastChildren() {
 			// TODO: Verify how palettes work in >D4 versions
 			if (_version >= kFileVer400 && _version < kFileVer500 && member->_children.size() == 1) {
 				member->_palette = g_director->getPalette(member->_children[0].index);
-			} else if (_version < kFileVer400) {
+			} else if (_version >= kFileVer300 && _version < kFileVer400) {
 				// D3 palettes are always kept in this ascending order
 				member->_palette = g_director->getPalette((++p)->_value.id);
+			} else if (_version < kFileVer300) {
+				// for D2, we shall use the castId to get the palette
+				member->_palette = g_director->getPalette(member->getID());
 			} else {
 				warning("Cast::loadSpriteChildren(): Expected 1 child for palette cast, got %d", member->_children.size());
 			}
@@ -534,16 +554,16 @@ void Cast::loadCastChildren() {
 
 		switch (tag) {
 		case MKTAG('D', 'I', 'B', ' '):
-			debugC(2, kDebugLoading, "****** Loading 'DIB ' id: %d (%d), %d bytes", imgId, realId, pic->size());
+			debugC(2, kDebugLoading, "****** Loading 'DIB ' id: %d (%d), %d bytes", imgId, realId, (int)pic->size());
 			img = new DIBDecoder();
 			break;
 
 		case MKTAG('B', 'I', 'T', 'D'):
-			debugC(2, kDebugLoading, "****** Loading 'BITD' id: %d (%d), %d bytes", imgId, realId, pic->size());
+			debugC(2, kDebugLoading, "****** Loading 'BITD' id: %d (%d), %d bytes", imgId, realId, (int)pic->size());
 
 			if (w > 0 && h > 0) {
 				if (_version < kFileVer600) {
-					img = new BITDDecoder(w, h, bitmapCast->_bitsPerPixel, bitmapCast->_pitch, _vm->getPalette());
+					img = new BITDDecoder(w, h, bitmapCast->_bitsPerPixel, bitmapCast->_pitch, _vm->getPalette(), _version);
 				} else {
 					img = new Image::BitmapDecoder();
 				}
@@ -614,6 +634,11 @@ void Cast::loadSoundCasts() {
 				audio->loadStream(*sndData);
 				soundCast->_audio = audio;
 				soundCast->_size = sndData->size();
+				if (_version < kFileVer400) {
+					// The looping flag wasn't added to sound cast members until D4.
+					// In older versions, always loop sounds that contain a loop start and end.
+					soundCast->_looping = audio->hasLoopBounds();
+				}
 			}
 			delete sndData;
 		}
@@ -668,7 +693,7 @@ PaletteV4 Cast::loadPalette(Common::SeekableReadStreamEndian &stream) {
 	uint16 index = (steps * 3) - 1;
 	byte *_palette = new byte[index + 1];
 
-	debugC(3, kDebugLoading, "Cast::loadPalette(): %d steps, %d bytes", steps, stream.size());
+	debugC(3, kDebugLoading, "Cast::loadPalette(): %d steps, %d bytes", steps, (int)stream.size());
 
 	if (steps > 256) {
 		warning("Cast::loadPalette(): steps > 256: %d", steps);
@@ -755,6 +780,24 @@ void Cast::loadCastDataVWCR(Common::SeekableReadStreamEndian &stream) {
 			break;
 		}
 		stream.seek(returnPos);
+	}
+}
+
+void Cast::loadExternalSound(Common::SeekableReadStreamEndian &stream) {
+	Common::String str = stream.readString();
+	str.trim();
+	debugC(1, kDebugLoading, "****** Loading External Sound File %s", str.c_str());
+
+	Common::String resPath = g_director->getCurrentPath() + str;
+
+	if (!g_director->_openResFiles.contains(resPath)) {
+		MacArchive *resFile = new MacArchive();
+
+		if (resFile->openFile(resPath)) {
+			g_director->_openResFiles.setVal(resPath, resFile);
+		} else {
+			delete resFile;
+		}
 	}
 }
 
@@ -1023,21 +1066,11 @@ void Cast::loadLingoContext(Common::SeekableReadStreamEndian &stream) {
 	}
 }
 
-void Cast::loadScriptText(Common::SeekableReadStreamEndian &stream) {
+void Cast::loadScriptText(Common::SeekableReadStreamEndian &stream, uint16 id) {
 	/*uint32 unk1 = */ stream.readUint32();
 	uint32 strLen = stream.readUint32();
 	/*uin32 dataLen = */ stream.readUint32();
-	Common::String script;
-
-	for (uint32 i = 0; i < strLen; i++) {
-		byte ch = stream.readByte();
-
-		// Convert Mac line endings
-		if (ch == 0x0d)
-			ch = '\n';
-
-		script += ch;
-	}
+	Common::String script = stream.readString(0, strLen);
 
 	// Check if this is a script. It must start with a comment.
 	// See D2 Interactivity Manual pp.46-47 (Ch.2.11. Using a macro)
@@ -1045,14 +1078,12 @@ void Cast::loadScriptText(Common::SeekableReadStreamEndian &stream) {
 		return;
 
 	if (ConfMan.getBool("dump_scripts"))
-		dumpScript(script.c_str(), kMovieScript, _movieScriptCount);
+		dumpScript(script.c_str(), kMovieScript, id);
 
 	if (script.contains("\nmenu:") || script.hasPrefix("menu:"))
 		return;
 
-	_lingoArchive->addCode(script.c_str(), kMovieScript, _movieScriptCount);
-
-	_movieScriptCount++;
+	_lingoArchive->addCode(script.decode(Common::kMacRoman), kMovieScript, id);
 }
 
 void Cast::dumpScript(const char *script, ScriptType type, uint16 id) {
@@ -1076,10 +1107,10 @@ void Cast::loadCastInfo(Common::SeekableReadStreamEndian &stream, uint16 id) {
 
 	InfoEntries castInfo = Movie::loadInfoEntries(stream, _version);
 
-	debugCN(4, kDebugLoading, "Cast::loadCastInfo(): str(%d): '", castInfo.strings.size());
+	debugCN(4, kDebugLoading, "Cast::loadCastInfo(): castId: %s str(%d): '", numToCastNum(id), castInfo.strings.size());
 
 	for (uint i = 0; i < castInfo.strings.size(); i++) {
-		debugCN(4, kDebugLoading, "%s'", castInfo.strings[i].readString().c_str());
+		debugCN(4, kDebugLoading, "%s'", Common::toPrintable(castInfo.strings[i].readString()).c_str());
 		if (i != castInfo.strings.size() - 1)
 			debugCN(4, kDebugLoading, ", '");
 	}
@@ -1108,7 +1139,7 @@ void Cast::loadCastInfo(Common::SeekableReadStreamEndian &stream, uint16 id) {
 			int16 count = entryStream->readUint16();
 
 			for (int16 i = 0; i < count; i++)
-				ci->scriptStyle.read(*entryStream);
+				ci->scriptStyle.read(*entryStream, this);
 			delete entryStream;
 		}
 		// fallthrough
@@ -1155,7 +1186,7 @@ void Cast::loadCastInfo(Common::SeekableReadStreamEndian &stream, uint16 id) {
 			if (ConfMan.getBool("dump_scripts"))
 				dumpScript(ci->script.c_str(), scriptType, id);
 
-			_lingoArchive->addCode(ci->script.c_str(), scriptType, id, ci->name.c_str());
+			_lingoArchive->addCode(ci->script, scriptType, id, ci->name.c_str());
 		}
 	}
 
@@ -1172,36 +1203,37 @@ void Cast::loadCastInfo(Common::SeekableReadStreamEndian &stream, uint16 id) {
 	_castsInfo[id] = ci;
 }
 
-void Cast::loadFontMap(Common::SeekableReadStreamEndian &stream) {
-	if (stream.size() == 0)
-		return;
+Common::CodePage Cast::getPlatformEncoding() {
+	return getEncoding(_platform, _vm->getLanguage());
+}
 
-	debugC(2, kDebugLoading, "****** Loading FontMap VWFM");
+Common::U32String Cast::decodeString(const Common::String &str) {
+	Common::CodePage encoding = getPlatformEncoding();
 
-	uint16 count = stream.readUint16();
-	uint32 offset = (count * 2) + 2;
-	uint32 currentRawPosition = offset;
+	Common::String fixedStr;
+	if (encoding == Common::kWindows1252) {
+		/**
+		 * Director for Windows stores strings in a screwed up version of Mac Roman
+		 * where characters map directly to Windows-1252 characters.
+		 * We need to map this screwed up Mac Roman back to Windows-1252 before using it.
+		 * Comment from FXmp:
+		 *   Note: Some characters are not available in both character sets.
+		 *   However, the bi-directional mapping table below preserves these
+		 *   characters even if they are mapped to a different platform and
+		 *   later re-mapped back to the original platform.
+		 */
 
-	for (uint16 i = 0; i < count; i++) {
-		uint16 id = stream.readUint16();
-		uint32 positionInfo = stream.pos();
-
-		stream.seek(currentRawPosition);
-
-		uint16 size = stream.readByte();
-		Common::String font;
-
-		for (uint16 k = 0; k < size; k++) {
-			font += stream.readByte();
+		for (uint i = 0; i < str.size(); i++) {
+			if (_macCharsToWin.contains(str[i]))
+				fixedStr += _macCharsToWin[str[i]];
+			else
+				fixedStr += str[i];
 		}
-
-		_fontMap[id] = font;
-		_vm->_wm->_fontMan->registerFontMapping(id, font);
-
-		debugC(3, kDebugLoading, "Fontmap. ID %d Font %s", id, font.c_str());
-		currentRawPosition = stream.pos();
-		stream.seek(positionInfo);
+	} else {
+		fixedStr = str;
 	}
+
+	return fixedStr.decode(encoding);
 }
 
 } // End of namespace Director

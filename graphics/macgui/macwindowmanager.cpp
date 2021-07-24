@@ -155,7 +155,7 @@ static const byte macCursorCrossBar[] = {
 
 static void menuTimerHandler(void *refCon);
 
-MacWindowManager::MacWindowManager(uint32 mode, MacPatterns *patterns) {
+MacWindowManager::MacWindowManager(uint32 mode, MacPatterns *patterns, Common::Language language) {
 	_screen = nullptr;
 	_screenCopy = nullptr;
 	_desktopBmp = nullptr;
@@ -169,6 +169,7 @@ MacWindowManager::MacWindowManager(uint32 mode, MacPatterns *patterns) {
 	_hoveredWidget = nullptr;
 
 	_mode = mode;
+	_language = language;
 
 	_menu = 0;
 	_menuDelay = 0;
@@ -202,6 +203,10 @@ MacWindowManager::MacWindowManager(uint32 mode, MacPatterns *patterns) {
 			_patterns.push_back(fillPatterns[i]);
 	}
 
+	// builtin pattern
+	for (int i = 0; i < ARRAYSIZE(fillPatterns); i++)
+		_builtinPatterns.push_back(fillPatterns[i]);
+
 	g_system->getPaletteManager()->setPalette(palette, 0, ARRAYSIZE(palette) / 3);
 
 	_paletteSize = ARRAYSIZE(palette) / 3;
@@ -210,7 +215,7 @@ MacWindowManager::MacWindowManager(uint32 mode, MacPatterns *patterns) {
 		memcpy(_palette, palette, _paletteSize * 3);
 	}
 
-	_fontMan = new MacFontManager(mode);
+	_fontMan = new MacFontManager(mode, language);
 
 	_cursor = nullptr;
 	_cursorType = _tempType = kMacCursorArrow;
@@ -280,6 +285,17 @@ void MacWindowManager::setMode(uint32 mode) {
 
 	if (mode & kWMModeForceBuiltinFonts)
 		_fontMan->forceBuiltinFonts();
+}
+
+void MacWindowManager::clearHandlingWidgets() {
+	// pass a LBUTTONUP event to those widgets should clear those state
+	Common::Event event;
+	event.type = Common::EVENT_LBUTTONUP;
+	event.mouse = _lastClickPos;
+	processEvent(event);
+
+	setActiveWidget(nullptr);
+	_hoveredWidget = nullptr;
 }
 
 void MacWindowManager::setActiveWidget(MacWidget *widget) {
@@ -645,8 +661,8 @@ void MacWindowManager::loadDesktop() {
 
 void MacWindowManager::drawDesktop() {
 	if (_desktopBmp) {
-		for (uint i = 0; i < _desktop->w; ++i) {
-			for (uint j = 0; j < _desktop->h; ++j) {
+		for (int i = 0; i < _desktop->w; ++i) {
+			for (int j = 0; j < _desktop->h; ++j) {
 				uint32 color = *(uint32 *)_desktopBmp->getBasePtr(i % _desktopBmp->w, j % _desktopBmp->h);
 				if (_pixelformat.bytesPerPixel == 1) {
 					byte r, g, b;
@@ -1152,6 +1168,12 @@ void MacWindowManager::passPalette(const byte *pal, uint size) {
 
 	drawDesktop();
 	setFullRefresh(true);
+}
+
+uint MacWindowManager::findBestColor(uint32 color) {
+	byte r, g, b;
+	decomposeColor(color, r, g, b);
+	return findBestColor(r, g, b);
 }
 
 uint MacWindowManager::findBestColor(byte cr, byte cg, byte cb) {

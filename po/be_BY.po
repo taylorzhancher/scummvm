@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ScummVM 1.8.0git\n"
 "Report-Msgid-Bugs-To: scummvm-devel@lists.scummvm.org\n"
-"POT-Creation-Date: 2021-06-24 21:09+0000\n"
+"POT-Creation-Date: 2021-07-21 21:06+0000\n"
 "PO-Revision-Date: 2021-03-21 08:24+0000\n"
 "Last-Translator: Eugene Sandulenko <sev@scummvm.org>\n"
 "Language-Team: Belarusian <https://translations.scummvm.org/projects/scummvm/"
@@ -63,7 +63,7 @@ msgstr "Уверх"
 #: gui/saveload-dialog.cpp:62 gui/saveload-dialog.cpp:396
 #: gui/saveload-dialog.cpp:469 gui/saveload-dialog.cpp:771
 #: gui/saveload-dialog.cpp:1168 gui/themebrowser.cpp:55
-#: gui/unknown-game-dialog.cpp:54 engines/engine.cpp:651
+#: gui/unknown-game-dialog.cpp:54 engines/engine.cpp:645
 #: backends/dialogs/gtk/gtk-dialogs.cpp:46
 #: backends/events/default/default-events.cpp:185
 #: backends/events/default/default-events.cpp:209
@@ -75,7 +75,7 @@ msgstr "Уверх"
 #: engines/mohawk/riven_stacks/aspit.cpp:372
 #: engines/mohawk/riven_stacks/aspit.cpp:456 engines/nancy/dialogs.cpp:101
 #: engines/parallaction/saveload.cpp:271 engines/scumm/dialogs.cpp:180
-#: engines/sword1/control.cpp:889 engines/wintermute/wintermute.cpp:199
+#: engines/sword1/control.cpp:889 engines/wintermute/wintermute.cpp:183
 msgid "Cancel"
 msgstr "Адмена"
 
@@ -91,7 +91,7 @@ msgstr "Абраць"
 msgid "Select directory where to download game data"
 msgstr "Абярыце дырэкторыю для спампавання дадзеных гульні"
 
-#: gui/downloaddialog.cpp:50 gui/editgamedialog.cpp:583 gui/launcher.cpp:208
+#: gui/downloaddialog.cpp:50 gui/editgamedialog.cpp:583 gui/launcher.cpp:206
 msgid "Select directory with game data"
 msgstr "Абярыце дырэкторыю з файламі гульні"
 
@@ -125,9 +125,9 @@ msgstr ""
 
 #: gui/downloaddialog.cpp:119 gui/downloaddialog.cpp:153
 #: gui/filebrowser-dialog.cpp:133 gui/fluidsynth-dialog.cpp:218
-#: gui/launcher.cpp:395 gui/launcher.cpp:417 gui/launcher.cpp:460
+#: gui/launcher.cpp:393 gui/launcher.cpp:415 gui/launcher.cpp:458
 #: gui/options.cpp:2876 gui/options.cpp:2914
-#: backends/events/default/default-events.cpp:185 engines/buried/buried.cpp:533
+#: backends/events/default/default-events.cpp:185 engines/buried/buried.cpp:530
 #: engines/grim/grim.cpp:350 engines/kyra/gui/saveload_eob.cpp:596
 #: engines/kyra/gui/saveload_eob.cpp:629
 #: engines/parallaction/metaengine.cpp:136
@@ -137,8 +137,8 @@ msgstr "Так"
 
 #: gui/downloaddialog.cpp:119 gui/downloaddialog.cpp:154
 #: gui/filebrowser-dialog.cpp:133 gui/fluidsynth-dialog.cpp:218
-#: gui/launcher.cpp:395 gui/launcher.cpp:417 gui/launcher.cpp:460
-#: gui/options.cpp:2876 gui/options.cpp:2914 engines/buried/buried.cpp:533
+#: gui/launcher.cpp:393 gui/launcher.cpp:415 gui/launcher.cpp:458
+#: gui/options.cpp:2876 gui/options.cpp:2914 engines/buried/buried.cpp:530
 #: engines/grim/grim.cpp:350 engines/kyra/gui/saveload_eob.cpp:596
 #: engines/kyra/gui/saveload_eob.cpp:629
 #: engines/parallaction/metaengine.cpp:142
@@ -146,7 +146,7 @@ msgstr "Так"
 msgid "No"
 msgstr "Не"
 
-#: gui/downloaddialog.cpp:137 gui/launcher.cpp:566
+#: gui/downloaddialog.cpp:137 gui/launcher.cpp:564
 msgid "ScummVM couldn't open the specified directory!"
 msgstr "ScummVM не можа адкрыць азначаную дырэкторыю!"
 
@@ -159,21 +159,21 @@ msgstr ""
 "мае файл з тым жа імем."
 
 #: gui/downloaddialog.cpp:147 gui/editgamedialog.cpp:385
-#: gui/fluidsynth-dialog.cpp:154 gui/launcher.cpp:516 gui/launcher.cpp:520
+#: gui/fluidsynth-dialog.cpp:154 gui/launcher.cpp:514 gui/launcher.cpp:518
 #: gui/massadd.cpp:89 gui/options.cpp:2095 gui/saveload-dialog.cpp:1169
-#: engines/engine.cpp:511 engines/engine.cpp:523
+#: engines/engine.cpp:504 engines/engine.cpp:516
 #: backends/platform/wii/options.cpp:47 engines/agos/animation.cpp:559
 #: engines/drascula/saveload.cpp:49 engines/groovie/script.cpp:484
 #: engines/parallaction/saveload.cpp:271 engines/sci/engine/kgraphics.cpp:75
 #: engines/sci/graphics/controls32.cpp:925 engines/scumm/dialogs.cpp:182
-#: engines/scumm/scumm.cpp:1327 engines/scumm/scumm.cpp:1349
-#: engines/scumm/scumm.cpp:2024 engines/sky/compact.cpp:142
-#: engines/sword1/animation.cpp:532 engines/sword1/animation.cpp:553
-#: engines/sword1/animation.cpp:569 engines/sword1/animation.cpp:577
-#: engines/sword1/control.cpp:889 engines/sword1/logic.cpp:1635
-#: engines/sword2/animation.cpp:429 engines/sword2/animation.cpp:449
-#: engines/sword2/animation.cpp:465 engines/sword2/animation.cpp:475
-#: engines/zvision/file/save_manager.cpp:226
+#: engines/scumm/scumm.cpp:1342 engines/scumm/scumm.cpp:1368
+#: engines/scumm/scumm.cpp:1390 engines/scumm/scumm.cpp:2083
+#: engines/sky/compact.cpp:142 engines/sword1/animation.cpp:532
+#: engines/sword1/animation.cpp:553 engines/sword1/animation.cpp:569
+#: engines/sword1/animation.cpp:577 engines/sword1/control.cpp:889
+#: engines/sword1/logic.cpp:1635 engines/sword2/animation.cpp:429
+#: engines/sword2/animation.cpp:449 engines/sword2/animation.cpp:465
+#: engines/sword2/animation.cpp:475 engines/zvision/file/save_manager.cpp:226
 msgid "OK"
 msgstr "OK"
 
@@ -232,8 +232,8 @@ msgctxt "lowres"
 msgid "Name:"
 msgstr "Назва:"
 
-#: gui/editgamedialog.cpp:162 engines/mohawk/dialogs.cpp:155
-#: engines/mohawk/dialogs.cpp:365
+#: gui/editgamedialog.cpp:162 engines/mohawk/dialogs.cpp:158
+#: engines/mohawk/dialogs.cpp:377
 msgid "Language:"
 msgstr "Мова:"
 
@@ -436,7 +436,7 @@ msgid "Statistics"
 msgstr ""
 
 #: gui/editgamedialog.cpp:398 gui/editgamedialog.cpp:504
-#: gui/editgamedialog.cpp:570 gui/editgamedialog.cpp:631 gui/options.cpp:2116
+#: gui/editgamedialog.cpp:570 gui/editgamedialog.cpp:637 gui/options.cpp:2116
 #: gui/options.cpp:2122 gui/options.cpp:2130 gui/options.cpp:2161
 #: gui/options.cpp:2204 gui/options.cpp:2212 gui/options.cpp:2221
 #: gui/options.cpp:2484 gui/options.cpp:2490 gui/options.cpp:2497
@@ -447,7 +447,7 @@ msgid "None"
 msgstr "Не зададзены"
 
 #: gui/editgamedialog.cpp:403 gui/editgamedialog.cpp:510
-#: gui/editgamedialog.cpp:635 gui/options.cpp:2110 gui/options.cpp:2478
+#: gui/editgamedialog.cpp:641 gui/options.cpp:2110 gui/options.cpp:2478
 #: gui/options.cpp:2760 backends/platform/wii/options.cpp:56
 msgid "Default"
 msgstr "Агадана"
@@ -464,7 +464,11 @@ msgstr "Абярыце дадатковую дырэкторыю гульні"
 msgid "Select directory for saved games"
 msgstr "Абярыце дырэкторыю для захаванняў"
 
-#: gui/editgamedialog.cpp:621
+#: gui/editgamedialog.cpp:622 gui/options.cpp:2696
+msgid "The chosen directory cannot be written to. Please select another one."
+msgstr "Не магу пісаць у абраную дырэкторыю. Калі ласка, азначце іншую."
+
+#: gui/editgamedialog.cpp:627
 msgid ""
 "Saved games sync feature doesn't work with non-default directories. If you "
 "want your saved games to sync, use default directory."
@@ -473,7 +477,7 @@ msgstr ""
 "вы жадаеце, каб вашы захаванні гульняў сінхранізаваліся, выкарыстоўвайце "
 "агаданую дырэкторыю."
 
-#: gui/editgamedialog.cpp:647
+#: gui/editgamedialog.cpp:653
 msgid "This game ID is already taken. Please choose another one."
 msgstr "Гэты ID гульні ўжо выкарыстоўваецца. Калі ласка, абярыце іншы."
 
@@ -597,7 +601,7 @@ msgstr "Вы сапраўды жадаеце скінуць налады FluidSy
 msgid "GUI"
 msgstr "Графічны інтэрфейс"
 
-#: gui/gui-manager.cpp:154 engines/mohawk/myst.cpp:568
+#: gui/gui-manager.cpp:154 engines/mohawk/myst.cpp:574
 #: engines/mohawk/riven.cpp:838
 msgid "Interact"
 msgstr "Узаемадзеянне"
@@ -613,10 +617,10 @@ msgstr "Закрыць"
 #: engines/dragons/metaengine.cpp:163 engines/glk/scott/scott.cpp:412
 #: engines/griffon/metaengine.cpp:96 engines/grim/grim.cpp:448
 #: engines/grim/grim.cpp:525 engines/twine/metaengine.cpp:430
-#: engines/twine/metaengine.cpp:497 engines/wintermute/keymapper_tables.h:1252
-#: engines/wintermute/keymapper_tables.h:1362
-#: engines/wintermute/keymapper_tables.h:1822
-#: engines/wintermute/keymapper_tables.h:2053
+#: engines/twine/metaengine.cpp:497 engines/wintermute/keymapper_tables.h:1263
+#: engines/wintermute/keymapper_tables.h:1373
+#: engines/wintermute/keymapper_tables.h:1844
+#: engines/wintermute/keymapper_tables.h:2078
 msgid "Up"
 msgstr "Уверх"
 
@@ -624,10 +628,10 @@ msgstr "Уверх"
 #: engines/dragons/metaengine.cpp:169 engines/glk/scott/scott.cpp:412
 #: engines/griffon/metaengine.cpp:102 engines/grim/grim.cpp:453
 #: engines/grim/grim.cpp:530 engines/twine/metaengine.cpp:437
-#: engines/twine/metaengine.cpp:505 engines/wintermute/keymapper_tables.h:1258
-#: engines/wintermute/keymapper_tables.h:1369
-#: engines/wintermute/keymapper_tables.h:1828
-#: engines/wintermute/keymapper_tables.h:2059
+#: engines/twine/metaengine.cpp:505 engines/wintermute/keymapper_tables.h:1269
+#: engines/wintermute/keymapper_tables.h:1380
+#: engines/wintermute/keymapper_tables.h:1850
+#: engines/wintermute/keymapper_tables.h:2084
 msgid "Down"
 msgstr "Уніз"
 
@@ -635,11 +639,11 @@ msgstr "Уніз"
 #: engines/dragons/metaengine.cpp:175 engines/griffon/metaengine.cpp:108
 #: engines/grim/grim.cpp:458 engines/grim/grim.cpp:535
 #: engines/twine/metaengine.cpp:452 engines/twine/metaengine.cpp:520
-#: engines/wintermute/keymapper_tables.h:320
-#: engines/wintermute/keymapper_tables.h:1264
-#: engines/wintermute/keymapper_tables.h:1810
-#: engines/wintermute/keymapper_tables.h:1919
-#: engines/wintermute/keymapper_tables.h:2041
+#: engines/wintermute/keymapper_tables.h:321
+#: engines/wintermute/keymapper_tables.h:1275
+#: engines/wintermute/keymapper_tables.h:1832
+#: engines/wintermute/keymapper_tables.h:1942
+#: engines/wintermute/keymapper_tables.h:2066
 msgid "Left"
 msgstr "Налева"
 
@@ -647,33 +651,33 @@ msgstr "Налева"
 #: engines/dragons/metaengine.cpp:181 engines/griffon/metaengine.cpp:114
 #: engines/grim/grim.cpp:463 engines/grim/grim.cpp:540
 #: engines/twine/metaengine.cpp:444 engines/twine/metaengine.cpp:513
-#: engines/wintermute/keymapper_tables.h:326
-#: engines/wintermute/keymapper_tables.h:1270
-#: engines/wintermute/keymapper_tables.h:1816
-#: engines/wintermute/keymapper_tables.h:1927
-#: engines/wintermute/keymapper_tables.h:2047
+#: engines/wintermute/keymapper_tables.h:327
+#: engines/wintermute/keymapper_tables.h:1281
+#: engines/wintermute/keymapper_tables.h:1838
+#: engines/wintermute/keymapper_tables.h:1950
+#: engines/wintermute/keymapper_tables.h:2072
 msgid "Right"
 msgstr "Направа"
 
 #: gui/gui-manager.cpp:185 engines/pegasus/pegasus.cpp:2807
-#: engines/wintermute/keymapper_tables.h:305
-#: engines/wintermute/keymapper_tables.h:346
-#: engines/wintermute/keymapper_tables.h:379
-#: engines/wintermute/keymapper_tables.h:489
-#: engines/wintermute/keymapper_tables.h:518
-#: engines/wintermute/keymapper_tables.h:622
-#: engines/wintermute/keymapper_tables.h:771
-#: engines/wintermute/keymapper_tables.h:798
-#: engines/wintermute/keymapper_tables.h:838
-#: engines/wintermute/keymapper_tables.h:976
-#: engines/wintermute/keymapper_tables.h:1184
-#: engines/wintermute/keymapper_tables.h:1231
-#: engines/wintermute/keymapper_tables.h:1484
-#: engines/wintermute/keymapper_tables.h:1691
-#: engines/wintermute/keymapper_tables.h:1744
-#: engines/wintermute/keymapper_tables.h:1792
-#: engines/wintermute/keymapper_tables.h:1846
-#: engines/wintermute/keymapper_tables.h:1904
+#: engines/wintermute/keymapper_tables.h:306
+#: engines/wintermute/keymapper_tables.h:347
+#: engines/wintermute/keymapper_tables.h:382
+#: engines/wintermute/keymapper_tables.h:492
+#: engines/wintermute/keymapper_tables.h:521
+#: engines/wintermute/keymapper_tables.h:625
+#: engines/wintermute/keymapper_tables.h:780
+#: engines/wintermute/keymapper_tables.h:807
+#: engines/wintermute/keymapper_tables.h:847
+#: engines/wintermute/keymapper_tables.h:987
+#: engines/wintermute/keymapper_tables.h:1195
+#: engines/wintermute/keymapper_tables.h:1242
+#: engines/wintermute/keymapper_tables.h:1498
+#: engines/wintermute/keymapper_tables.h:1708
+#: engines/wintermute/keymapper_tables.h:1762
+#: engines/wintermute/keymapper_tables.h:1813
+#: engines/wintermute/keymapper_tables.h:1868
+#: engines/wintermute/keymapper_tables.h:1926
 msgid "???"
 msgstr "???"
 
@@ -725,7 +729,7 @@ msgstr "Запіс..."
 msgid "~A~dd Game..."
 msgstr "~Д~адаць гульню..."
 
-#: gui/launcher.cpp:157 gui/launcher.cpp:167
+#: gui/launcher.cpp:157 gui/launcher.cpp:166
 msgid "Add games to the list"
 msgstr "Дадаць гульні ў спіс"
 
@@ -733,58 +737,58 @@ msgstr "Дадаць гульні ў спіс"
 msgid "Mass Add..."
 msgstr "Шмат гульняў..."
 
-#: gui/launcher.cpp:162
+#: gui/launcher.cpp:161
 msgid "~E~dit Game..."
 msgstr "Н~а~лады гульні..."
 
-#: gui/launcher.cpp:162 gui/launcher.cpp:172
+#: gui/launcher.cpp:161 gui/launcher.cpp:170
 msgid "Change game options"
 msgstr "Змяніць налады гульні"
 
-#: gui/launcher.cpp:164
+#: gui/launcher.cpp:163
 msgid "~R~emove Game"
 msgstr "В~ы~даліць гульню"
 
-#: gui/launcher.cpp:164 gui/launcher.cpp:174
+#: gui/launcher.cpp:163 gui/launcher.cpp:172
 msgid "Remove game from the list. The game data files stay intact"
 msgstr "Выдаліць гульню са спісу. Не выдаляе гульню з носьбіта"
 
-#: gui/launcher.cpp:167
+#: gui/launcher.cpp:166
 msgctxt "lowres"
 msgid "~A~dd Game..."
 msgstr "~Д~адаць гульню..."
 
-#: gui/launcher.cpp:168
+#: gui/launcher.cpp:167
 msgctxt "lowres"
 msgid "Mass Add..."
 msgstr "Шмат гульняў..."
 
-#: gui/launcher.cpp:172
+#: gui/launcher.cpp:170
 msgctxt "lowres"
 msgid "~E~dit Game..."
 msgstr "Н~а~лады гульні..."
 
-#: gui/launcher.cpp:174
+#: gui/launcher.cpp:172
 msgctxt "lowres"
 msgid "~R~emove Game"
 msgstr "В~ы~даліць гульню"
 
-#: gui/launcher.cpp:182
+#: gui/launcher.cpp:180
 msgid "Search in game list"
 msgstr "Пошук у спісе гульняў"
 
-#: gui/launcher.cpp:186 gui/launcher.cpp:785
+#: gui/launcher.cpp:184 gui/launcher.cpp:783
 msgid "Search:"
 msgstr "Пошук:"
 
-#: gui/launcher.cpp:211 engines/dialogs.cpp:98 engines/engine.cpp:801
+#: gui/launcher.cpp:209 engines/dialogs.cpp:98 engines/engine.cpp:795
 #: engines/buried/saveload.cpp:515 engines/pegasus/pegasus.cpp:384
 #: engines/trecision/saveload.cpp:253 engines/tsage/scenes.cpp:631
 #: engines/wage/saveload.cpp:742 engines/xeen/saves.cpp:256
 msgid "Load game:"
 msgstr "Загрузіць гульню:"
 
-#: gui/launcher.cpp:211 engines/dialogs.cpp:98 engines/engine.cpp:801
+#: gui/launcher.cpp:209 engines/dialogs.cpp:98 engines/engine.cpp:795
 #: engines/buried/saveload.cpp:515 engines/parallaction/metaengine.cpp:118
 #: engines/parallaction/saveload.cpp:194 engines/pegasus/pegasus.cpp:384
 #: engines/scumm/dialogs.cpp:178 engines/trecision/saveload.cpp:253
@@ -793,13 +797,13 @@ msgstr "Загрузіць гульню:"
 msgid "Load"
 msgstr "Загрузіць"
 
-#: gui/launcher.cpp:383
+#: gui/launcher.cpp:381
 msgid "This directory cannot be used yet, it is being downloaded into!"
 msgstr ""
 "Гэта дырэкторыя пакуль не можа выкарыстоўвацца, у яе зараз пампуюцца "
 "дадзеныя!"
 
-#: gui/launcher.cpp:394
+#: gui/launcher.cpp:392
 msgid ""
 "Do you really want to run the mass game detector? This could potentially add "
 "a huge number of games."
@@ -807,31 +811,31 @@ msgstr ""
 "Вы сапраўды жадаеце запусціць дэтэктар усіх гульняў? Гэта патэнцыяльна можа "
 "дадаць вялікую колькасць гульняў."
 
-#: gui/launcher.cpp:417
+#: gui/launcher.cpp:415
 msgid "Do you really want to remove this game configuration?"
 msgstr "Вы сапраўды жадаеце выдаліць налады для гэтай гульні?"
 
-#: gui/launcher.cpp:459
+#: gui/launcher.cpp:457
 msgid "Do you want to load saved game?"
 msgstr "Вы жадаеце загрузіць гульню?"
 
-#: gui/launcher.cpp:516
+#: gui/launcher.cpp:514
 msgid "This game does not support loading games from the launcher."
 msgstr "Гэтая гульня не падтрымвае загрузку захаванняў праз галоўнае меню."
 
-#: gui/launcher.cpp:520
+#: gui/launcher.cpp:518
 msgid "ScummVM could not find any engine capable of running the selected game!"
 msgstr "ScummVM не можа знайсці рухавічок для запуску абранай гульні!"
 
-#: gui/launcher.cpp:585
+#: gui/launcher.cpp:583
 msgid "ScummVM could not find any game in the specified directory!"
 msgstr "ScummVM не можа знайсці гульню ў азначанай дырэкторыі!"
 
-#: gui/launcher.cpp:600
+#: gui/launcher.cpp:598
 msgid "Unknown variant"
 msgstr "Невядомы варыянт"
 
-#: gui/launcher.cpp:606
+#: gui/launcher.cpp:604
 msgid "Pick the game:"
 msgstr "Абярыце гульню:"
 
@@ -1063,7 +1067,7 @@ msgstr "Растарызатар GUI:"
 msgid "3D Anti-aliasing:"
 msgstr "Са згладжваннем"
 
-#: gui/options.cpp:1466 engines/mohawk/dialogs.cpp:352
+#: gui/options.cpp:1466 engines/mohawk/dialogs.cpp:364
 msgid "Disabled"
 msgstr "Вылучаны"
 
@@ -1701,10 +1705,6 @@ msgstr ""
 "\n"
 "Налады на вокладцы \"Рознае\" будуць адноўлены."
 
-#: gui/options.cpp:2696
-msgid "The chosen directory cannot be written to. Please select another one."
-msgstr "Не магу пісаць у абраную дырэкторыю. Калі ласка, азначце іншую."
-
 #: gui/options.cpp:2705
 msgid "Select directory for GUI themes"
 msgstr "Абярыце дырэкторыю для тэм GUI"
@@ -1830,13 +1830,13 @@ msgstr "Прайграць"
 msgid "Edit"
 msgstr "Рэдагаваць"
 
-#: gui/recorderdialog.cpp:84 gui/recorderdialog.cpp:240
-#: gui/recorderdialog.cpp:250
+#: gui/recorderdialog.cpp:84 gui/recorderdialog.cpp:241
+#: gui/recorderdialog.cpp:251
 msgid "Author: "
 msgstr "Аўтар: "
 
-#: gui/recorderdialog.cpp:85 gui/recorderdialog.cpp:241
-#: gui/recorderdialog.cpp:251
+#: gui/recorderdialog.cpp:85 gui/recorderdialog.cpp:242
+#: gui/recorderdialog.cpp:252
 msgid "Notes: "
 msgstr "Нататкі: "
 
@@ -1944,7 +1944,7 @@ msgstr "Без графікі"
 msgid "Standard renderer"
 msgstr "Стандартны растарызатар"
 
-#: gui/ThemeEngine.cpp:274 engines/scumm/dialogs.cpp:672
+#: gui/ThemeEngine.cpp:274 engines/scumm/dialogs.cpp:677
 msgid "Standard"
 msgstr "Стандартны"
 
@@ -2024,7 +2024,7 @@ msgstr "Памылка запуску гульні:"
 msgid "Could not find any engine capable of running the selected game"
 msgstr "Не магу знайсці рухавічок для запуску абранай гульні"
 
-#: common/achievements.cpp:229
+#: common/achievements.cpp:231
 msgid "Achievement unlocked!"
 msgstr "Дасягненне разблакавана!"
 
@@ -2113,12 +2113,17 @@ msgstr "PC-9821 (256 колераў)"
 msgid "PC-9801 (16 Colors)"
 msgstr "PC-9801 (16 колераў)"
 
-#: common/rendermode.cpp:73
+#. I18N: Macintosh black-and-white
+#: common/rendermode.cpp:48
+msgid "Macintosh b/w"
+msgstr ""
+
+#: common/rendermode.cpp:75
 msgctxt "lowres"
 msgid "Hercules Green"
 msgstr "Hercules Зялёны"
 
-#: common/rendermode.cpp:74
+#: common/rendermode.cpp:76
 msgctxt "lowres"
 msgid "Hercules Amber"
 msgstr "Hercules Бурштынавы"
@@ -2208,7 +2213,7 @@ msgctxt "lowres"
 msgid "~R~eturn to Launcher"
 msgstr "Г~а~лоўнае меню"
 
-#: engines/dialogs.cpp:99 engines/engine.cpp:830 engines/agi/saveload.cpp:768
+#: engines/dialogs.cpp:99 engines/engine.cpp:824 engines/agi/saveload.cpp:767
 #: engines/avalanche/parser.cpp:1919 engines/buried/saveload.cpp:534
 #: engines/cine/various.cpp:350 engines/dm/loadsave.cpp:199
 #: engines/drascula/saveload.cpp:383 engines/dreamweb/saveload.cpp:262
@@ -2227,7 +2232,7 @@ msgstr "Г~а~лоўнае меню"
 msgid "Save game:"
 msgstr "Захаваць гульню:"
 
-#: engines/dialogs.cpp:99 engines/engine.cpp:830 engines/agi/saveload.cpp:768
+#: engines/dialogs.cpp:99 engines/engine.cpp:824 engines/agi/saveload.cpp:767
 #: engines/avalanche/parser.cpp:1919 engines/buried/saveload.cpp:534
 #: engines/cine/various.cpp:350 engines/dm/loadsave.cpp:199
 #: engines/drascula/saveload.cpp:383 engines/dreamweb/saveload.cpp:262
@@ -2275,43 +2280,43 @@ msgstr "~О~К"
 msgid "~C~ancel"
 msgstr "~А~дмена"
 
-#: engines/engine.cpp:320
+#: engines/engine.cpp:318
 #, c-format
 msgid "Could not switch to resolution '%dx%d'."
 msgstr "Не атрымалася перайсці да разрознасці '%dx%d'."
 
-#: engines/engine.cpp:329
+#: engines/engine.cpp:327
 msgid "Could not initialize color format."
 msgstr "Не магу ініцыялізаваць фармат колеру."
 
-#: engines/engine.cpp:338
+#: engines/engine.cpp:336
 #, c-format
 msgid "Could not switch to video mode '%s'."
 msgstr "Не атрымалася перайсці ў відэарэжым '%s'."
 
-#: engines/engine.cpp:346
+#: engines/engine.cpp:344
 #, c-format
 msgid "Could not switch to stretch mode '%s'."
 msgstr "Не атрымалася перайсці ў рэжым расцягу '%s'."
 
-#: engines/engine.cpp:353
+#: engines/engine.cpp:351
 msgid "Could not apply aspect ratio setting."
 msgstr "Не атрымалася выкарыстаць карэкцыю суадносін бакоў."
 
-#: engines/engine.cpp:358
+#: engines/engine.cpp:356
 msgid "Could not apply fullscreen setting."
 msgstr "Не магу ўжыць поўнаэкранны рэжым."
 
-#: engines/engine.cpp:363
+#: engines/engine.cpp:361
 msgid "Could not apply filtering setting."
 msgstr "Не магу ўжыць налады фільтрацыі."
 
-#: engines/engine.cpp:421
+#: engines/engine.cpp:419
 #, fuzzy
 msgid "Error"
 msgstr "Няма памылкі"
 
-#: engines/engine.cpp:507
+#: engines/engine.cpp:500
 #, fuzzy
 #| msgid ""
 #| "You appear to be playing this game directly\n"
@@ -2332,7 +2337,7 @@ msgstr ""
 "на жорсткі дыск. Падрабязнасці можна знайсці ў\n"
 "файле README."
 
-#: engines/engine.cpp:519
+#: engines/engine.cpp:512
 #, fuzzy
 #| msgid ""
 #| "This game has audio tracks in its disk. These\n"
@@ -2354,17 +2359,17 @@ msgstr ""
 "з'явіцца музыка. Падрабязнасці можна знайсці ў\n"
 "файле README."
 
-#: engines/engine.cpp:550 engines/metaengine.cpp:340 engines/savestate.cpp:81
+#: engines/engine.cpp:548 engines/metaengine.cpp:345 engines/savestate.cpp:81
 #: backends/platform/ios7/ios7_osys_main.cpp:253 engines/sky/metaengine.cpp:176
 #: engines/xeen/saves.cpp:290
 msgid "Autosave"
 msgstr "Аўтазахаванне"
 
-#: engines/engine.cpp:552
+#: engines/engine.cpp:550
 msgid "Error occurred making autosave"
 msgstr "Памылка стварэння аўтазахавання"
 
-#: engines/engine.cpp:629
+#: engines/engine.cpp:623
 #, c-format
 msgid ""
 "Failed to load saved game (%s)! Please consult the README for basic "
@@ -2373,17 +2378,17 @@ msgstr ""
 "Не атрымалася загрузіць гульню (%s)! Звярніцеся да файла README за "
 "падрабязнасцямі і ўказаннямі да атрымання далейшай дапамогі."
 
-#: engines/engine.cpp:647
+#: engines/engine.cpp:641
 msgid "WARNING: "
 msgstr ""
 
-#: engines/engine.cpp:647
+#: engines/engine.cpp:641
 #, fuzzy
 #| msgid "Full title of the game"
 msgid " Shall we still run the game?"
 msgstr "Поўная назва гульні"
 
-#: engines/engine.cpp:648
+#: engines/engine.cpp:642
 msgid ""
 "WARNING: The game you are about to start is not yet fully supported by "
 "ScummVM. As such, it is likely to be unstable, and any saved game you make "
@@ -2393,27 +2398,27 @@ msgstr ""
 "за ўсё, не будзе працаваць стабільна, і захаванні гульняў могуць не "
 "працаваць у будучых версіях ScummVM."
 
-#: engines/engine.cpp:651 engines/wintermute/wintermute.cpp:199
+#: engines/engine.cpp:645 engines/wintermute/wintermute.cpp:183
 msgid "Start anyway"
 msgstr "Усё адно запусціць"
 
-#: engines/engine.cpp:658
+#: engines/engine.cpp:652
 #, fuzzy
 msgid "This game is not supported."
 msgstr "Game id не падтрымваецца"
 
-#: engines/engine.cpp:658
+#: engines/engine.cpp:652
 #, fuzzy
 msgid ""
 "This game is not supported for the following reason:\n"
 "\n"
 msgstr "Гэтая гульня не падтрымвае загрузку захаванняў праз галоўнае меню."
 
-#: engines/engine.cpp:797
+#: engines/engine.cpp:791
 msgid "Loading game is currently unavailable"
 msgstr "Загрузка гульні цяпер недаступна"
 
-#: engines/engine.cpp:826
+#: engines/engine.cpp:820
 msgid "Saving game is currently unavailable"
 msgstr "Цяпер захаванне гульні недаступна"
 
@@ -2446,9 +2451,9 @@ msgid "Left Click"
 msgstr "Левая пстрычка"
 
 #: engines/metaengine.cpp:65 backends/platform/maemo/maemo.cpp:166
-#: engines/wintermute/keymapper_tables.h:256
-#: engines/wintermute/keymapper_tables.h:300
-#: engines/wintermute/keymapper_tables.h:2065
+#: engines/wintermute/keymapper_tables.h:257
+#: engines/wintermute/keymapper_tables.h:301
+#: engines/wintermute/keymapper_tables.h:2090
 msgid "Middle Click"
 msgstr "Сярэдняя пстрычка"
 
@@ -2459,9 +2464,9 @@ msgid "Right Click"
 msgstr "Правая пстрычка"
 
 #: engines/metaengine.cpp:76 engines/hdb/metaengine.cpp:238
-#: engines/mohawk/myst.cpp:591 engines/mohawk/riven.cpp:861
+#: engines/mohawk/myst.cpp:597 engines/mohawk/riven.cpp:861
 #: engines/sky/metaengine.cpp:113 engines/twine/metaengine.cpp:210
-#: engines/wintermute/keymapper_tables.h:1517
+#: engines/wintermute/keymapper_tables.h:1532
 msgid "Pause"
 msgstr "Паўза"
 
@@ -2470,12 +2475,13 @@ msgid "Game menu"
 msgstr "Меню гульні"
 
 #: engines/metaengine.cpp:87 engines/grim/grim.cpp:499
-#: engines/grim/grim.cpp:591 engines/mohawk/myst.cpp:562
-#: engines/mohawk/riven.cpp:832 engines/wintermute/keymapper_tables.h:220
-#: engines/wintermute/keymapper_tables.h:1238
-#: engines/wintermute/keymapper_tables.h:1510
-#: engines/wintermute/keymapper_tables.h:1623
-#: engines/wintermute/keymapper_tables.h:2009
+#: engines/grim/grim.cpp:591 engines/mohawk/myst.cpp:568
+#: engines/mohawk/riven.cpp:832 engines/wintermute/keymapper_tables.h:221
+#: engines/wintermute/keymapper_tables.h:1093
+#: engines/wintermute/keymapper_tables.h:1249
+#: engines/wintermute/keymapper_tables.h:1525
+#: engines/wintermute/keymapper_tables.h:1640
+#: engines/wintermute/keymapper_tables.h:2034
 msgid "Skip"
 msgstr "Прапусціць"
 
@@ -2579,7 +2585,7 @@ msgstr ""
 msgid "Starting MIDI dump"
 msgstr "Пачата стварэнне дампа MIDI"
 
-#: audio/mods/paula.cpp:303
+#: audio/mods/paula.cpp:304
 msgid "Amiga Audio emulator"
 msgstr "Эмулятар аўдыя Amiga"
 
@@ -2806,27 +2812,27 @@ msgid "Resolution: %dx%d"
 msgstr "Адрозненне: %dx%d"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:687
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2413
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2409
 msgid "Enabled aspect ratio correction"
 msgstr "Карэкцыя суадносін бакоў уключана"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:689
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2419
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2415
 msgid "Disabled aspect ratio correction"
 msgstr "Карэкцыя суадносін бакоў выключана"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:710
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2435
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2431
 msgid "Filtering enabled"
 msgstr "Фільтрацыя ўключана"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:712
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2437
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2433
 msgid "Filtering disabled"
 msgstr "Фільтрацыя выключана"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:741
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2464
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2460
 msgid "Stretch mode"
 msgstr "Рэжым расцягу"
 
@@ -2834,7 +2840,7 @@ msgstr "Рэжым расцягу"
 msgid "SDL Surface"
 msgstr ""
 
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2379
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2375
 msgid "Active graphics filter:"
 msgstr "Актыўны графічны фільтр:"
 
@@ -2847,20 +2853,20 @@ msgid "Toggle fullscreen"
 msgstr "Пераключэнне на ўвесь экран"
 
 #: backends/graphics/sdl/sdl-graphics.cpp:419 engines/scumm/help.cpp:99
-#: engines/wintermute/keymapper_tables.h:951
+#: engines/wintermute/keymapper_tables.h:961
 msgid "Toggle mouse capture"
 msgstr "Пераключэнне перахопу мышы"
 
 #: backends/graphics/sdl/sdl-graphics.cpp:424
-#: engines/wintermute/keymapper_tables.h:644
-#: engines/wintermute/keymapper_tables.h:692
-#: engines/wintermute/keymapper_tables.h:1088
-#: engines/wintermute/keymapper_tables.h:1302
-#: engines/wintermute/keymapper_tables.h:1391
-#: engines/wintermute/keymapper_tables.h:1548
-#: engines/wintermute/keymapper_tables.h:1750
-#: engines/wintermute/keymapper_tables.h:1767
-#: engines/wintermute/keymapper_tables.h:1798
+#: engines/wintermute/keymapper_tables.h:647
+#: engines/wintermute/keymapper_tables.h:696
+#: engines/wintermute/keymapper_tables.h:1099
+#: engines/wintermute/keymapper_tables.h:1313
+#: engines/wintermute/keymapper_tables.h:1403
+#: engines/wintermute/keymapper_tables.h:1563
+#: engines/wintermute/keymapper_tables.h:1768
+#: engines/wintermute/keymapper_tables.h:1786
+#: engines/wintermute/keymapper_tables.h:1819
 msgid "Save screenshot"
 msgstr "Захаваць скрыншот"
 
@@ -3061,7 +3067,7 @@ msgstr "Віртуальная мыш направа"
 msgid "Slow down virtual mouse"
 msgstr "Запаволіць віртуальную мыш"
 
-#: backends/midi/windows.cpp:167
+#: backends/midi/windows.cpp:169
 msgid "Windows MIDI"
 msgstr "Windows MIDI"
 
@@ -3768,7 +3774,7 @@ msgstr "Не эмуляваць артэфакты NTSC для тэксту"
 #: engines/neverhood/detection.cpp:124 engines/sci/detection.cpp:236
 #: engines/sherlock/detection.cpp:59 engines/toltecs/detection.cpp:213
 #: engines/trecision/detection.cpp:208 engines/ultima/detection.cpp:55
-#: engines/ultima/ultima8/meta_engine.cpp:163
+#: engines/ultima/ultima8/meta_engine.cpp:169
 #: engines/zvision/detection_tables.h:50
 msgid "Use original save/load screens"
 msgstr "Выкарыстоўваць арыгінальныя экраны запісу/чытання гульні"
@@ -3778,7 +3784,7 @@ msgstr "Выкарыстоўваць арыгінальныя экраны за�
 #: engines/neverhood/detection.cpp:125 engines/sci/detection.cpp:237
 #: engines/sherlock/detection.cpp:60 engines/toltecs/detection.cpp:214
 #: engines/trecision/detection.cpp:209 engines/ultima/detection.cpp:56
-#: engines/ultima/ultima8/meta_engine.cpp:164
+#: engines/ultima/ultima8/meta_engine.cpp:170
 #: engines/zvision/detection_tables.h:51
 msgid "Use the original save/load screens instead of the ScummVM ones"
 msgstr ""
@@ -3847,7 +3853,7 @@ msgstr ""
 "Калі ў вас ёсць такі файл ад іншай гульні AGI (Sierra), вы можаце скапіяваць "
 "яго ў каталог з гульнёй"
 
-#: engines/agi/saveload.cpp:781 engines/avalanche/parser.cpp:1907
+#: engines/agi/saveload.cpp:780 engines/avalanche/parser.cpp:1907
 #: engines/cine/various.cpp:361 engines/dm/dm.cpp:274
 #: engines/dm/loadsave.cpp:187 engines/drascula/saveload.cpp:396
 #: engines/dreamweb/saveload.cpp:170 engines/glk/streams.cpp:1442
@@ -3863,7 +3869,7 @@ msgstr ""
 msgid "Restore game:"
 msgstr "Узнавіць гульню:"
 
-#: engines/agi/saveload.cpp:781 engines/avalanche/parser.cpp:1907
+#: engines/agi/saveload.cpp:780 engines/avalanche/parser.cpp:1907
 #: engines/cine/various.cpp:361 engines/dm/dm.cpp:274
 #: engines/dm/loadsave.cpp:187 engines/drascula/saveload.cpp:396
 #: engines/dreamweb/saveload.cpp:170 engines/glk/streams.cpp:1442
@@ -3884,7 +3890,7 @@ msgstr "Узнавіць"
 msgid "Quick load or save game isn't supported in this location"
 msgstr ""
 
-#: engines/agos/saveload.cpp:159 engines/scumm/scumm.cpp:2602
+#: engines/agos/saveload.cpp:159 engines/scumm/scumm.cpp:2693
 #, c-format
 msgid ""
 "Failed to load saved game from file:\n"
@@ -3895,7 +3901,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: engines/agos/saveload.cpp:194 engines/scumm/scumm.cpp:2592
+#: engines/agos/saveload.cpp:194 engines/scumm/scumm.cpp:2683
 #, c-format
 msgid ""
 "Failed to save game to file:\n"
@@ -3906,7 +3912,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: engines/agos/saveload.cpp:202 engines/scumm/scumm.cpp:2615
+#: engines/agos/saveload.cpp:202 engines/scumm/scumm.cpp:2706
 #, c-format
 msgid ""
 "Successfully saved game in file:\n"
@@ -3969,11 +3975,11 @@ msgstr ""
 msgid "Show version"
 msgstr "Паказаць краслюнак"
 
-#: engines/asylum/metaengine.cpp:73 engines/wintermute/keymapper_tables.h:941
+#: engines/asylum/metaengine.cpp:73 engines/wintermute/keymapper_tables.h:951
 msgid "Quick load"
 msgstr "Хуткая загрузка"
 
-#: engines/asylum/metaengine.cpp:78 engines/wintermute/keymapper_tables.h:921
+#: engines/asylum/metaengine.cpp:78 engines/wintermute/keymapper_tables.h:931
 msgid "Quick save"
 msgstr "Хуткае захаванне"
 
@@ -4003,7 +4009,7 @@ msgstr "Не атрымалася ініцыялізаваць рэсурсы"
 msgid "A required game resource was not found"
 msgstr "Патрэбны гульнявы рэсурс не знойдзены"
 
-#: engines/bladerunner/bladerunner.cpp:2292
+#: engines/bladerunner/bladerunner.cpp:2301
 msgid ""
 "WARNING: This game was saved in Restored Cut Content mode, but you are "
 "playing in Original Content mode. The mode will be adjusted to Restored Cut "
@@ -4013,7 +4019,7 @@ msgstr ""
 "але вы гуляеце ў рэжыме выточнага змесціва. Для гэтага сеансу рэжым будзе "
 "зменены на адноўленае змесціва да поўнага выхаду з гульні."
 
-#: engines/bladerunner/bladerunner.cpp:2294
+#: engines/bladerunner/bladerunner.cpp:2303
 msgid ""
 "WARNING: This game was saved in Original Content mode, but you are playing "
 "in Restored Cut Content mode. The mode will be adjusted to Original Content "
@@ -4023,7 +4029,7 @@ msgstr ""
 "гуляеце ў рэжыме адноўленага выразанага змесціва. Для гэтага сеансу рэжым "
 "будзе зменены на выточнае змесціва да поўнага выхаду з гульні."
 
-#: engines/bladerunner/bladerunner.cpp:2296
+#: engines/bladerunner/bladerunner.cpp:2305
 msgid "Continue"
 msgstr "Працягнуць"
 
@@ -4086,14 +4092,14 @@ msgid ""
 "ScummVM."
 msgstr ""
 
-#: engines/bladerunner/detection_tables.h:129 engines/cge/detection.cpp:56
-#: engines/cge/detection.cpp:62 engines/kyra/detection_tables.h:303
+#: engines/bladerunner/detection_tables.h:129 engines/cge/detection.cpp:57
+#: engines/cge/detection.cpp:63 engines/kyra/detection_tables.h:303
 #: engines/kyra/detection_tables.h:983 engines/lure/detection.cpp:233
 #: engines/mohawk/detection_tables.h:954 engines/mohawk/detection_tables.h:1045
 #: engines/mohawk/detection_tables.h:1060 engines/neverhood/detection.cpp:110
 #: engines/saga/detection_tables.h:187 engines/saga/detection_tables.h:985
-#: engines/saga/detection_tables.h:1044 engines/sci/detection_tables.h:4871
-#: engines/sci/detection_tables.h:4879 engines/sherlock/detection_tables.h:214
+#: engines/saga/detection_tables.h:1044 engines/sci/detection_tables.h:4880
+#: engines/sci/detection_tables.h:4888 engines/sherlock/detection_tables.h:214
 #: engines/stark/detection.cpp:305 engines/teenagent/detection.cpp:118
 #: engines/zvision/detection_tables.h:190
 #: engines/zvision/detection_tables.h:210
@@ -4107,7 +4113,7 @@ msgstr "Асноўнае кіраванне гульнёй:"
 msgid "Your game is now Paused.  Click OK to continue."
 msgstr "Гульня прыпынена. Каб працягнуць, націсніце любую кнопку."
 
-#: engines/buried/buried.cpp:533
+#: engines/buried/buried.cpp:530
 #, fuzzy
 #| msgid "   Are you sure you want to quit ?   "
 msgid "Are you sure you want to quit?"
@@ -4117,13 +4123,23 @@ msgstr "   Вы ўпэўнены, што жадаеце выйсці?   "
 msgid "Invalid save file name"
 msgstr "Няправільнае імя файла захавання"
 
-#: engines/cge/detection.cpp:107
+#: engines/cge/detection.cpp:108
 msgid "Color Blind Mode"
 msgstr "Рэжым без колеру"
 
-#: engines/cge/detection.cpp:108
+#: engines/cge/detection.cpp:109
 msgid "Enable Color Blind Mode by default"
 msgstr "Уключыць рэжым для людзей са слабым успрыманнем колеру"
+
+#: engines/cge/detection.cpp:119 engines/glk/detection.cpp:239
+msgid "Enable Text to Speech"
+msgstr "Уключыць генератар мовы"
+
+#: engines/cge/detection.cpp:120
+#, fuzzy
+#| msgid "Use TTS to read the descriptions (if TTS is available)"
+msgid "Use TTS to read text in the game (if TTS is available)"
+msgstr "Ужываць TTS для чытання апісанняў услых (калі TTS даступна)"
 
 #: engines/cine/detection.cpp:61
 msgid "Use transparent dialog boxes in 16 color scenes"
@@ -4253,10 +4269,6 @@ msgstr "Выкарыстоўваць рэжым яркай палітры"
 #: engines/dreamweb/detection.cpp:62
 msgid "Display graphics using the game's bright palette"
 msgstr "Малюе графіку з выкарыстаннем яркай палітры гульні"
-
-#: engines/glk/detection.cpp:239
-msgid "Enable Text to Speech"
-msgstr "Уключыць генератар мовы"
 
 #: engines/glk/detection.cpp:240
 msgid "Use TTS to read the text"
@@ -4790,7 +4802,7 @@ msgstr "Рухацца направа"
 #: engines/scumm/help.cpp:198 engines/scumm/help.cpp:213
 #: engines/scumm/help.cpp:224 engines/scumm/help.cpp:250
 #: engines/sky/metaengine.cpp:82 engines/wintermute/keymapper_tables.h:141
-#: engines/wintermute/keymapper_tables.h:1464
+#: engines/wintermute/keymapper_tables.h:1476
 msgid "Use"
 msgstr "Выкарыстаць"
 
@@ -4926,13 +4938,13 @@ msgstr "Уключаныя ў зборку опцыі:"
 
 #: engines/kyra/engine/eobcommon.cpp:368 engines/kyra/engine/lol.cpp:473
 #: engines/ultima/ultima4/meta_engine.cpp:225
-#: engines/ultima/ultima8/meta_engine.cpp:198
+#: engines/ultima/ultima8/meta_engine.cpp:204
 msgid "Interact via Left Click"
 msgstr "Узаемадзеянне праз левую пстрычку"
 
 #: engines/kyra/engine/eobcommon.cpp:369 engines/kyra/engine/lol.cpp:474
 #: engines/ultima/ultima4/meta_engine.cpp:231
-#: engines/ultima/ultima8/meta_engine.cpp:204
+#: engines/ultima/ultima8/meta_engine.cpp:210
 msgid "Interact via Right Click"
 msgstr "Узаемадзеянне праз правую пстрычку"
 
@@ -5204,32 +5216,32 @@ msgid "Naughty game mode"
 msgstr "Гарэзны рэжым гульні"
 
 #. I18N: Option for fast scene switching
-#: engines/mohawk/dialogs.cpp:113 engines/mohawk/dialogs.cpp:345
+#: engines/mohawk/dialogs.cpp:114 engines/mohawk/dialogs.cpp:357
 msgid "~Z~ip Mode Activated"
 msgstr "~Р~эжым хуткага пераходу актываваны"
 
-#: engines/mohawk/dialogs.cpp:114
+#: engines/mohawk/dialogs.cpp:115
 msgid ""
 "When activated, clicking on an item or area with the lightning bolt cursor "
 "takes you directly there, skipping intermediate screens. You can only 'Zip' "
 "to a precise area you've already been."
 msgstr ""
 
-#: engines/mohawk/dialogs.cpp:117
+#: engines/mohawk/dialogs.cpp:118
 msgid "~T~ransitions Enabled"
 msgstr "~П~ераходы актываваны"
 
-#: engines/mohawk/dialogs.cpp:118
+#: engines/mohawk/dialogs.cpp:119
 msgid ""
 "Toggle screen transitions on or off. Turning off screen transitions will "
 "enable you to navigate more quickly through the game."
 msgstr ""
 
-#: engines/mohawk/dialogs.cpp:121
+#: engines/mohawk/dialogs.cpp:122
 msgid "Play the Myst fly by movie"
 msgstr "Прайграваць ролік пралёту над Myst"
 
-#: engines/mohawk/dialogs.cpp:122
+#: engines/mohawk/dialogs.cpp:123
 msgid "The Myst fly by movie was not played by the original engine."
 msgstr "Ролік пралёту над Myst не прайграваўся арыгінальным рухавічком."
 
@@ -5240,44 +5252,48 @@ msgstr "Ролік пралёту над Myst не прайграваўся ар
 #. We change it to use fuzzy logic.
 #. By default the option is off.
 #.
-#: engines/mohawk/dialogs.cpp:134
+#: engines/mohawk/dialogs.cpp:135
 msgid "~F~uzzy Logic in SpaceShip Active"
 msgstr ""
 
+#: engines/mohawk/dialogs.cpp:138
+msgid "Simulate loading times of old CD drives"
+msgstr ""
+
 #. I18N: Drop book page
-#: engines/mohawk/dialogs.cpp:142
+#: engines/mohawk/dialogs.cpp:145
 msgid "~D~rop Page"
 msgstr "~В~ыкінуць старонку"
 
-#: engines/mohawk/dialogs.cpp:146
+#: engines/mohawk/dialogs.cpp:149
 msgid "Show ~M~ap"
 msgstr "Паказаць ~к~арту"
 
-#: engines/mohawk/dialogs.cpp:151
+#: engines/mohawk/dialogs.cpp:154
 msgid "Main Men~u~"
 msgstr "Галоўнае мен~ю~"
 
-#: engines/mohawk/dialogs.cpp:274
+#: engines/mohawk/dialogs.cpp:286
 msgid "The new language will be applied after restarting the game."
 msgstr "Новая мова будзе ўжыта пасля перазапуску гульні."
 
-#: engines/mohawk/dialogs.cpp:346
+#: engines/mohawk/dialogs.cpp:358
 msgid "~W~ater Effect Enabled"
 msgstr "~Э~фекты вады ўключаны"
 
-#: engines/mohawk/dialogs.cpp:348
+#: engines/mohawk/dialogs.cpp:360
 msgid "Transitions:"
 msgstr "Пераходы:"
 
-#: engines/mohawk/dialogs.cpp:353
+#: engines/mohawk/dialogs.cpp:365
 msgid "Fastest"
 msgstr "Хуткія"
 
-#: engines/mohawk/dialogs.cpp:354
+#: engines/mohawk/dialogs.cpp:366
 msgid "Normal"
 msgstr "Звычайныя"
 
-#: engines/mohawk/dialogs.cpp:355
+#: engines/mohawk/dialogs.cpp:367
 msgid "Best"
 msgstr "Лепшыя"
 
@@ -5305,32 +5321,32 @@ msgstr "Уключаныя ў зборку опцыі:"
 msgid "The game is paused. Press any key to continue."
 msgstr "Гульня прыпынена. Каб працягнуць, націсніце любую кнопку."
 
-#: engines/mohawk/myst.cpp:550 engines/mohawk/riven.cpp:820
+#: engines/mohawk/myst.cpp:556 engines/mohawk/riven.cpp:820
 msgid "Open main menu"
 msgstr "Адкрыць галоўнае меню"
 
-#: engines/mohawk/myst.cpp:574 engines/mohawk/riven.cpp:844
+#: engines/mohawk/myst.cpp:580 engines/mohawk/riven.cpp:844
 msgid "Load game state"
 msgstr "Загрузіць гульню"
 
-#: engines/mohawk/myst.cpp:579 engines/mohawk/riven.cpp:849
+#: engines/mohawk/myst.cpp:585 engines/mohawk/riven.cpp:849
 msgid "Save game state"
 msgstr "Захаваць гульню"
 
-#: engines/mohawk/myst.cpp:584 engines/mohawk/riven.cpp:854
+#: engines/mohawk/myst.cpp:590 engines/mohawk/riven.cpp:854
 msgid "Show options menu"
 msgstr "Паказаць меню опцый"
 
-#: engines/mohawk/myst.cpp:596
+#: engines/mohawk/myst.cpp:602
 msgid "Drop page"
 msgstr "Выкінуць старонку"
 
-#: engines/mohawk/myst.cpp:602 engines/wintermute/keymapper_tables.h:1438
-#: engines/wintermute/keymapper_tables.h:1580
-#: engines/wintermute/keymapper_tables.h:1629
-#: engines/wintermute/keymapper_tables.h:1652
-#: engines/wintermute/keymapper_tables.h:1671
-#: engines/wintermute/keymapper_tables.h:1704
+#: engines/mohawk/myst.cpp:608 engines/wintermute/keymapper_tables.h:1450
+#: engines/wintermute/keymapper_tables.h:1597
+#: engines/wintermute/keymapper_tables.h:1646
+#: engines/wintermute/keymapper_tables.h:1669
+#: engines/wintermute/keymapper_tables.h:1688
+#: engines/wintermute/keymapper_tables.h:1721
 msgid "Show map"
 msgstr "Паказаць карту"
 
@@ -5345,7 +5361,7 @@ msgstr ""
 
 #: engines/mohawk/myst_stacks/menu.cpp:284
 #: engines/mohawk/riven_stacks/aspit.cpp:350
-#: engines/wintermute/keymapper_tables.h:916
+#: engines/wintermute/keymapper_tables.h:926
 msgid "Load game"
 msgstr "Загрузіць гульню"
 
@@ -5415,16 +5431,16 @@ msgid "Move backwards"
 msgstr "Рухацца назад"
 
 #: engines/mohawk/riven.cpp:886 engines/wintermute/keymapper_tables.h:162
-#: engines/wintermute/keymapper_tables.h:734
-#: engines/wintermute/keymapper_tables.h:2021
-#: engines/wintermute/keymapper_tables.h:2128
+#: engines/wintermute/keymapper_tables.h:742
+#: engines/wintermute/keymapper_tables.h:2046
+#: engines/wintermute/keymapper_tables.h:2147
 msgid "Turn left"
 msgstr "Павярнуць налева"
 
 #: engines/mohawk/riven.cpp:892 engines/wintermute/keymapper_tables.h:168
-#: engines/wintermute/keymapper_tables.h:739
-#: engines/wintermute/keymapper_tables.h:2027
-#: engines/wintermute/keymapper_tables.h:2135
+#: engines/wintermute/keymapper_tables.h:747
+#: engines/wintermute/keymapper_tables.h:2052
+#: engines/wintermute/keymapper_tables.h:2154
 msgid "Turn right"
 msgstr "Павярнуць направа"
 
@@ -5864,12 +5880,7 @@ msgstr "Game id не падтрымваецца"
 msgid "I Have No Mouth support not compiled in"
 msgstr "Уключаныя ў зборку опцыі:"
 
-#: engines/saga/metaengine.cpp:120
-#, fuzzy
-msgid "SAGA2 support not compiled in"
-msgstr "Уключаныя ў зборку опцыі:"
-
-#: engines/saga/saga.cpp:247
+#: engines/saga/saga.cpp:229
 #, fuzzy
 msgid "Error loading game resources."
 msgstr "Памылка запуску гульні:"
@@ -6014,7 +6025,7 @@ msgstr "Roland D-110 / D-10 / D-20"
 msgid "Yamaha FB-01"
 msgstr "Yamaha FB-01"
 
-#: engines/sci/detection_tables.h:4227
+#: engines/sci/detection_tables.h:4236
 msgid "Incomplete game detected. You have to copy data from all the CDs."
 msgstr ""
 
@@ -6029,7 +6040,7 @@ msgstr ""
 "Калі ласка, скарыстайцеся іншай праграмай для прагляду файла дапамогі "
 "гульні: %s"
 
-#: engines/sci/engine/kmisc.cpp:871
+#: engines/sci/engine/kmisc.cpp:872
 msgid ""
 "The Poker logic is hardcoded in an external DLL, and is not implemented yet. "
 "There exists some dummy logic for now, where opponent actions are chosen "
@@ -6307,36 +6318,36 @@ msgstr "~П~апяр"
 msgid "~N~ext"
 msgstr "~Н~аст"
 
-#: engines/scumm/dialogs.cpp:611
+#: engines/scumm/dialogs.cpp:616
 msgid "Speech Only"
 msgstr "Толькі агучка"
 
-#: engines/scumm/dialogs.cpp:612
+#: engines/scumm/dialogs.cpp:617
 msgid "Speech and Subtitles"
 msgstr "Агучка і субтытры"
 
-#: engines/scumm/dialogs.cpp:613
+#: engines/scumm/dialogs.cpp:618
 msgid "Subtitles Only"
 msgstr "Толькі субтытры"
 
-#: engines/scumm/dialogs.cpp:621
+#: engines/scumm/dialogs.cpp:626
 msgctxt "lowres"
 msgid "Speech & Subs"
 msgstr "Агучка і тэкст"
 
-#: engines/scumm/dialogs.cpp:667
+#: engines/scumm/dialogs.cpp:672
 msgid "Select a Proficiency Level."
 msgstr "Абярыце ўзровень складанасці."
 
-#: engines/scumm/dialogs.cpp:669
+#: engines/scumm/dialogs.cpp:674
 msgid "Refer to your Loom(TM) manual for help."
 msgstr "За дапамогай звярніцеся да інструкцыі Loom(TM)."
 
-#: engines/scumm/dialogs.cpp:673
+#: engines/scumm/dialogs.cpp:678
 msgid "Practice"
 msgstr "Практыкант"
 
-#: engines/scumm/dialogs.cpp:674
+#: engines/scumm/dialogs.cpp:679
 msgid "Expert"
 msgstr "Эксперт"
 
@@ -6360,7 +6371,7 @@ msgstr "Esc"
 msgid "Skip cutscene"
 msgstr "Прапусціць застаўку"
 
-#: engines/scumm/help.cpp:78 engines/wintermute/keymapper_tables.h:2035
+#: engines/scumm/help.cpp:78 engines/wintermute/keymapper_tables.h:2060
 msgid "Space"
 msgstr "Прабел"
 
@@ -6402,7 +6413,7 @@ msgstr "Хуткасць тэксту павольней / хутчэй"
 msgid "Simulate left mouse button"
 msgstr "Эмуляцыя левай клавішы мышы"
 
-#: engines/scumm/help.cpp:90 engines/wintermute/keymapper_tables.h:2090
+#: engines/scumm/help.cpp:90 engines/wintermute/keymapper_tables.h:2115
 msgid "Tab"
 msgstr "Tab"
 
@@ -6519,14 +6530,14 @@ msgid "Turn off"
 msgstr "Выключыць"
 
 #: engines/scumm/help.cpp:142 engines/scumm/help.cpp:167
-#: engines/scumm/help.cpp:194 engines/wintermute/keymapper_tables.h:1452
+#: engines/scumm/help.cpp:194 engines/wintermute/keymapper_tables.h:1464
 msgid "Walk to"
 msgstr "Ісці да"
 
 #: engines/scumm/help.cpp:143 engines/scumm/help.cpp:168
 #: engines/scumm/help.cpp:195 engines/scumm/help.cpp:210
 #: engines/scumm/help.cpp:227 engines/wintermute/keymapper_tables.h:135
-#: engines/wintermute/keymapper_tables.h:1458
+#: engines/wintermute/keymapper_tables.h:1470
 msgid "Pick up"
 msgstr "Падняць"
 
@@ -6613,13 +6624,13 @@ msgstr "цягнуць (чапляць)"
 
 #: engines/scumm/help.cpp:196 engines/scumm/help.cpp:212
 #: engines/scumm/help.cpp:248 engines/wintermute/keymapper_tables.h:129
-#: engines/wintermute/keymapper_tables.h:1470
+#: engines/wintermute/keymapper_tables.h:1482
 msgid "Talk to"
 msgstr "Гаварыць з"
 
 #: engines/scumm/help.cpp:199 engines/scumm/help.cpp:211
 #: engines/wintermute/keymapper_tables.h:123
-#: engines/wintermute/keymapper_tables.h:1446
+#: engines/wintermute/keymapper_tables.h:1458
 msgid "Look at"
 msgstr "Глядзець на"
 
@@ -6888,7 +6899,7 @@ msgstr "Уключаныя ў зборку опцыі:"
 msgid "SCUMM v7-8 support is not compiled in"
 msgstr "Уключаныя ў зборку опцыі:"
 
-#: engines/scumm/scumm.cpp:539
+#: engines/scumm/scumm.cpp:540
 msgid ""
 "You have enabled 'aspect ratio correction'. However, FM-TOWNS' natural "
 "resolution is 320x240, which doesn't allow aspect ratio correction.\n"
@@ -6896,7 +6907,19 @@ msgid ""
 "320x200, under 'engine' tab."
 msgstr ""
 
-#: engines/scumm/scumm.cpp:1326
+#: engines/scumm/scumm.cpp:1341
+#, fuzzy
+#| msgid ""
+#| "Could not find the 'Loom' Macintosh executable to read the\n"
+#| "instruments from. Music will be disabled."
+msgid ""
+"Could not find the 'Indy' Macintosh executable. High-resolution fonts will\n"
+"be disabled."
+msgstr ""
+"Не атрымалася знайсці выканальны файл 'Loom' Macintosh, каб прачытаць\n"
+"дадзеныя пра інструменты. Музыка будзе выключана."
+
+#: engines/scumm/scumm.cpp:1367
 #, fuzzy
 #| msgid ""
 #| "Could not find the 'Loom' Macintosh executable to read the\n"
@@ -6908,7 +6931,7 @@ msgstr ""
 "Не атрымалася знайсці выканальны файл 'Loom' Macintosh, каб прачытаць\n"
 "дадзеныя пра інструменты. Музыка будзе выключана."
 
-#: engines/scumm/scumm.cpp:1348
+#: engines/scumm/scumm.cpp:1389
 msgid ""
 "Could not find the 'Monkey Island' Macintosh executable to read the\n"
 "instruments from. Music will be disabled."
@@ -6917,7 +6940,7 @@ msgstr ""
 "прачытаць\n"
 "дадзеныя пра інструменты. Музыка будзе выключана."
 
-#: engines/scumm/scumm.cpp:2022
+#: engines/scumm/scumm.cpp:2081
 #, c-format
 msgid ""
 "Native MIDI support requires the Roland Upgrade from LucasArts,\n"
@@ -6926,7 +6949,7 @@ msgstr ""
 "Рэжым \"роднага\" MIDI патрабуе абнаўленне Roland Upgrade ад\n"
 "LucasArts, але бракуе %s. Пераключаюся на AdLib."
 
-#: engines/scumm/scumm.cpp:2900
+#: engines/scumm/scumm.cpp:3008
 msgid ""
 "Usually, Maniac Mansion would start now. But for that to work, the game "
 "files for Maniac Mansion have to be in the 'Maniac' directory inside the "
@@ -7050,12 +7073,12 @@ msgid ""
 "full screen mode, at the cost of some details."
 msgstr ""
 
-#: engines/stark/detection.cpp:379 engines/ultima/ultima8/meta_engine.cpp:175
+#: engines/stark/detection.cpp:379 engines/ultima/ultima8/meta_engine.cpp:181
 #, fuzzy
 msgid "Enable font anti-aliasing"
 msgstr "Уключыць цэнзуру змесціва"
 
-#: engines/stark/detection.cpp:380 engines/ultima/ultima8/meta_engine.cpp:176
+#: engines/stark/detection.cpp:380 engines/ultima/ultima8/meta_engine.cpp:182
 msgid "When font anti-aliasing is enabled, the text is smoother."
 msgstr ""
 
@@ -7367,13 +7390,13 @@ msgstr ""
 msgid "Enable the USA specific version flags"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:151
+#: engines/twine/metaengine.cpp:151 engines/ultima/ultima8/meta_engine.cpp:147
 #, fuzzy
 #| msgid "Enable high resolution graphics"
 msgid "Enable high resolution"
 msgstr "Уключыць адлюстраванне графікі высокага адрознення"
 
-#: engines/twine/metaengine.cpp:152
+#: engines/twine/metaengine.cpp:152 engines/ultima/ultima8/meta_engine.cpp:148
 #, fuzzy
 msgid "Enable a higher resolution for the game"
 msgstr "Поўная назва гульні"
@@ -7596,46 +7619,46 @@ msgstr "Уключыць рэжым c чытамі"
 msgid "Allow cheats by commands and a menu when player is clicked."
 msgstr ""
 
-#: engines/ultima/ultima8/meta_engine.cpp:151
+#: engines/ultima/ultima8/meta_engine.cpp:157
 msgid "Play foot step sounds"
 msgstr ""
 
-#: engines/ultima/ultima8/meta_engine.cpp:152
+#: engines/ultima/ultima8/meta_engine.cpp:158
 msgid "Plays sound when the player moves."
 msgstr ""
 
-#: engines/ultima/ultima8/meta_engine.cpp:157
+#: engines/ultima/ultima8/meta_engine.cpp:163
 #, fuzzy
 msgid "Enable jump to mouse position"
 msgstr "Поўная назва гульні"
 
-#: engines/ultima/ultima8/meta_engine.cpp:158
+#: engines/ultima/ultima8/meta_engine.cpp:164
 msgid ""
 "Jumping while not moving targets the mouse cursor rather than direction only."
 msgstr ""
 
-#: engines/ultima/ultima8/meta_engine.cpp:169
+#: engines/ultima/ultima8/meta_engine.cpp:175
 #, fuzzy
 msgid "Enable font replacement"
 msgstr "Уключыць цэнзуру змесціва"
 
-#: engines/ultima/ultima8/meta_engine.cpp:170
+#: engines/ultima/ultima8/meta_engine.cpp:176
 msgid "Replaces game fonts with rendered fonts"
 msgstr ""
 
-#: engines/ultima/ultima8/meta_engine.cpp:191
+#: engines/ultima/ultima8/meta_engine.cpp:197
 msgid "Ultima VIII"
 msgstr "Ultima VIII"
 
-#: engines/ultima/ultima8/meta_engine.cpp:191
+#: engines/ultima/ultima8/meta_engine.cpp:197
 msgid "Crusader"
 msgstr "Crusader"
 
-#: engines/ultima/ultima8/meta_engine.cpp:238
+#: engines/ultima/ultima8/meta_engine.cpp:244
 msgid "Ultima VIII Cheats"
 msgstr "Чыты Ultima VIII"
 
-#: engines/ultima/ultima8/meta_engine.cpp:255
+#: engines/ultima/ultima8/meta_engine.cpp:261
 msgid "Ultima VIII Debug"
 msgstr "Адладка Ultima VIII"
 
@@ -7682,583 +7705,611 @@ msgstr "Уключаныя ў зборку опцыі:"
 msgid "Wintermute3D support is not compiled in"
 msgstr "Уключаныя ў зборку опцыі:"
 
-#: engines/wintermute/wintermute.cpp:165
+#: engines/wintermute/wintermute.cpp:149
 msgid "This game requires PNG, JPEG and Vorbis support."
 msgstr "Гэта гульня патрабуе падтрымкі PNG, JPEG і Vorbis."
 
-#: engines/wintermute/wintermute.cpp:176
+#: engines/wintermute/wintermute.cpp:160
 msgid "This game requires the FoxTail subengine, which is not compiled in."
 msgstr "Гэта гульня патрабуе рухавічок FoxTail, якога няма ў зборцы."
 
-#: engines/wintermute/wintermute.cpp:187
+#: engines/wintermute/wintermute.cpp:171
 msgid "This game requires the HeroCraft subengine, which is not compiled in."
 msgstr "Гэта гульня патрабуе рухавічок HeroCraft, якога няма ў зборцы."
 
-#: engines/wintermute/wintermute.cpp:198
+#: engines/wintermute/wintermute.cpp:182
+#, fuzzy
+#| msgid ""
+#| "This game requires 3D capabilities that are out ScummVM scope. As such, "
+#| "it is likely to be unplayable totally or partially."
 msgid ""
-"This game requires 3D capabilities that are out ScummVM scope. As such, it "
-"is likely to be unplayable totally or partially."
+"This game requires 3D capabilities, which is not compiled in. As such, it is "
+"likely to be unplayable totally or partially."
 msgstr ""
 "Гэта гульня патрабуе падтрымкі 3D-графікі, якая выходзіць за межы ScummVM. "
 "Таму, хутчэй за ўсё, гульня не будзе працаваць цалкам ці часткова."
 
 #: engines/wintermute/keymapper_tables.h:150
-#: engines/wintermute/keymapper_tables.h:724
-#: engines/wintermute/keymapper_tables.h:2015
-#: engines/wintermute/keymapper_tables.h:2114
+#: engines/wintermute/keymapper_tables.h:732
+#: engines/wintermute/keymapper_tables.h:2040
+#: engines/wintermute/keymapper_tables.h:2140
 msgid "Walk forward"
 msgstr "Ісці наперад"
 
 #: engines/wintermute/keymapper_tables.h:156
-#: engines/wintermute/keymapper_tables.h:729
-#: engines/wintermute/keymapper_tables.h:2121
+#: engines/wintermute/keymapper_tables.h:737
+#: engines/wintermute/keymapper_tables.h:2162
 msgid "Walk backward"
 msgstr "Ісці назад"
 
-#: engines/wintermute/keymapper_tables.h:174
-#: engines/wintermute/keymapper_tables.h:682
-#: engines/wintermute/keymapper_tables.h:1760
+#. I18N: Debug feature to draw lines of scene geometry: walls, walking areas, etc
+#: engines/wintermute/keymapper_tables.h:175
+#: engines/wintermute/keymapper_tables.h:686
+#: engines/wintermute/keymapper_tables.h:1779
 msgid "Show scene geometry"
 msgstr "Паказаць геаметрыю сцэны"
 
-#: engines/wintermute/keymapper_tables.h:183
-#: engines/wintermute/keymapper_tables.h:199
-#: engines/wintermute/keymapper_tables.h:628
-#: engines/wintermute/keymapper_tables.h:897
-#: engines/wintermute/keymapper_tables.h:1093
-#: engines/wintermute/keymapper_tables.h:1221
+#: engines/wintermute/keymapper_tables.h:184
+#: engines/wintermute/keymapper_tables.h:200
+#: engines/wintermute/keymapper_tables.h:631
+#: engines/wintermute/keymapper_tables.h:907
+#: engines/wintermute/keymapper_tables.h:1104
+#: engines/wintermute/keymapper_tables.h:1232
 msgid "Previous page"
 msgstr "Папярэдняя старонка"
 
-#: engines/wintermute/keymapper_tables.h:190
-#: engines/wintermute/keymapper_tables.h:207
-#: engines/wintermute/keymapper_tables.h:636
-#: engines/wintermute/keymapper_tables.h:904
-#: engines/wintermute/keymapper_tables.h:1100
-#: engines/wintermute/keymapper_tables.h:1226
+#: engines/wintermute/keymapper_tables.h:191
+#: engines/wintermute/keymapper_tables.h:208
+#: engines/wintermute/keymapper_tables.h:639
+#: engines/wintermute/keymapper_tables.h:914
+#: engines/wintermute/keymapper_tables.h:1111
+#: engines/wintermute/keymapper_tables.h:1237
 msgid "Next page"
 msgstr "Наступнaя старонка"
 
-#: engines/wintermute/keymapper_tables.h:239
-#: engines/wintermute/keymapper_tables.h:262
-#: engines/wintermute/keymapper_tables.h:313
-#: engines/wintermute/keymapper_tables.h:352
-#: engines/wintermute/keymapper_tables.h:387
-#: engines/wintermute/keymapper_tables.h:497
-#: engines/wintermute/keymapper_tables.h:524
-#: engines/wintermute/keymapper_tables.h:649
-#: engines/wintermute/keymapper_tables.h:777
-#: engines/wintermute/keymapper_tables.h:804
-#: engines/wintermute/keymapper_tables.h:825
-#: engines/wintermute/keymapper_tables.h:849
-#: engines/wintermute/keymapper_tables.h:876
-#: engines/wintermute/keymapper_tables.h:1035
-#: engines/wintermute/keymapper_tables.h:1281
-#: engines/wintermute/keymapper_tables.h:1328
-#: engines/wintermute/keymapper_tables.h:1384
-#: engines/wintermute/keymapper_tables.h:1410
-#: engines/wintermute/keymapper_tables.h:1567
-#: engines/wintermute/keymapper_tables.h:1616
-#: engines/wintermute/keymapper_tables.h:1664
-#: engines/wintermute/keymapper_tables.h:1697
-#: engines/wintermute/keymapper_tables.h:1885
-#: engines/wintermute/keymapper_tables.h:2002
+#: engines/wintermute/keymapper_tables.h:240
+#: engines/wintermute/keymapper_tables.h:263
+#: engines/wintermute/keymapper_tables.h:314
+#: engines/wintermute/keymapper_tables.h:353
+#: engines/wintermute/keymapper_tables.h:390
+#: engines/wintermute/keymapper_tables.h:500
+#: engines/wintermute/keymapper_tables.h:527
+#: engines/wintermute/keymapper_tables.h:652
+#: engines/wintermute/keymapper_tables.h:786
+#: engines/wintermute/keymapper_tables.h:813
+#: engines/wintermute/keymapper_tables.h:834
+#: engines/wintermute/keymapper_tables.h:859
+#: engines/wintermute/keymapper_tables.h:886
+#: engines/wintermute/keymapper_tables.h:1046
+#: engines/wintermute/keymapper_tables.h:1292
+#: engines/wintermute/keymapper_tables.h:1339
+#: engines/wintermute/keymapper_tables.h:1396
+#: engines/wintermute/keymapper_tables.h:1422
+#: engines/wintermute/keymapper_tables.h:1584
+#: engines/wintermute/keymapper_tables.h:1633
+#: engines/wintermute/keymapper_tables.h:1681
+#: engines/wintermute/keymapper_tables.h:1714
+#: engines/wintermute/keymapper_tables.h:1907
+#: engines/wintermute/keymapper_tables.h:2027
 msgid "Show hints"
 msgstr "Паказаць падказкі"
 
-#: engines/wintermute/keymapper_tables.h:249
-#: engines/wintermute/keymapper_tables.h:394
-#: engines/wintermute/keymapper_tables.h:656
-#: engines/wintermute/keymapper_tables.h:855
-#: engines/wintermute/keymapper_tables.h:1355
-#: engines/wintermute/keymapper_tables.h:1431
-#: engines/wintermute/keymapper_tables.h:1574
-#: engines/wintermute/keymapper_tables.h:1586
-#: engines/wintermute/keymapper_tables.h:1595
-#: engines/wintermute/keymapper_tables.h:1852
+#: engines/wintermute/keymapper_tables.h:250
+#: engines/wintermute/keymapper_tables.h:397
+#: engines/wintermute/keymapper_tables.h:659
+#: engines/wintermute/keymapper_tables.h:865
+#: engines/wintermute/keymapper_tables.h:1366
+#: engines/wintermute/keymapper_tables.h:1443
+#: engines/wintermute/keymapper_tables.h:1591
+#: engines/wintermute/keymapper_tables.h:1603
+#: engines/wintermute/keymapper_tables.h:1612
+#: engines/wintermute/keymapper_tables.h:1874
 msgid "Show inventory"
 msgstr "Паказаць інвентар"
 
-#: engines/wintermute/keymapper_tables.h:269
-#: engines/wintermute/keymapper_tables.h:332
-#: engines/wintermute/keymapper_tables.h:365
-#: engines/wintermute/keymapper_tables.h:400
-#: engines/wintermute/keymapper_tables.h:504
-#: engines/wintermute/keymapper_tables.h:531
-#: engines/wintermute/keymapper_tables.h:1834
-#: engines/wintermute/keymapper_tables.h:1892
+#: engines/wintermute/keymapper_tables.h:270
+#: engines/wintermute/keymapper_tables.h:333
+#: engines/wintermute/keymapper_tables.h:368
+#: engines/wintermute/keymapper_tables.h:403
+#: engines/wintermute/keymapper_tables.h:507
+#: engines/wintermute/keymapper_tables.h:534
+#: engines/wintermute/keymapper_tables.h:1856
+#: engines/wintermute/keymapper_tables.h:1914
 msgid "GUI variant A"
 msgstr "GUI варыянт A"
 
-#: engines/wintermute/keymapper_tables.h:276
-#: engines/wintermute/keymapper_tables.h:339
-#: engines/wintermute/keymapper_tables.h:372
-#: engines/wintermute/keymapper_tables.h:406
-#: engines/wintermute/keymapper_tables.h:511
-#: engines/wintermute/keymapper_tables.h:538
-#: engines/wintermute/keymapper_tables.h:1840
-#: engines/wintermute/keymapper_tables.h:1898
+#: engines/wintermute/keymapper_tables.h:277
+#: engines/wintermute/keymapper_tables.h:340
+#: engines/wintermute/keymapper_tables.h:375
+#: engines/wintermute/keymapper_tables.h:409
+#: engines/wintermute/keymapper_tables.h:514
+#: engines/wintermute/keymapper_tables.h:541
+#: engines/wintermute/keymapper_tables.h:1862
+#: engines/wintermute/keymapper_tables.h:1920
 msgid "GUI variant B"
 msgstr "GUI варыянт B"
 
-#: engines/wintermute/keymapper_tables.h:283
-#: engines/wintermute/keymapper_tables.h:412
-#: engines/wintermute/keymapper_tables.h:545
-#: engines/wintermute/keymapper_tables.h:1107
+#: engines/wintermute/keymapper_tables.h:284
+#: engines/wintermute/keymapper_tables.h:415
+#: engines/wintermute/keymapper_tables.h:548
+#: engines/wintermute/keymapper_tables.h:1118
 msgid "Phone cancel button"
 msgstr "Кнопка тэлефона \"Адмена\""
 
-#: engines/wintermute/keymapper_tables.h:288
-#: engines/wintermute/keymapper_tables.h:417
-#: engines/wintermute/keymapper_tables.h:550
-#: engines/wintermute/keymapper_tables.h:1112
+#: engines/wintermute/keymapper_tables.h:289
+#: engines/wintermute/keymapper_tables.h:420
+#: engines/wintermute/keymapper_tables.h:553
+#: engines/wintermute/keymapper_tables.h:1123
 msgid "Phone up button"
 msgstr "Кнопка тэлефона \"Угару\""
 
-#: engines/wintermute/keymapper_tables.h:294
-#: engines/wintermute/keymapper_tables.h:423
-#: engines/wintermute/keymapper_tables.h:556
-#: engines/wintermute/keymapper_tables.h:1118
+#: engines/wintermute/keymapper_tables.h:295
+#: engines/wintermute/keymapper_tables.h:426
+#: engines/wintermute/keymapper_tables.h:559
+#: engines/wintermute/keymapper_tables.h:1129
 msgid "Phone down button"
 msgstr "Кнопка тэлефона \"Уніз\""
 
-#: engines/wintermute/keymapper_tables.h:358
-msgid "Alt use item"
-msgstr ""
+#. I18N: Some items are scripted to have alternative "Use" action, when MiddleClick is used
+#. It may result in actor saying different text or item being decomposed to it's parts
+#: engines/wintermute/keymapper_tables.h:361
+#, fuzzy
+#| msgid "Alternative intro"
+msgid "Alternative action"
+msgstr "Альтэрнатыўны ўступ"
 
-#: engines/wintermute/keymapper_tables.h:429
-#: engines/wintermute/keymapper_tables.h:562
-#: engines/wintermute/keymapper_tables.h:1124
+#: engines/wintermute/keymapper_tables.h:432
+#: engines/wintermute/keymapper_tables.h:565
+#: engines/wintermute/keymapper_tables.h:1135
 msgid "Phone 0 button"
 msgstr "Кнопка тэлефона 0"
 
-#: engines/wintermute/keymapper_tables.h:434
-#: engines/wintermute/keymapper_tables.h:567
-#: engines/wintermute/keymapper_tables.h:1129
-#: engines/wintermute/keymapper_tables.h:1724
+#: engines/wintermute/keymapper_tables.h:437
+#: engines/wintermute/keymapper_tables.h:570
+#: engines/wintermute/keymapper_tables.h:1140
+#: engines/wintermute/keymapper_tables.h:1741
 msgid "Phone 1 button"
 msgstr "Кнопка тэлефона 1"
 
-#: engines/wintermute/keymapper_tables.h:439
-#: engines/wintermute/keymapper_tables.h:572
-#: engines/wintermute/keymapper_tables.h:1134
-#: engines/wintermute/keymapper_tables.h:1729
+#: engines/wintermute/keymapper_tables.h:442
+#: engines/wintermute/keymapper_tables.h:575
+#: engines/wintermute/keymapper_tables.h:1145
+#: engines/wintermute/keymapper_tables.h:1746
 msgid "Phone 2 button"
 msgstr "Кнопка тэлефона 2"
 
-#: engines/wintermute/keymapper_tables.h:444
-#: engines/wintermute/keymapper_tables.h:577
-#: engines/wintermute/keymapper_tables.h:1139
-#: engines/wintermute/keymapper_tables.h:1734
+#: engines/wintermute/keymapper_tables.h:447
+#: engines/wintermute/keymapper_tables.h:580
+#: engines/wintermute/keymapper_tables.h:1150
+#: engines/wintermute/keymapper_tables.h:1751
 msgid "Phone 3 button"
 msgstr "Кнопка тэлефона 3"
 
-#: engines/wintermute/keymapper_tables.h:449
-#: engines/wintermute/keymapper_tables.h:582
-#: engines/wintermute/keymapper_tables.h:1144
+#: engines/wintermute/keymapper_tables.h:452
+#: engines/wintermute/keymapper_tables.h:585
+#: engines/wintermute/keymapper_tables.h:1155
 msgid "Phone 4 button"
 msgstr "Кнопка тэлефона 4"
 
-#: engines/wintermute/keymapper_tables.h:454
-#: engines/wintermute/keymapper_tables.h:587
-#: engines/wintermute/keymapper_tables.h:1149
+#: engines/wintermute/keymapper_tables.h:457
+#: engines/wintermute/keymapper_tables.h:590
+#: engines/wintermute/keymapper_tables.h:1160
 msgid "Phone 5 button"
 msgstr "Кнопка тэлефона 5"
 
-#: engines/wintermute/keymapper_tables.h:459
-#: engines/wintermute/keymapper_tables.h:592
-#: engines/wintermute/keymapper_tables.h:1154
+#: engines/wintermute/keymapper_tables.h:462
+#: engines/wintermute/keymapper_tables.h:595
+#: engines/wintermute/keymapper_tables.h:1165
 msgid "Phone 6 button"
 msgstr "Кнопка тэлефона 6"
 
-#: engines/wintermute/keymapper_tables.h:464
-#: engines/wintermute/keymapper_tables.h:597
-#: engines/wintermute/keymapper_tables.h:1159
+#: engines/wintermute/keymapper_tables.h:467
+#: engines/wintermute/keymapper_tables.h:600
+#: engines/wintermute/keymapper_tables.h:1170
 msgid "Phone 7 button"
 msgstr "Кнопка тэлефона 7"
 
-#: engines/wintermute/keymapper_tables.h:469
-#: engines/wintermute/keymapper_tables.h:602
-#: engines/wintermute/keymapper_tables.h:1164
+#: engines/wintermute/keymapper_tables.h:472
+#: engines/wintermute/keymapper_tables.h:605
+#: engines/wintermute/keymapper_tables.h:1175
 msgid "Phone 8 button"
 msgstr "Кнопка тэлефона 8"
 
-#: engines/wintermute/keymapper_tables.h:474
-#: engines/wintermute/keymapper_tables.h:607
-#: engines/wintermute/keymapper_tables.h:1169
+#: engines/wintermute/keymapper_tables.h:477
+#: engines/wintermute/keymapper_tables.h:610
+#: engines/wintermute/keymapper_tables.h:1180
 msgid "Phone 9 button"
 msgstr "Кнопка тэлефона 9"
 
-#: engines/wintermute/keymapper_tables.h:479
-#: engines/wintermute/keymapper_tables.h:612
-#: engines/wintermute/keymapper_tables.h:1174
+#: engines/wintermute/keymapper_tables.h:482
+#: engines/wintermute/keymapper_tables.h:615
+#: engines/wintermute/keymapper_tables.h:1185
 msgid "Phone * button"
 msgstr "Кнопка тэлефона *"
 
-#: engines/wintermute/keymapper_tables.h:484
-#: engines/wintermute/keymapper_tables.h:617
-#: engines/wintermute/keymapper_tables.h:1179
+#: engines/wintermute/keymapper_tables.h:487
+#: engines/wintermute/keymapper_tables.h:620
+#: engines/wintermute/keymapper_tables.h:1190
 msgid "Phone # button"
 msgstr "Кнопка тэлефона #"
 
-#: engines/wintermute/keymapper_tables.h:662
-#: engines/wintermute/keymapper_tables.h:1335
+#: engines/wintermute/keymapper_tables.h:665
+#: engines/wintermute/keymapper_tables.h:1346
 msgid "Show help"
 msgstr "Паказаць дапамогу"
 
-#: engines/wintermute/keymapper_tables.h:668
-#: engines/wintermute/keymapper_tables.h:862
-#: engines/wintermute/keymapper_tables.h:883
-#: engines/wintermute/keymapper_tables.h:1288
-#: engines/wintermute/keymapper_tables.h:1314
-#: engines/wintermute/keymapper_tables.h:1341
-#: engines/wintermute/keymapper_tables.h:1396
-#: engines/wintermute/keymapper_tables.h:1417
-#: engines/wintermute/keymapper_tables.h:1602
-#: engines/wintermute/keymapper_tables.h:1871
-#: engines/wintermute/keymapper_tables.h:2070
+#: engines/wintermute/keymapper_tables.h:671
+#: engines/wintermute/keymapper_tables.h:872
+#: engines/wintermute/keymapper_tables.h:893
+#: engines/wintermute/keymapper_tables.h:1299
+#: engines/wintermute/keymapper_tables.h:1325
+#: engines/wintermute/keymapper_tables.h:1352
+#: engines/wintermute/keymapper_tables.h:1408
+#: engines/wintermute/keymapper_tables.h:1429
+#: engines/wintermute/keymapper_tables.h:1619
+#: engines/wintermute/keymapper_tables.h:1893
+#: engines/wintermute/keymapper_tables.h:2095
 msgid "Scroll up"
 msgstr "Пракруціць угару"
 
-#: engines/wintermute/keymapper_tables.h:675
-#: engines/wintermute/keymapper_tables.h:869
-#: engines/wintermute/keymapper_tables.h:890
-#: engines/wintermute/keymapper_tables.h:1295
-#: engines/wintermute/keymapper_tables.h:1321
-#: engines/wintermute/keymapper_tables.h:1348
-#: engines/wintermute/keymapper_tables.h:1403
-#: engines/wintermute/keymapper_tables.h:1424
-#: engines/wintermute/keymapper_tables.h:1609
-#: engines/wintermute/keymapper_tables.h:1878
-#: engines/wintermute/keymapper_tables.h:2075
+#: engines/wintermute/keymapper_tables.h:678
+#: engines/wintermute/keymapper_tables.h:879
+#: engines/wintermute/keymapper_tables.h:900
+#: engines/wintermute/keymapper_tables.h:1306
+#: engines/wintermute/keymapper_tables.h:1332
+#: engines/wintermute/keymapper_tables.h:1359
+#: engines/wintermute/keymapper_tables.h:1415
+#: engines/wintermute/keymapper_tables.h:1436
+#: engines/wintermute/keymapper_tables.h:1626
+#: engines/wintermute/keymapper_tables.h:1900
+#: engines/wintermute/keymapper_tables.h:2100
 msgid "Scroll down"
 msgstr "Пракруціць уніз"
 
-#: engines/wintermute/keymapper_tables.h:687
+#: engines/wintermute/keymapper_tables.h:691
 msgid "Change shadow type"
 msgstr "Змяніць тып ценю"
 
-#: engines/wintermute/keymapper_tables.h:697
-#: engines/wintermute/keymapper_tables.h:811
+#: engines/wintermute/keymapper_tables.h:701
+#: engines/wintermute/keymapper_tables.h:820
 msgid "Volume max"
 msgstr "Максімальная гучнасць"
 
-#: engines/wintermute/keymapper_tables.h:702
+#. I18N: Displays a debug interface with a CLI for various features
+#: engines/wintermute/keymapper_tables.h:707
 msgid "Show debug parser"
 msgstr "Паказаць адладкавы парсер"
 
-#: engines/wintermute/keymapper_tables.h:709
-#: engines/wintermute/keymapper_tables.h:844
-#: engines/wintermute/keymapper_tables.h:1490
-#: engines/wintermute/keymapper_tables.h:1739
-#: engines/wintermute/keymapper_tables.h:1782
+#. I18N: Displays a debug text message
+#: engines/wintermute/keymapper_tables.h:715
+#: engines/wintermute/keymapper_tables.h:854
+#: engines/wintermute/keymapper_tables.h:1505
+#: engines/wintermute/keymapper_tables.h:1757
+#: engines/wintermute/keymapper_tables.h:1802
 msgid "Debug print"
 msgstr "Адладкавы друк"
 
-#: engines/wintermute/keymapper_tables.h:714
-#: engines/wintermute/keymapper_tables.h:1755
+#. I18N: Exits the game
+#: engines/wintermute/keymapper_tables.h:721
+#: engines/wintermute/keymapper_tables.h:1773
 msgid "Exit"
 msgstr "Выхад"
 
-#: engines/wintermute/keymapper_tables.h:719
+#. I18N: Displays a debug interface that changes light settings
+#: engines/wintermute/keymapper_tables.h:727
 msgid "Light helper window"
 msgstr "Акно кіравання асвятленнем"
 
-#: engines/wintermute/keymapper_tables.h:744
+#: engines/wintermute/keymapper_tables.h:752
 msgid "Run forward"
 msgstr "Бегчы наперад"
 
-#: engines/wintermute/keymapper_tables.h:749
+#: engines/wintermute/keymapper_tables.h:757
 msgid "Run backward"
 msgstr "Бегчы назад"
 
-#: engines/wintermute/keymapper_tables.h:754
+#: engines/wintermute/keymapper_tables.h:762
 msgid "Turn left fast"
 msgstr "Хутка павярнуцца налева"
 
-#: engines/wintermute/keymapper_tables.h:759
+#: engines/wintermute/keymapper_tables.h:767
 msgid "Turn right fast"
 msgstr "Хутка павярнуцца направа"
 
-#: engines/wintermute/keymapper_tables.h:764
+#. I18N: Displays a blueprint with robot parts
+#: engines/wintermute/keymapper_tables.h:773
 msgid "Show blueprint"
 msgstr "Паказаць краслюнак"
 
-#: engines/wintermute/keymapper_tables.h:784
-#: engines/wintermute/keymapper_tables.h:1496
-#: engines/wintermute/keymapper_tables.h:1677
-#: engines/wintermute/keymapper_tables.h:1710
-#: engines/wintermute/keymapper_tables.h:1988
+#: engines/wintermute/keymapper_tables.h:793
+#: engines/wintermute/keymapper_tables.h:1511
+#: engines/wintermute/keymapper_tables.h:1694
+#: engines/wintermute/keymapper_tables.h:1727
+#: engines/wintermute/keymapper_tables.h:2013
 msgid "Next action"
 msgstr "Наступнае дзеянне"
 
-#: engines/wintermute/keymapper_tables.h:791
-#: engines/wintermute/keymapper_tables.h:1504
-#: engines/wintermute/keymapper_tables.h:1684
-#: engines/wintermute/keymapper_tables.h:1717
-#: engines/wintermute/keymapper_tables.h:1996
+#: engines/wintermute/keymapper_tables.h:800
+#: engines/wintermute/keymapper_tables.h:1519
+#: engines/wintermute/keymapper_tables.h:1701
+#: engines/wintermute/keymapper_tables.h:1734
+#: engines/wintermute/keymapper_tables.h:2021
 msgid "Previous action"
 msgstr "Папярэдняе дзеянне"
 
-#: engines/wintermute/keymapper_tables.h:818
+#: engines/wintermute/keymapper_tables.h:827
 msgid "Volume off"
 msgstr "Гучнасць выкл"
 
-#: engines/wintermute/keymapper_tables.h:832
+#: engines/wintermute/keymapper_tables.h:841
 msgid "Change font size"
 msgstr "Змяніць памер шрыфта"
 
-#: engines/wintermute/keymapper_tables.h:911
+#: engines/wintermute/keymapper_tables.h:921
 msgid "Save game"
 msgstr "Захаваць гульню"
 
-#: engines/wintermute/keymapper_tables.h:926
+#: engines/wintermute/keymapper_tables.h:936
 msgid "Walking speed: Low"
 msgstr "Хуткасць хады: Павольная"
 
-#: engines/wintermute/keymapper_tables.h:931
+#: engines/wintermute/keymapper_tables.h:941
 msgid "Walking speed: Medium"
 msgstr "Хуткасць хады: Сярэдняя"
 
-#: engines/wintermute/keymapper_tables.h:936
+#: engines/wintermute/keymapper_tables.h:946
 msgid "Walking speed: High"
 msgstr "Хуткасць хады: Высокая"
 
-#: engines/wintermute/keymapper_tables.h:946
-#: engines/wintermute/keymapper_tables.h:1276
-#: engines/wintermute/keymapper_tables.h:1777
+#: engines/wintermute/keymapper_tables.h:956
+#: engines/wintermute/keymapper_tables.h:1287
+#: engines/wintermute/keymapper_tables.h:1796
 msgid "Cancel waiting"
 msgstr "Перапыніць чаканне"
 
-#: engines/wintermute/keymapper_tables.h:956
+#: engines/wintermute/keymapper_tables.h:966
 msgid "First page"
 msgstr "Першая старонка"
 
-#: engines/wintermute/keymapper_tables.h:961
+#: engines/wintermute/keymapper_tables.h:971
 msgid "Last page"
 msgstr "Апошняя старонка"
 
-#: engines/wintermute/keymapper_tables.h:968
+#. I18N: ultra_super_mega_fast_walk is the name of the variable used at game script for this speed
+#: engines/wintermute/keymapper_tables.h:979
 msgid "Walking speed: Ultra Super Mega Fast"
 msgstr "Хуткасць хады: Ультра-супер-мега-хутка"
 
-#: engines/wintermute/keymapper_tables.h:984
+#: engines/wintermute/keymapper_tables.h:995
 msgid "Show game credits"
 msgstr "Паказаць аўтараў гульні"
 
-#: engines/wintermute/keymapper_tables.h:989
+#: engines/wintermute/keymapper_tables.h:1000
 msgid "Play selected music record"
 msgstr "Прайграць абраны музычны запіс"
 
-#: engines/wintermute/keymapper_tables.h:994
+#: engines/wintermute/keymapper_tables.h:1005
 msgid "Select next music record"
 msgstr "Прайграць наступны музычны запіс"
 
-#: engines/wintermute/keymapper_tables.h:999
+#: engines/wintermute/keymapper_tables.h:1010
 msgid "Play note 1: A"
 msgstr "Нота 1: ля"
 
-#: engines/wintermute/keymapper_tables.h:1004
+#: engines/wintermute/keymapper_tables.h:1015
 msgid "Play note 2: F#"
 msgstr "Нота 2: фа-дыез"
 
-#: engines/wintermute/keymapper_tables.h:1009
+#: engines/wintermute/keymapper_tables.h:1020
 msgid "Play note 3: D#"
 msgstr "Нота 3: рэ-дыез"
 
-#: engines/wintermute/keymapper_tables.h:1014
+#: engines/wintermute/keymapper_tables.h:1025
 msgid "Play note 4: C#"
 msgstr "Нота 4: до-дыез"
 
-#: engines/wintermute/keymapper_tables.h:1019
+#: engines/wintermute/keymapper_tables.h:1030
 msgid "Play note 5: E"
 msgstr "Нота 5: мі"
 
-#: engines/wintermute/keymapper_tables.h:1024
+#: engines/wintermute/keymapper_tables.h:1035
 msgid "Play note 6: G#"
 msgstr "Нота 6: соль-дыез"
 
-#: engines/wintermute/keymapper_tables.h:1029
+#: engines/wintermute/keymapper_tables.h:1040
 msgid "Play note 7: B"
 msgstr "Нота 7: сі"
 
-#: engines/wintermute/keymapper_tables.h:1042
+#: engines/wintermute/keymapper_tables.h:1053
 msgid "Ability: Telekinesis"
 msgstr "Уменне: Тэлекінез"
 
-#: engines/wintermute/keymapper_tables.h:1047
+#: engines/wintermute/keymapper_tables.h:1058
 msgid "Ability: Push"
 msgstr "Уменне: Штуршок"
 
-#: engines/wintermute/keymapper_tables.h:1052
+#: engines/wintermute/keymapper_tables.h:1063
 msgid "Ability: Lightning"
 msgstr "Уменне: Маланка"
 
-#: engines/wintermute/keymapper_tables.h:1057
+#: engines/wintermute/keymapper_tables.h:1068
 msgid "Ability: Light"
 msgstr "Уменне: Святло"
 
-#: engines/wintermute/keymapper_tables.h:1062
+#: engines/wintermute/keymapper_tables.h:1073
 msgid "Ability: Wind"
 msgstr "Уменне: Вецер"
 
-#: engines/wintermute/keymapper_tables.h:1067
+#: engines/wintermute/keymapper_tables.h:1078
 msgid "Ability: Sound"
 msgstr "Уменне: Гук"
 
-#: engines/wintermute/keymapper_tables.h:1072
+#: engines/wintermute/keymapper_tables.h:1083
 msgid "Ability: Esence"
 msgstr "Уменне: Пах"
 
-#: engines/wintermute/keymapper_tables.h:1077
+#: engines/wintermute/keymapper_tables.h:1088
 msgid "Ability: Exorcist"
 msgstr "Уменне: Экзарцыст"
 
-#: engines/wintermute/keymapper_tables.h:1082
-msgid "Skip minigame"
-msgstr "Прапусціць міні-гульню"
-
-#: engines/wintermute/keymapper_tables.h:1190
+#: engines/wintermute/keymapper_tables.h:1201
 msgid "Show hints / Dance move"
 msgstr "Паказаць падказкі / Рухі танца"
 
-#: engines/wintermute/keymapper_tables.h:1197
+#: engines/wintermute/keymapper_tables.h:1208
 msgid "Dance move up"
 msgstr "Рух танца ўгару"
 
-#: engines/wintermute/keymapper_tables.h:1203
+#: engines/wintermute/keymapper_tables.h:1214
 msgid "Dance move down"
 msgstr "Рух танца ўніз"
 
-#: engines/wintermute/keymapper_tables.h:1209
+#: engines/wintermute/keymapper_tables.h:1220
 msgid "Dance move left"
 msgstr "Рух танца налева"
 
-#: engines/wintermute/keymapper_tables.h:1215
+#: engines/wintermute/keymapper_tables.h:1226
 msgid "Dance move right"
 msgstr "Рух танца направа"
 
-#: engines/wintermute/keymapper_tables.h:1245
+#: engines/wintermute/keymapper_tables.h:1256
 msgid "Cancel input"
 msgstr "Адмена ўводу"
 
-#: engines/wintermute/keymapper_tables.h:1307
+#: engines/wintermute/keymapper_tables.h:1318
 #, fuzzy
 #| msgid "Toggle mute"
 msgid "Toggle subtitles"
 msgstr "Пераключыць гук"
 
-#: engines/wintermute/keymapper_tables.h:1376
-msgid "Shift"
+#. I18N: At one of the puzzles game asks to press Up key / Shift key / Down key
+#: engines/wintermute/keymapper_tables.h:1388
+#, fuzzy
+#| msgid "Shift"
+msgid "Shift key"
 msgstr "Shift"
 
-#: engines/wintermute/keymapper_tables.h:1476
-msgid "Use Chapayev"
-msgstr ""
+#. I18N: Chapayev is the name of game character, Vasily Chapayev
+#. This action makes Chapayev interact with item instead of Petka
+#: engines/wintermute/keymapper_tables.h:1490
+#, fuzzy
+#| msgid "Previous action"
+msgid "Chapayev's action"
+msgstr "Папярэдняе дзеянне"
 
-#: engines/wintermute/keymapper_tables.h:1523
-#: engines/wintermute/keymapper_tables.h:1772
+#: engines/wintermute/keymapper_tables.h:1538
+#: engines/wintermute/keymapper_tables.h:1791
+#: engines/wintermute/keymapper_tables.h:1887
 msgid "Settings"
 msgstr "Налады"
 
-#: engines/wintermute/keymapper_tables.h:1528
+#: engines/wintermute/keymapper_tables.h:1543
 msgid "Dialogue answer 1"
 msgstr "Адказ дыялога 1"
 
-#: engines/wintermute/keymapper_tables.h:1533
+#: engines/wintermute/keymapper_tables.h:1548
 msgid "Dialogue answer 2"
 msgstr "Адказ дыялога 2"
 
-#: engines/wintermute/keymapper_tables.h:1538
+#: engines/wintermute/keymapper_tables.h:1553
 msgid "Dialogue answer 3"
 msgstr "Адказ дыялога 3"
 
-#: engines/wintermute/keymapper_tables.h:1543
+#: engines/wintermute/keymapper_tables.h:1558
 msgid "Dialogue answer 4"
 msgstr "Адказ дыялога 4"
 
-#: engines/wintermute/keymapper_tables.h:1553
-msgid "Spin slower"
+#. I18N: This game is called "Pole Chudes" and it features a wheel similar to "Wheel of Fortune" TV show
+#: engines/wintermute/keymapper_tables.h:1569
+#, fuzzy
+#| msgid "Spin slower"
+msgid "Spin wheel slower"
 msgstr "Круціцца павольней"
 
-#: engines/wintermute/keymapper_tables.h:1560
-msgid "Spin faster"
+#. I18N: This game is called "Pole Chudes" and it features a wheel similar to "Wheel of Fortune" TV show
+#: engines/wintermute/keymapper_tables.h:1577
+#, fuzzy
+#| msgid "Spin faster"
+msgid "Spin wheel faster"
 msgstr "Круціцца хутчэй"
 
-#: engines/wintermute/keymapper_tables.h:1638
+#: engines/wintermute/keymapper_tables.h:1655
 msgid "Zoom out"
 msgstr "Павялічыць маштаб"
 
-#: engines/wintermute/keymapper_tables.h:1645
+#: engines/wintermute/keymapper_tables.h:1662
 msgid "Zoom in"
 msgstr "Паменшыць маштаб"
 
-#: engines/wintermute/keymapper_tables.h:1658
-#: engines/wintermute/keymapper_tables.h:1859
+#: engines/wintermute/keymapper_tables.h:1675
+#: engines/wintermute/keymapper_tables.h:1881
 msgid "Show journal"
 msgstr "Паказаць журнал"
 
-#: engines/wintermute/keymapper_tables.h:1787
+#. I18N: Displays a debug interface with Bezier curves
+#: engines/wintermute/keymapper_tables.h:1808
 msgid "Bezier window"
 msgstr "Акно Безье"
 
-#: engines/wintermute/keymapper_tables.h:1803
-msgid "Droid action"
+#. I18N: Use droid to perform an action
+#: engines/wintermute/keymapper_tables.h:1825
+#, fuzzy
+#| msgid "Droid action"
+msgid "Droid's action"
 msgstr "Дзеянне дроіда"
 
-#: engines/wintermute/keymapper_tables.h:1865
-msgid "Music menu"
-msgstr "Меню музыкі"
-
-#: engines/wintermute/keymapper_tables.h:1910
+#. I18N: It's a Tetris game clone, this action rotates current tetris item
+#: engines/wintermute/keymapper_tables.h:1933
 msgid "Rotate"
 msgstr "Павярнуць"
 
-#: engines/wintermute/keymapper_tables.h:1935
+#. I18N: It's a Tetris game clone, this action drops current tetris item
+#: engines/wintermute/keymapper_tables.h:1959
 msgid "Drop"
 msgstr "Выкінуць"
 
-#: engines/wintermute/keymapper_tables.h:1943
+#: engines/wintermute/keymapper_tables.h:1967
 msgid "Player 1: Up"
 msgstr "Гулец 1: угару"
 
-#: engines/wintermute/keymapper_tables.h:1948
+#: engines/wintermute/keymapper_tables.h:1972
 msgid "Player 1: Left"
 msgstr "Гулец 1: налева"
 
-#: engines/wintermute/keymapper_tables.h:1953
+#: engines/wintermute/keymapper_tables.h:1977
 msgid "Player 1: Down"
 msgstr "Гулец 1: уніз"
 
-#: engines/wintermute/keymapper_tables.h:1958
+#: engines/wintermute/keymapper_tables.h:1982
 msgid "Player 1: Right"
 msgstr "Гулец 1: направа"
 
-#: engines/wintermute/keymapper_tables.h:1963
+#: engines/wintermute/keymapper_tables.h:1987
 msgid "Player 2: Up"
 msgstr "Гулец 2: угару"
 
-#: engines/wintermute/keymapper_tables.h:1968
+#: engines/wintermute/keymapper_tables.h:1992
 msgid "Player 2: Left"
 msgstr "Гулец 2: налева"
 
-#: engines/wintermute/keymapper_tables.h:1973
+#: engines/wintermute/keymapper_tables.h:1997
 msgid "Player 2: Down"
 msgstr "Гулец 2: уніз"
 
-#: engines/wintermute/keymapper_tables.h:1978
+#: engines/wintermute/keymapper_tables.h:2002
 msgid "Player 2: Right"
 msgstr "Гулец 2: Направа"
 
-#: engines/wintermute/keymapper_tables.h:1983
+#. I18N: Displays a debug FPS counter
+#: engines/wintermute/keymapper_tables.h:2008
 msgid "Debug FPS"
 msgstr "Адладкавыя FPS"
 
-#: engines/wintermute/keymapper_tables.h:2080
+#: engines/wintermute/keymapper_tables.h:2105
 msgid "F1"
 msgstr "F1"
 
-#: engines/wintermute/keymapper_tables.h:2085
+#: engines/wintermute/keymapper_tables.h:2110
 msgid "Key i"
 msgstr "Кнопка i"
 
@@ -8366,6 +8417,16 @@ msgid ""
 "LiberationSans and LiberationSerif, or FreeMono, FreeSans and FreeSerif "
 "respectively."
 msgstr ""
+
+#, fuzzy
+#~ msgid "SAGA2 support not compiled in"
+#~ msgstr "Уключаныя ў зборку опцыі:"
+
+#~ msgid "Skip minigame"
+#~ msgstr "Прапусціць міні-гульню"
+
+#~ msgid "Music menu"
+#~ msgstr "Меню музыкі"
 
 #~ msgctxt "lowres"
 #~ msgid "Normal (no scaling)"

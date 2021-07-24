@@ -1251,19 +1251,11 @@ void Actor_v3::findPathTowardsOld(byte box1, byte box2, byte finalBox, Common::P
 	p2.x = 32000;
 	p3.x = 32000;
 
-	// next box (box2) = final box?
 	if (box2 == finalBox) {
-		// In Indy3, the masks (= z-level) have to match, too -- needed for the
-		// 'maze' in the zeppelin (see bug #1778).
-		if (_vm->_game.id != GID_INDY3 || _vm->getMaskFromBox(box1) == _vm->getMaskFromBox(box2)) {
-			// Is the actor (x,y) between both gates?
-			if (compareSlope(_pos, _walkdata.dest, gateA[0]) !=
-					compareSlope(_pos, _walkdata.dest, gateB[0]) &&
-					compareSlope(_pos, _walkdata.dest, gateA[1]) !=
-					compareSlope(_pos, _walkdata.dest, gateB[1])) {
+		// Is the actor (x,y) between both gates?
+		if (compareSlope(_pos, _walkdata.dest, gateA[0]) !=	compareSlope(_pos, _walkdata.dest, gateB[0]) &&
+			compareSlope(_pos, _walkdata.dest, gateA[1]) !=	compareSlope(_pos, _walkdata.dest, gateB[1]))
 				return;
-			}
-		}
 	}
 
 	p3 = closestPtOnLine(gateA[1], gateB[1], _pos);

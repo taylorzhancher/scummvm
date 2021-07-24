@@ -24,6 +24,7 @@
 #include "common/hash-str.h"
 #include "common/list.h"
 #include "common/memorypool.h"
+#include "common/textconsole.h"
 #include "common/util.h"
 #include "common/mutex.h"
 
@@ -723,8 +724,11 @@ TEMPLATE void BASESTRING::trim() {
 #endif
 
 TEMPLATE void BASESTRING::assignAppend(value_type c) {
-	if (c == 0)
-		return;
+	if (c == 0) {
+#ifndef SCUMMVM_UTIL
+		warning("Adding \\0 to String. This is permitted, but can have unwanted consequences. (This warning will be removed later.)");
+#endif
+	}
 	ensureCapacity(_size + 1, true);
 
 	_str[_size++] = c;

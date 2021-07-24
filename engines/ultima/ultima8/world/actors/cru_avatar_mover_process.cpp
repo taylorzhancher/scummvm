@@ -39,7 +39,7 @@ DEFINE_RUNTIME_CLASSTYPE_CODE(CruAvatarMoverProcess)
 static const int REBEL_BASE_MAP = 40;
 
 CruAvatarMoverProcess::CruAvatarMoverProcess() : AvatarMoverProcess(),
-_avatarAngle(0), _SGA1Loaded(false), _nextFireTick(0) {
+_avatarAngle(-1), _SGA1Loaded(false), _nextFireTick(0) {
 }
 
 
@@ -310,7 +310,16 @@ void CruAvatarMoverProcess::handleNormalMode() {
 	if (!hasMovementFlags(MOVE_ANY_DIRECTION) && lastanim == Animation::run) {
 		// if we were running, slow to a walk before stopping
 		// (even in stasis)
-		waitFor(avatar->doAnim(Animation::stopRunningAndDrawSmallWeapon, direction));
+		Animation::Sequence nextanim;
+		if (rebelBase) {
+			nextanim = Animation::stand;
+		} else {
+			nextanim = Animation::stopRunningAndDrawSmallWeapon;
+			// Robots don't slow down from  running
+			if (!avatar->hasAnim(nextanim))
+				nextanim = Animation::stand;
+		}
+		waitFor(avatar->doAnim(nextanim, direction));
 		avatar->setInCombat(0);
 		return;
 	}
@@ -330,7 +339,7 @@ void CruAvatarMoverProcess::handleNormalMode() {
 
 	Animation::Sequence nextanim = Animation::walk;
 
-	if (!rebelBase && hasMovementFlags(MOVE_RUN)) {
+	if (hasMovementFlags(MOVE_RUN)) {
 		if (lastanim == Animation::run
 			|| lastanim == Animation::startRun
 			|| lastanim == Animation::startRunSmallWeapon

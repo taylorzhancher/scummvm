@@ -66,14 +66,9 @@ char *GetExecutablePath() {
 
 ////////// OSystem_SDL_Symbian //////////////////////////////////////////
 
-OSystem_SDL_Symbian::OSystem_SDL_Symbian()
-	:
-	_RFs(0) {
-
-}
+OSystem_SDL_Symbian::OSystem_SDL_Symbian() {}
 
 void OSystem_SDL_Symbian::init() {
-	_RFs = &CEikonEnv::Static()->FsSession();
 	// Use iconless window: it uses the EScummVM.aif file for the icon.
 	initSDL();
 	_window = new SdlIconlessWindow();
@@ -92,6 +87,16 @@ void OSystem_SDL_Symbian::initBackend() {
 	if (!ConfMan.hasKey("savepath")) {
 		ConfMan.set("savepath", savePath);
 	}
+	
+#if !RELEASE_BUILD
+	_LIT(KDefaultBetaExtraPath,"!:\\DATA\\ScummVM\\BETA\\");
+	RFs _RFs = FsSession();
+	_RFs.SessionPath(_localpath);
+	_RFs.SetSessionPath(KDefaultBetaExtraPath);
+	
+	Common::String extrapath;
+	ConfMan.registerDefault("extrapath", extrapath);
+#endif
 
 #if _DEBUG
 #warning "set debuglevel = 20"
@@ -104,7 +109,7 @@ void OSystem_SDL_Symbian::initBackend() {
 	TFileName fname;
 	TPtrC8 ptr((const unsigned char*)currentPath.c_str(), currentPath.size());
 	fname.Copy(ptr);
-	BaflUtils::EnsurePathExistsL(dynamic_cast<OSystem_SDL_Symbian *>(g_system)->FsSession(), fname);
+	BaflUtils::EnsurePathExistsL(FsSession(), fname);
 
 	ConfMan.setBool("FM_high_quality", false);
 #if !defined(S60) || defined(S60V3) // S60 has low quality as default
@@ -118,7 +123,7 @@ void OSystem_SDL_Symbian::initBackend() {
 	ConfMan.setBool("fullscreen", true);
 	ConfMan.flushToDisk();
 
-	if (_mixerManager == 0) {
+	if (_mixerManager == nullptr) {
 		_mixerManager = new SymbianSdlMixerManager();
 
 		// Setup and start mixer
@@ -157,18 +162,6 @@ bool OSystem_SDL_Symbian::hasFeature(Feature f) {
 	return OSystem_SDL::hasFeature(f);
 }
 
-
-RFs& OSystem_SDL_Symbian::FsSession() {
-	return *_RFs;
-}
-
-Common::KeymapperDefaultBindings *OSystem_SDL_Symbian::getKeymapperDefaultBindings(){
-	Common::KeymapperDefaultBindings *keymapperDefaultBindings = new Common::KeymapperDefaultBindings();
-	keymapperDefaultBindings->setDefaultBinding(Common::kGlobalKeymapName, "MENU", "ASTERISK");
-	return keymapperDefaultBindings;
-}
-
-
 Common::KeymapperDefaultBindings *OSystem_SDL_Symbian::getKeymapperDefaultBindings(){
 	Common::KeymapperDefaultBindings *keymapperDefaultBindings = new Common::KeymapperDefaultBindings();
 	keymapperDefaultBindings->setDefaultBinding(Common::kGlobalKeymapName, "MENU", "ASTERISK");
@@ -194,6 +187,11 @@ void* scumm_bsearch(const void *key, const void *base, size_t nmemb, size_t size
 	}
 
 	return NULL;
+}
+
+/** Provide access to file server session. Lifetime managed bu UI framework. */
+RFs &FsSession() {
+	return CEikonEnv::Static()->FsSession();
 }
 
 extern "C" void __sync_synchronize(){}

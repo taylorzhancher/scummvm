@@ -114,6 +114,10 @@ static void checkEnd(Common::String *token, Common::String *expect, bool require
 	int i;
 	double f;
 	Director::ChunkType chunktype;
+	struct {
+		Common::String *eventName;
+		Common::String *stmt;
+	} w;
 
 	Director::IDList *idlist;
 	Director::Node *node;
@@ -122,23 +126,24 @@ static void checkEnd(Common::String *token, Common::String *expect, bool require
 
 %token tUNARY
 
-%token tLEXERROR
 %token<i> tINT
 %token<f> tFLOAT
 %token<s> tVARID tSTRING tSYMBOL
 %token<s> tENDCLAUSE
 %token tCAST tFIELD tSCRIPT tWINDOW
-%token tDELETE tDOWN tELSE tELSIF tEXIT tFRAME tGLOBAL tGO tHILITE tIF tIN tINTO tMACRO
+%token tDELETE tDOWN tELSE tEXIT tFRAME tGLOBAL tGO tHILITE tIF tIN tINTO tMACRO
 %token tMOVIE tNEXT tOF tPREVIOUS tPUT tREPEAT tSET tTHEN tTO tWHEN
 %token tWITH tWHILE tFACTORY tOPEN tPLAY tINSTANCE
 %token tGE tLE tEQ tNEQ tAND tOR tNOT tMOD
 %token tAFTER tBEFORE tCONCAT tCONTAINS tSTARTS
 %token tCHAR tCHARS tITEM tITEMS tLINE tLINES tWORD tWORDS
 %token tABBREVIATED tABBREV tABBR tLONG tSHORT
-%token tCASTMEMBERS tDATE tLAST tMENU tMENUITEM tMENUITEMS tNUMBER tTHE tTIME
+%token tDATE tLAST tMENU tMENUITEM tMENUITEMS tNUMBER tTHE tTIME
 %token tSOUND tSPRITE tINTERSECTS tWITHIN tTELL tPROPERTY
 %token tON tMETHOD tENDIF tENDREPEAT tENDTELL
 %token tASSERTERROR
+
+%type<w> tWHEN
 
 // TOP-LEVEL STUFF
 %type<node> script scriptpart
@@ -182,7 +187,7 @@ static void checkEnd(Common::String *token, Common::String *expect, bool require
 %left '<' tLE '>' tGE tEQ tNEQ tCONTAINS tSTARTS
 %left '&' tCONCAT
 %left '+' '-'
-%left '*' '/' '%' tMOD
+%left '*' '/' tMOD
 %right tUNARY
 // %right tCAST tFIELD tSCRIPT tWINDOW
 // %nonassoc tVARID
@@ -213,6 +218,7 @@ scriptpart:	'\n'						{ $$ = nullptr; }
 	| factory
 	| handler
 	| stmt
+	| tENDCLAUSE endargdef '\n'			{ $$ = nullptr; delete $tENDCLAUSE; } // stray `end`s are allowed for some reason
 	;
 
 // MACRO
@@ -346,7 +352,7 @@ CMDID: tVARID
 
 ID: CMDID
 	| tELSE			{ $$ = new Common::String("else"); }
-	| tENDCLAUSE	{ $$ = new Common::String("end"); }
+	| tENDCLAUSE	{ $$ = new Common::String("end"); delete $tENDCLAUSE; }
 	| tEXIT			{ $$ = new Common::String("exit"); }
 	| tFACTORY		{ $$ = new Common::String("factory"); }
 	| tGLOBAL		{ $$ = new Common::String("global"); }
@@ -363,7 +369,6 @@ ID: CMDID
 	| tSET			{ $$ = new Common::String("set"); }
 	| tTELL			{ $$ = new Common::String("tell"); }
 	| tTHEN			{ $$ = new Common::String("then"); }
-	| tWHEN			{ $$ = new Common::String("when"); }
 	;
 
 idlist: /* empty */					{ $$ = new IDList; }
@@ -556,7 +561,7 @@ tell: tTELL expr tTO stmtoneliner				{
 		$$ = new TellNode($expr, $stmtlist); }
 	;
 
-when: tWHEN ID tTHEN expr			{ $$ = new WhenNode($ID, $expr); } ;
+when: tWHEN							{ $$ = new WhenNode($tWHEN.eventName, $tWHEN.stmt); } ;
 
 stmtlist: /* empty */				{ $$ = new NodeList; }
 	| nonemptystmtlist

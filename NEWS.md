@@ -22,13 +22,15 @@ For a more comprehensive changelog of the latest experimental code, see:
    - Added support for Spanish Amazon: Guardians of Eden.
    - Added support for AGS Games versions 2.5+.
    - Added support for Nightlong: Union City Conspiracy.
+   - Added support for The Journeyman Project 2: Buried in Time.
+   - Added support for Crusader: No Remorse.
 
  New ports:
    - The Nintendo DS port got a major rewrite.
 
  General:
    - Switched ScummVM GUI output to UTF-32.
-   - Updated the Roland MT-32 emulation code to the Munt project's mt32emu 2.5.0.
+   - Updated the Roland MT-32 emulation code to the Munt project's mt32emu 2.5.1.
    - Updated Dropbox Cloud Storage to use the new Dropbox OAuth workflow.
    - Major extension to the number of supported graphics scalers.
    - Display path to scummvm configuration file in GUI -> Options -> Paths.
@@ -67,6 +69,7 @@ For a more comprehensive changelog of the latest experimental code, see:
 
  Lure:
    - Fixed fire animation in first room when loading saves.
+   - Fixed AdLib support.
    - Fixed MT-32 support.
 
  Pegasus:
@@ -101,8 +104,21 @@ For a more comprehensive changelog of the latest experimental code, see:
    - Added smooth scrolling for FM-TOWNS versions of games.
    - Added optional trimming to 200 pixels for some FM-TOWNS games, so aspect-ratio correction is possible.
    - Fixed audio distortion in Loom for PC-Engine.
-   - Added support for the high resolution font and cursor in the Macintosh version of Loom.
+   - Added support for the high resolution font and cursor in the 16-color Macintosh version of Loom.
    - Added support for Japanese Mac version of The Dig.
+   - Added partial support for the high resolution fonts and cursor in the
+     16-color Macintosh version of Indiana Jones and the Last Crusade.
+   - Fixed missing instruments in the m68k Mac versions of Monkey Island 2
+     and Indiana Jones and the Fate of Atlantis.
+   - Added "Macintosh b/w" render mode for the 16-color Macintosh versions of
+     Loom and Indiana Jones and the Last Crusade.
+   - Enabled difficulty selection in the version of Monkey Island 2 that was
+     included on the LucasArts Mac CD Game Pack II compilation. (It had been
+     disabled along with the copy protection.)
+   - Repair clumsy crack in Maniac Mansion (enhanced)'s keypad script.
+     This means that the GOG and Steam versions will no longer accept incorrect
+     numbers, e.g. for Edna's phone number. (Why are they selling a cracked
+     version anyway?!)
 
  Tinsel:
    - Enabled the Return to Launcher feature.
@@ -123,6 +139,8 @@ For a more comprehensive changelog of the latest experimental code, see:
  Ultima:
    - Ultima 4: Added several debugger commands.
    - Ultima 4: Allow Enter key to exit ZStats display.
+   - Ultima 8: Fixed several animation bugs for events and objects.
+   - Ultima 8: Restored original text for the Spell of Resurrection book.
 
  Xeen:
    - Fixed occasional border corruption during fights.
@@ -130,14 +148,17 @@ For a more comprehensive changelog of the latest experimental code, see:
    - Fixes for character selection, deselection, and dismissing to better match original.
 
  AmigaOS port:
-   - Add native system file browser feature
-   - Re-activate nuked OPL Adlib driver
+   - Add native system file browser feature.
+   - Re-activate nuked OPL Adlib driver.
 
  MorphOS port:
-   - Added native system file browser feature
-   - Added Cloud feature
-   - Re-activate nuked OPL Adlib driver
-   - Added CAMD MIDI driver support
+   - Added native system file browser feature.
+   - Added Cloud feature.
+   - Re-activate nuked OPL Adlib driver.
+   - Added CAMD MIDI driver support.
+
+  Windows port:
+   - Use OpenGL renderer by default, providing better support for HiDPI displays.
 
 #### 2.2.0 "Interactive Fantasy" (2020-09-27)
 

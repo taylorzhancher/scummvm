@@ -25,6 +25,8 @@
 
 namespace Director {
 
+#define CONTINUATION (0xAC)
+
 enum MovieFlag {
 	kMovieFlagAllowOutdatedLingo	= (1 << 8)
 };
@@ -315,7 +317,7 @@ enum ChunkType {
 	kChunkLine
 };
 
-enum FileVersion {
+enum {
 	kFileVer300 = 0x404,
 	kFileVer310 = 0x405,
 	kFileVer400 = 0x45B,
@@ -361,6 +363,24 @@ enum VarType {
 	kVarInstance,
 	kVarGlobal,
 	kVarLocal
+};
+
+struct CastMemberID {
+	int member;
+	int castLib;
+
+	CastMemberID() : member(0), castLib(0) {}
+	CastMemberID(int memberID, int castLibID)
+		: member(memberID), castLib(castLibID) {}
+	
+	bool operator==(const CastMemberID &c) {
+		return member == c.member && castLib == c.castLib;
+	}
+	bool operator!=(const CastMemberID &c) {
+		return member != c.member || castLib != c.castLib;
+	}
+
+	Common::String asString() const;
 };
 
 struct Datum;

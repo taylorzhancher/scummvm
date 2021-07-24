@@ -34,8 +34,8 @@ public:
 	LingoCompiler();
 	virtual ~LingoCompiler() {}
 
-	ScriptContext *compileAnonymous(const char *code);
-	ScriptContext *compileLingo(const char *code, LingoArchive *archive, ScriptType type, uint16 id, const Common::String &scriptName, bool anonyomous = false);
+	ScriptContext *compileAnonymous(const Common::U32String &code);
+	ScriptContext *compileLingo(const Common::U32String &code, LingoArchive *archive, ScriptType type, CastMemberID id, const Common::String &scriptName, bool anonyomous = false);
 	ScriptContext *compileLingoV4(Common::SeekableReadStreamEndian &stream, LingoArchive *archive, const Common::String &archName, uint16 version);
 
 	int code1(inst code) { _currentAssembly->push_back(code); return _currentAssembly->size() - 1; }
@@ -50,8 +50,7 @@ public:
 	void codeVarSet(const Common::String &name);
 	void codeVarRef(const Common::String &name);
 	void codeVarGet(const Common::String &name);
-	bool codeTheFieldSet(int entity, Node *id, const Common::String &field);
-	bool codeTheFieldGet(int entity, Node *id, const Common::String &field);
+	int getTheFieldID(int entity, const Common::String &field, bool silent = false);
 	void registerFactory(Common::String &s);
 	void registerMethodVar(const Common::String &name, VarType type = kVarGeneric);
 	void updateLoopJumps(uint nextTargetPos, uint exitTargetPos);
@@ -70,7 +69,6 @@ public:
 	bool _refMode;
 
 	Common::HashMap<Common::String, VarType, Common::IgnoreCase_Hash, Common::IgnoreCase_EqualTo> *_methodVars;
-	Common::HashMap<Common::String, VarType, Common::IgnoreCase_Hash, Common::IgnoreCase_EqualTo> *_methodVarsStash;
 
 	bool _hadError;
 
@@ -128,14 +126,13 @@ public:
 
 private:
 	int parse(const char *code);
-	void parseMenu(const char *code);
 
 public:
 	// lingo-preprocessor.cpp
-	Common::String codePreprocessor(const char *s, LingoArchive *archive, ScriptType type, uint16 id, bool simple = false);
+	Common::U32String codePreprocessor(const Common::U32String &code, LingoArchive *archive, ScriptType type, CastMemberID id, bool simple = false);
 
 	// lingo-patcher.cpp
-	Common::String patchLingoCode(Common::String &line, LingoArchive *archive, ScriptType type, uint16 id, int linenumber);
+	Common::U32String patchLingoCode(const Common::U32String &line, LingoArchive *archive, ScriptType type, CastMemberID id, int linenumber);
 };
 
 } // End of namespace Director

@@ -90,7 +90,7 @@
 #include "ultima/ultima8/world/actors/ambush_process.h"
 #include "ultima/ultima8/audio/audio_mixer.h"
 #include "ultima/ultima8/audio/u8_music_process.h"
-#include "ultima/ultima8/audio/remorse_music_process.h"
+#include "ultima/ultima8/audio/cru_music_process.h"
 #include "ultima/ultima8/audio/midi_player.h"
 #include "ultima/ultima8/gumps/shape_viewer_gump.h"
 #include "ultima/ultima8/meta_engine.h"
@@ -130,7 +130,8 @@ Ultima8Engine::Ultima8Engine(OSystem *syst, const Ultima::UltimaGameDescription 
 		_avatarInStasis(false), _cruStasis(false), _paintEditorItems(false), _inversion(0),
 		_showTouching(false), _timeOffset(0), _hasCheated(false), _cheatsEnabled(false),
 		_fontOverride(false), _fontAntialiasing(false), _audioMixer(0), _inverterGump(nullptr),
-	    _lerpFactor(256), _inBetweenFrame(false), _unkCrusaderFlag(false), _moveKeyFrame(0) {
+	    _lerpFactor(256), _inBetweenFrame(false), _unkCrusaderFlag(false), _moveKeyFrame(0),
+		_highRes(false) {
 	_instance = this;
 }
 
@@ -239,8 +240,10 @@ bool Ultima8Engine::startup() {
 		ProcessLoader<U8MusicProcess>::load);
 	_kernel->addProcessLoader("U8MusicProcess",
 		ProcessLoader<U8MusicProcess>::load);
-	_kernel->addProcessLoader("RemorseMusicProcess",
-		ProcessLoader<RemorseMusicProcess>::load);
+	_kernel->addProcessLoader("RemorseMusicProcess", // name was changed, keep this for backward-compatibility.
+		ProcessLoader<CruMusicProcess>::load);
+	_kernel->addProcessLoader("CruMusicProcess",
+		ProcessLoader<CruMusicProcess>::load);
 	_kernel->addProcessLoader("AudioProcess",
 		ProcessLoader<AudioProcess>::load);
 	_kernel->addProcessLoader("EggHatcherProcess",
@@ -362,11 +365,43 @@ bool Ultima8Engine::startupGame() {
 	_gameData = new GameData(_gameInfo);
 
 	if (_gameInfo->_type == GameInfo::GAME_U8) {
-		_ucMachine = new UCMachine(U8Intrinsics, 256);
+		_ucMachine = new UCMachine(U8Intrinsics, ARRAYSIZE(U8Intrinsics));
 	} else if (_gameInfo->_type == GameInfo::GAME_REMORSE) {
-		_ucMachine = new UCMachine(RemorseIntrinsics, 311);
+		switch (_gameInfo->_ucOffVariant) {
+		case GameInfo::GAME_UC_DEMO:
+			_ucMachine = new UCMachine(RemorseDemoIntrinsics, ARRAYSIZE(RemorseDemoIntrinsics));
+			break;
+		case GameInfo::GAME_UC_REM_ES:
+			_ucMachine = new UCMachine(RemorseEsIntrinsics, ARRAYSIZE(RemorseEsIntrinsics));
+			break;
+		case GameInfo::GAME_UC_REM_FR:
+			_ucMachine = new UCMachine(RemorseFrIntrinsics, ARRAYSIZE(RemorseFrIntrinsics));
+			break;
+		case GameInfo::GAME_UC_REM_JA:
+			warning("TODO: Create Remorse JA intrinsic list");
+			_ucMachine = new UCMachine(RemorseIntrinsics, ARRAYSIZE(RemorseIntrinsics));
+			break;
+		case GameInfo::GAME_UC_ORIG:
+			warning("TODO: Create Remorse original version intrinsic list");
+			_ucMachine = new UCMachine(RemorseIntrinsics, ARRAYSIZE(RemorseIntrinsics));
+			break;
+		default:
+			_ucMachine = new UCMachine(RemorseIntrinsics, ARRAYSIZE(RemorseIntrinsics));
+			break;
+		}
 	} else if (_gameInfo->_type == GameInfo::GAME_REGRET) {
-		_ucMachine = new UCMachine(RegretIntrinsics, 350);
+		switch (_gameInfo->_ucOffVariant) {
+		case GameInfo::GAME_UC_DEMO:
+			_ucMachine = new UCMachine(RegretDemoIntrinsics, ARRAYSIZE(RegretDemoIntrinsics));
+			break;
+		case GameInfo::GAME_UC_REG_DE:
+			_ucMachine = new UCMachine(RegretDeIntrinsics, ARRAYSIZE(RegretDeIntrinsics));
+			break;
+		case GameInfo::GAME_UC_ORIG: // 1.06 is the original CD release too?
+		default:
+			_ucMachine = new UCMachine(RegretIntrinsics, ARRAYSIZE(RegretIntrinsics));
+			break;
+		}
 	} else {
 		CANT_HAPPEN_MSG("Invalid game type.");
 	}
@@ -574,11 +609,14 @@ void Ultima8Engine::paint() {
 
 	tpaint -= g_system->getMillis();
 
-#ifdef DEBUG
-	// Fill the screen with an annoying color so we can see fast area bugs
 	Rect r;
 	_screen->GetSurfaceDims(r);
-	_screen->Fill32(0xFF1010FF, 0, 0, r.width(), r.height());
+	if (_highRes)
+		_screen->Fill32(0, 0, 0, r.width(), r.height());
+
+#ifdef DEBUG
+	// Fill the screen with an annoying color so we can see fast area bugs
+	_screen->Fill32(0xFF10FF10, 0, 0, r.width(), r.height());
 #endif
 
 	_desktopGump->Paint(_screen, _lerpFactor, false);
@@ -592,12 +630,16 @@ void Ultima8Engine::paint() {
 }
 
 void Ultima8Engine::GraphicSysInit() {
+	if (ConfMan.hasKey("usehighres")) {
+		_highRes = ConfMan.getBool("usehighres");
+	}
+
 	if (GAME_IS_U8) {
-		ConfMan.registerDefault("width", U8_DEFAULT_SCREEN_WIDTH);
-		ConfMan.registerDefault("height", U8_DEFAULT_SCREEN_HEIGHT);
+		ConfMan.registerDefault("width", _highRes ? U8_HIRES_SCREEN_WIDTH : U8_DEFAULT_SCREEN_WIDTH);
+		ConfMan.registerDefault("height", _highRes ? U8_HIRES_SCREEN_HEIGHT : U8_DEFAULT_SCREEN_HEIGHT);
 	} else {
-		ConfMan.registerDefault("width", CRUSADER_DEFAULT_SCREEN_WIDTH);
-		ConfMan.registerDefault("height", CRUSADER_DEFAULT_SCREEN_HEIGHT);
+		ConfMan.registerDefault("width", _highRes ? CRUSADER_HIRES_SCREEN_WIDTH : CRUSADER_DEFAULT_SCREEN_WIDTH);
+		ConfMan.registerDefault("height", _highRes ? CRUSADER_HIRES_SCREEN_HEIGHT : CRUSADER_DEFAULT_SCREEN_HEIGHT);
 	}
 	ConfMan.registerDefault("bpp", 16);
 
@@ -807,13 +849,11 @@ void Ultima8Engine::handleDelayedEvents() {
 }
 
 bool Ultima8Engine::getGameInfo(const istring &game, GameInfo *ginfo) {
-	// first try getting the information from the config file
-	// if that fails, try to autodetect it
-
 	ginfo->_name = game;
 	ginfo->_type = GameInfo::GAME_UNKNOWN;
 	ginfo->version = 0;
 	ginfo->_language = GameInfo::GAMELANG_UNKNOWN;
+	ginfo->_ucOffVariant = GameInfo::GAME_UC_DEFAULT;
 
 	assert(game == "ultima8" || game == "remorse" || game == "regret");
 
@@ -823,6 +863,43 @@ bool Ultima8Engine::getGameInfo(const istring &game, GameInfo *ginfo) {
 		ginfo->_type = GameInfo::GAME_REMORSE;
 	else if (game == "regret")
 		ginfo->_type = GameInfo::GAME_REGRET;
+
+	if (ginfo->_type == GameInfo::GAME_REMORSE)
+	{
+		switch (_gameDescription->desc.flags & ADGF_USECODE_MASK) {
+		case ADGF_USECODE_DEMO:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_DEMO;
+			break;
+		case ADGF_USECODE_ORIG:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_ORIG;
+			break;
+		case ADGF_USECODE_ES:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_REM_ES;
+			break;
+		case ADGF_USECODE_FR:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_REM_FR;
+			break;
+		case ADGF_USECODE_JA:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_REM_JA;
+			break;
+		default:
+			break;
+		}
+	} else if (ginfo->_type == GameInfo::GAME_REGRET) {
+		switch (_gameDescription->desc.flags & ADGF_USECODE_MASK) {
+		case ADGF_USECODE_DEMO:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_DEMO;
+			break;
+		case ADGF_USECODE_ORIG:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_ORIG;
+			break;
+		case ADGF_USECODE_DE:
+			ginfo->_ucOffVariant = GameInfo::GAME_UC_REG_DE;
+			break;
+		default:
+			break;
+		}
+	}
 
 	switch (_gameDescription->desc.language) {
 	case Common::EN_ANY:
@@ -1183,7 +1260,6 @@ void Ultima8Engine::applyGameSettings() {
 	_frameLimit = ConfMan.getBool("frameLimit");
 	_interpolate = ConfMan.getBool("interpolate");
 	_cheatsEnabled = ConfMan.getBool("cheat");
-
 }
 
 void Ultima8Engine::openConfigDialog() {
@@ -1596,7 +1672,9 @@ uint32 Ultima8Engine::I_moveKeyDownRecently(const uint8 *args, unsigned int /*ar
 
 bool Ultima8Engine::isDataRequired(Common::String &folder, int &majorVersion, int &minorVersion) {
 	folder = "ultima8";
-	majorVersion = 1;
+	// Version 1: Initial release
+	// Version 2: Add data for Crusader games
+	majorVersion = 2;
 	minorVersion = 0;
 	return true;
 }

@@ -280,6 +280,7 @@ ScummEngine::ScummEngine(OSystem *syst, const DetectorResult &dr)
 	_hePaletteSlot = 0;
 	_16BitPalette = NULL;
 	_macScreen = NULL;
+	_macIndy3TextBox = NULL;
 #ifndef DISABLE_TOWNS_DUAL_LAYER_MODE
 	_townsScreen = 0;
 	_scrollRequest = _scrollDeltaAdjust = 0;
@@ -561,6 +562,12 @@ ScummEngine::ScummEngine(OSystem *syst, const DetectorResult &dr)
 			_renderMode = Common::kRenderDefault;
 		break;
 
+	case Common::kRenderMacintoshBW:
+		if (_game.platform != Common::kPlatformMacintosh || (_game.id != GID_LOOM && _game.id != GID_INDY3)) {
+			_renderMode = Common::kRenderDefault;
+		}
+		break;
+
 	default:
 		break;
 	}
@@ -678,6 +685,11 @@ ScummEngine::~ScummEngine() {
 	if (_macScreen) {
 		_macScreen->free();
 		delete _macScreen;
+	}
+
+	if (_macIndy3TextBox) {
+		_macIndy3TextBox->free();
+		delete _macIndy3TextBox;
 	}
 
 #ifndef DISABLE_TOWNS_DUAL_LAYER_MODE
@@ -1297,12 +1309,41 @@ Common::Error ScummEngine::init() {
 	if (_game.platform == Common::kPlatformMacintosh) {
 		Common::MacResManager resource;
 
-		if (_game.id == GID_LOOM) {
-			// \xAA is a trademark glyph in Mac OS Roman. We try
-			// that, but also the Windows version, the UTF-8
-			// version, and just plain without in case the file
-			// system can't handle exotic characters like that.
+		// \xAA is a trademark glyph in Mac OS Roman. We try that, but
+		// also the Windows version, the UTF-8 version, and just plain
+		// without in case the file system can't handle exotic
+		// characters like that.
 
+		if (_game.id == GID_INDY3) {
+			static const char *indyFileNames[] = {
+				"Indy\xAA",
+				"Indy\x99",
+				"Indy\xE2\x84\xA2",
+				"Indy"
+			};
+
+			for (int i = 0; i < ARRAYSIZE(indyFileNames); i++) {
+				if (resource.exists(indyFileNames[i])) {
+					macResourceFile = indyFileNames[i];
+
+					_textSurfaceMultiplier = 2;
+					_macScreen = new Graphics::Surface();
+					_macScreen->create(640, 400, Graphics::PixelFormat::createFormatCLUT8());
+
+					_macIndy3TextBox = new Graphics::Surface();
+					_macIndy3TextBox->create(448, 47, Graphics::PixelFormat::createFormatCLUT8());
+					break;
+				}
+			}
+
+			if (macResourceFile.empty()) {
+				GUI::MessageDialog dialog(_(
+"Could not find the 'Indy' Macintosh executable. High-resolution fonts will\n"
+"be disabled."), _("OK"));
+				dialog.runModal();
+			}
+
+		} else if (_game.id == GID_LOOM) {
 			static const char *loomFileNames[] = {
 				"Loom\xAA",
 				"Loom\x99",
@@ -1349,6 +1390,10 @@ Common::Error ScummEngine::init() {
 "instruments from. Music will be disabled."), _("OK"));
 				dialog.runModal();
 			}
+		}
+
+		if (!_macScreen && _renderMode == Common::kRenderMacintoshBW) {
+			_renderMode = Common::kRenderDefault;
 		}
 	}
 
@@ -1445,7 +1490,9 @@ void ScummEngine::setupScumm(const Common::String &macResourceFile) {
 	Common::String macFontFile;
 
 	if (_game.platform == Common::kPlatformMacintosh) {
-		if (_game.id == GID_LOOM) {
+		if (_game.id == GID_INDY3) {
+			macFontFile = macResourceFile;
+		} if (_game.id == GID_LOOM) {
 			macInstrumentFile = macResourceFile;
 			macFontFile = macResourceFile;
 			_macCursorFile = macResourceFile;
@@ -1527,6 +1574,14 @@ void ScummEngine::setupScumm(const Common::String &macResourceFile) {
 	//	_bootParam = 10001;
 
 	if (!_copyProtection && _game.id == GID_INDY4 && _bootParam == 0) {
+		_bootParam = -7873;
+	}
+
+	// This boot param does not exist in the DOS version, but skips straight
+	// to the difficulty selection screen in the Mac versions. (One of them
+	// didn't show the difficulty selection screen at all, but we patch the
+	// boot script to enable that.)
+	if (!_copyProtection && _game.id == GID_MONKEY2 && _game.platform == Common::kPlatformMacintosh && _bootParam == 0) {
 		_bootParam = -7873;
 	}
 
@@ -1666,6 +1721,10 @@ void ScummEngine::resetScumm() {
 
 	if (_macScreen) {
 		_macScreen->fillRect(Common::Rect(_macScreen->w, _macScreen->h), 0);
+	}
+
+	if (_macIndy3TextBox) {
+		_macIndy3TextBox->fillRect(Common::Rect(_macIndy3TextBox->w, _macIndy3TextBox->h), 0);
 	}
 
 	if (_game.version == 0) {
@@ -2025,6 +2084,38 @@ void ScummEngine::setupMusic(int midi, const Common::String &macInstrumentFile) 
 			dialog.runModal();
 			_sound->_musicType = MDT_ADLIB;
 		}
+	}
+
+	if (_game.platform == Common::kPlatformMacintosh && (_game.id == GID_MONKEY2 || _game.id == GID_INDY4)) {
+		// While the Mac versions do have ADL resources, the Mac player
+		// doesn't handle them. So if a song is missing a MAC resource,
+		// prefer the ROL version over ADL.
+		//
+		// This is the case in Monkey Island 2, where some key music is
+		// missing near the end of the game: The Indiana Jones fanfare
+		// when Guybrush uses the rope to get the chest, and the music
+		// after the first LeChuck encounter in the underground tunnels
+		// below that scene. As well as some others that I haven't
+		// identified.
+		//
+		// Note that this does not seem to be a ScummVM bug. That music
+		// was missing when I ran the game in a Mac emulator too!
+		//
+		// ScummVM would play the ROL music instead, but only if it
+		// didn't think it was  using an AdLib music driver. Even if
+		// (as in my case) it was only by default. Now we always set
+		// MDT_MIDI to ensure consistent behavior. The Mac instrument
+		// set isn't quite the same as the MT-32, but it looks like it
+		// was based on a subset of it.
+		//
+		// From what I've seen, when a resource has a Mac version that
+		// is all that it has. So there shouldn't be any case where it
+		// prefers a ROL resource over MAC.
+		//
+		// Adding AdLib capabilities to the player may still be a good
+		// idea, because there are plenty of sound resources that exist
+		// only as ADL and SPK.
+		_sound->_musicType = MDT_MIDI;
 	}
 
 	// DOTT + SAM use General MIDI, so they shouldn't use GS settings
@@ -2832,6 +2923,23 @@ void ScummEngine::restart() {
 void ScummEngine::runBootscript() {
 	int args[NUM_SCRIPT_LOCAL];
 	memset(args, 0, sizeof(args));
+
+	// There are two known versions of Monkey Island 2 for the Mac. This
+	// boot param only exists in the floppy release. The version that was
+	// distributed on CD has a different boot script which doesn't show
+	// the copy protection (or difficulty selection) screen at all. We try
+	// to patch the script to put these features back, and use the boot
+	// param to bypass the copy protection screen (since ScummVM already
+	// disables the copy protection check in it).
+	//
+	// But if the script patching somehow failed, clear the boot param to
+	// avoid errors.
+
+	if (_game.id == GID_MONKEY2 && _game.platform == Common::kPlatformMacintosh && _bootParam == -7873 && !verifyMI2MacBootScript()) {
+		warning("Unknown MI2 Mac boot script. Using default boot param");
+		_bootParam = 0;
+	}
+
 	args[0] = _bootParam;
 	if (_game.id == GID_MANIAC && (_game.features & GF_DEMO) && (_game.platform != Common::kPlatformC64))
 		runScript(9, 0, 0, args);

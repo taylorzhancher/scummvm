@@ -1253,6 +1253,15 @@ uint16 Item::fireWeapon(int32 x, int32 y, int32 z, Direction dir, int firetype, 
 	case 0x11: // No Regret only
 		spriteframe = dir * 6 + 0x78;
 		break;
+	case 0x14: // No Regret only
+		spriteframe = dir * 3 + 0xdc;
+		break;
+	case 0x15: // No Regret only
+		spriteframe = dir + 100;
+		break;
+	case 0x16: // No Regret only
+		spriteframe = dir + 0x11;
+		break;
 	default:
 		break;
 	}
@@ -1357,8 +1366,7 @@ uint16 Item::fireDistance(const Item *other, Direction dir, int16 xoff, int16 yo
 			else
 				anim = Animation::kneelAndFireLargeWeapon;
 		} else {
-			// TODO: fireLarge seems to be different ID in Regret, check me.
-			if (ma || smallwpn)
+			if (smallwpn || !ma)
 				anim = Animation::fireSmallWeapon;
 			else
 				anim = Animation::fireLargeWeapon;
@@ -2098,6 +2106,12 @@ void Item::grab() {
 
 
 void Item::hurl(int xs, int ys, int zs, int grav) {
+	if (_parent) {
+		// Should be removed from the container first??
+		// This will break otherwise as location is 0,0,0
+		warning("Ignoring hurl for contained item %d.", _objId);
+		return;
+	}
 	// crusader sleeps existing gravity at first
 	bool do_sleep = GAME_IS_CRUSADER && (_gravityPid == 0);
 	GravityProcess *p = ensureGravityProcess();

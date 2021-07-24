@@ -63,6 +63,10 @@ GameVersion getGameVersion(const AdlGameDescription &adlDesc) {
 	return adlDesc.version;
 }
 
+Common::Language getLanguage(const AdlGameDescription &adlDesc) {
+	return adlDesc.desc.language;
+}
+
 Common::Platform getPlatform(const AdlGameDescription &adlDesc) {
 	return adlDesc.desc.platform;
 }
@@ -75,7 +79,8 @@ public:
 
 	bool hasFeature(MetaEngineFeature f) const override;
 	SaveStateDescriptor querySaveMetaInfos(const char *target, int slot) const override;
-	int getMaximumSaveSlot() const override { return 'O' - 'A'; }
+	int getAutosaveSlot() const override { return 15; }
+	int getMaximumSaveSlot() const override { return 15; }
 	SaveStateList listSaves(const char *target) const override;
 	void removeSaveState(const char *target, int slot) const override;
 

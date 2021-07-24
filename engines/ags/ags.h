@@ -26,6 +26,7 @@
 #include "common/scummsys.h"
 #include "common/system.h"
 #include "common/error.h"
+#include "common/fs.h"
 #include "common/random.h"
 #include "common/hash-str.h"
 #include "common/util.h"
@@ -50,8 +51,7 @@ namespace AGS {
  */
 
 /* Synced up to upstream:
- * "Common: removed unused function"
- * fc6006ca3375ed19f23c8ef1c0b060af7be273d9
+ * 4e2df949ff36bbb6d08e402586dc8c2bb02ecad9
  */
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 200
@@ -68,8 +68,6 @@ private:
 public:
 	EventsManager *_events;
 	Music *_music;
-	Graphics::Screen *_rawScreen;
-	::AGS3::BITMAP *_screen;
 	::AGS3::GFX_DRIVER *_gfxDriver;
 	::AGS3::AGS::Engine::Mutex _sMutex;
 	::AGS3::AGS::Engine::Mutex _soundCacheMutex;
@@ -134,6 +132,22 @@ public:
 	};
 
 	/**
+	 * Returns true if the selected game is an unsupported one
+	 * earlier than version 2.5
+	 */
+	bool isUnsupportedPre25() const;
+
+	/*
+	 * Returns true if the game has data files greater than 2Gb
+	 */
+	bool is64BitGame() const;
+
+	/**
+	 * Returns the game folder as a ScummVM filesystem node
+	 */
+	Common::FSNode getGameFolder();
+
+	/**
 	 * Indicate whether a game state can be loaded.
 	 */
 	bool canLoadGameStateCurrently() override;
@@ -155,7 +169,6 @@ public:
 };
 
 extern AGSEngine *g_vm;
-#define screen ::AGS::g_vm->_screen
 #define gfx_driver ::AGS::g_vm->_gfxDriver
 #define SHOULD_QUIT ::AGS::g_vm->shouldQuit()
 

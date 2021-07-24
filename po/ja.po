@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ScummVM 2.3.0git\n"
 "Report-Msgid-Bugs-To: scummvm-devel@lists.scummvm.org\n"
-"POT-Creation-Date: 2021-06-24 21:09+0000\n"
-"PO-Revision-Date: 2021-06-25 11:25+0000\n"
+"POT-Creation-Date: 2021-07-21 21:06+0000\n"
+"PO-Revision-Date: 2021-07-23 08:25+0000\n"
 "Last-Translator: VAN-Gluon <van.gluonp@gmail.com>\n"
 "Language-Team: Japanese <https://translations.scummvm.org/projects/scummvm/"
 "scummvm/ja/>\n"
@@ -63,7 +63,7 @@ msgstr "上へ"
 #: gui/saveload-dialog.cpp:62 gui/saveload-dialog.cpp:396
 #: gui/saveload-dialog.cpp:469 gui/saveload-dialog.cpp:771
 #: gui/saveload-dialog.cpp:1168 gui/themebrowser.cpp:55
-#: gui/unknown-game-dialog.cpp:54 engines/engine.cpp:651
+#: gui/unknown-game-dialog.cpp:54 engines/engine.cpp:645
 #: backends/dialogs/gtk/gtk-dialogs.cpp:46
 #: backends/events/default/default-events.cpp:185
 #: backends/events/default/default-events.cpp:209
@@ -75,7 +75,7 @@ msgstr "上へ"
 #: engines/mohawk/riven_stacks/aspit.cpp:372
 #: engines/mohawk/riven_stacks/aspit.cpp:456 engines/nancy/dialogs.cpp:101
 #: engines/parallaction/saveload.cpp:271 engines/scumm/dialogs.cpp:180
-#: engines/sword1/control.cpp:889 engines/wintermute/wintermute.cpp:199
+#: engines/sword1/control.cpp:889 engines/wintermute/wintermute.cpp:183
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -91,7 +91,7 @@ msgstr "選択"
 msgid "Select directory where to download game data"
 msgstr "ゲームデータをダウンロードするディレクトリを選択します"
 
-#: gui/downloaddialog.cpp:50 gui/editgamedialog.cpp:583 gui/launcher.cpp:208
+#: gui/downloaddialog.cpp:50 gui/editgamedialog.cpp:583 gui/launcher.cpp:206
 msgid "Select directory with game data"
 msgstr "ゲームデータのフォルダーを選択する"
 
@@ -124,9 +124,9 @@ msgstr "接続が制限されているようです。ダウンロードしても
 
 #: gui/downloaddialog.cpp:119 gui/downloaddialog.cpp:153
 #: gui/filebrowser-dialog.cpp:133 gui/fluidsynth-dialog.cpp:218
-#: gui/launcher.cpp:395 gui/launcher.cpp:417 gui/launcher.cpp:460
+#: gui/launcher.cpp:393 gui/launcher.cpp:415 gui/launcher.cpp:458
 #: gui/options.cpp:2876 gui/options.cpp:2914
-#: backends/events/default/default-events.cpp:185 engines/buried/buried.cpp:533
+#: backends/events/default/default-events.cpp:185 engines/buried/buried.cpp:530
 #: engines/grim/grim.cpp:350 engines/kyra/gui/saveload_eob.cpp:596
 #: engines/kyra/gui/saveload_eob.cpp:629
 #: engines/parallaction/metaengine.cpp:136
@@ -136,8 +136,8 @@ msgstr "はい"
 
 #: gui/downloaddialog.cpp:119 gui/downloaddialog.cpp:154
 #: gui/filebrowser-dialog.cpp:133 gui/fluidsynth-dialog.cpp:218
-#: gui/launcher.cpp:395 gui/launcher.cpp:417 gui/launcher.cpp:460
-#: gui/options.cpp:2876 gui/options.cpp:2914 engines/buried/buried.cpp:533
+#: gui/launcher.cpp:393 gui/launcher.cpp:415 gui/launcher.cpp:458
+#: gui/options.cpp:2876 gui/options.cpp:2914 engines/buried/buried.cpp:530
 #: engines/grim/grim.cpp:350 engines/kyra/gui/saveload_eob.cpp:596
 #: engines/kyra/gui/saveload_eob.cpp:629
 #: engines/parallaction/metaengine.cpp:142
@@ -145,7 +145,7 @@ msgstr "はい"
 msgid "No"
 msgstr "いいえ"
 
-#: gui/downloaddialog.cpp:137 gui/launcher.cpp:566
+#: gui/downloaddialog.cpp:137 gui/launcher.cpp:564
 msgid "ScummVM couldn't open the specified directory!"
 msgstr "指定されたディレクトリーが開けませんでした!"
 
@@ -158,21 +158,21 @@ msgstr ""
 "名前のファイルがあります。"
 
 #: gui/downloaddialog.cpp:147 gui/editgamedialog.cpp:385
-#: gui/fluidsynth-dialog.cpp:154 gui/launcher.cpp:516 gui/launcher.cpp:520
+#: gui/fluidsynth-dialog.cpp:154 gui/launcher.cpp:514 gui/launcher.cpp:518
 #: gui/massadd.cpp:89 gui/options.cpp:2095 gui/saveload-dialog.cpp:1169
-#: engines/engine.cpp:511 engines/engine.cpp:523
+#: engines/engine.cpp:504 engines/engine.cpp:516
 #: backends/platform/wii/options.cpp:47 engines/agos/animation.cpp:559
 #: engines/drascula/saveload.cpp:49 engines/groovie/script.cpp:484
 #: engines/parallaction/saveload.cpp:271 engines/sci/engine/kgraphics.cpp:75
 #: engines/sci/graphics/controls32.cpp:925 engines/scumm/dialogs.cpp:182
-#: engines/scumm/scumm.cpp:1327 engines/scumm/scumm.cpp:1349
-#: engines/scumm/scumm.cpp:2024 engines/sky/compact.cpp:142
-#: engines/sword1/animation.cpp:532 engines/sword1/animation.cpp:553
-#: engines/sword1/animation.cpp:569 engines/sword1/animation.cpp:577
-#: engines/sword1/control.cpp:889 engines/sword1/logic.cpp:1635
-#: engines/sword2/animation.cpp:429 engines/sword2/animation.cpp:449
-#: engines/sword2/animation.cpp:465 engines/sword2/animation.cpp:475
-#: engines/zvision/file/save_manager.cpp:226
+#: engines/scumm/scumm.cpp:1342 engines/scumm/scumm.cpp:1368
+#: engines/scumm/scumm.cpp:1390 engines/scumm/scumm.cpp:2083
+#: engines/sky/compact.cpp:142 engines/sword1/animation.cpp:532
+#: engines/sword1/animation.cpp:553 engines/sword1/animation.cpp:569
+#: engines/sword1/animation.cpp:577 engines/sword1/control.cpp:889
+#: engines/sword1/logic.cpp:1635 engines/sword2/animation.cpp:429
+#: engines/sword2/animation.cpp:449 engines/sword2/animation.cpp:465
+#: engines/sword2/animation.cpp:475 engines/zvision/file/save_manager.cpp:226
 msgid "OK"
 msgstr "OK"
 
@@ -231,8 +231,8 @@ msgctxt "lowres"
 msgid "Name:"
 msgstr "名前："
 
-#: gui/editgamedialog.cpp:162 engines/mohawk/dialogs.cpp:155
-#: engines/mohawk/dialogs.cpp:365
+#: gui/editgamedialog.cpp:162 engines/mohawk/dialogs.cpp:158
+#: engines/mohawk/dialogs.cpp:377
 msgid "Language:"
 msgstr "言語："
 
@@ -429,7 +429,7 @@ msgid "Statistics"
 msgstr "統計"
 
 #: gui/editgamedialog.cpp:398 gui/editgamedialog.cpp:504
-#: gui/editgamedialog.cpp:570 gui/editgamedialog.cpp:631 gui/options.cpp:2116
+#: gui/editgamedialog.cpp:570 gui/editgamedialog.cpp:637 gui/options.cpp:2116
 #: gui/options.cpp:2122 gui/options.cpp:2130 gui/options.cpp:2161
 #: gui/options.cpp:2204 gui/options.cpp:2212 gui/options.cpp:2221
 #: gui/options.cpp:2484 gui/options.cpp:2490 gui/options.cpp:2497
@@ -440,7 +440,7 @@ msgid "None"
 msgstr "未設定"
 
 #: gui/editgamedialog.cpp:403 gui/editgamedialog.cpp:510
-#: gui/editgamedialog.cpp:635 gui/options.cpp:2110 gui/options.cpp:2478
+#: gui/editgamedialog.cpp:641 gui/options.cpp:2110 gui/options.cpp:2478
 #: gui/options.cpp:2760 backends/platform/wii/options.cpp:56
 msgid "Default"
 msgstr "デフォルト"
@@ -457,7 +457,13 @@ msgstr "ゲームの追加データのフォルダーを選択してください
 msgid "Select directory for saved games"
 msgstr "セーブデータのフォルダーを選択してください"
 
-#: gui/editgamedialog.cpp:621
+#: gui/editgamedialog.cpp:622 gui/options.cpp:2696
+msgid "The chosen directory cannot be written to. Please select another one."
+msgstr ""
+"選択されたフォルダーに保存できませんでした。保存ができるフォルダーを選択して"
+"ください。"
+
+#: gui/editgamedialog.cpp:627
 msgid ""
 "Saved games sync feature doesn't work with non-default directories. If you "
 "want your saved games to sync, use default directory."
@@ -465,7 +471,7 @@ msgstr ""
 "セーブデータの同期機能はデフォルトのフォルダー以外使えません。使用するにはデ"
 "フォルトのフォルダーを選択してください。"
 
-#: gui/editgamedialog.cpp:647
+#: gui/editgamedialog.cpp:653
 msgid "This game ID is already taken. Please choose another one."
 msgstr "入力されたIDが使用済み。別のIDを使ってください。"
 
@@ -589,7 +595,7 @@ msgstr "FluidSynthの設定を全てリセットしてもよろしいですか�
 msgid "GUI"
 msgstr "GUI"
 
-#: gui/gui-manager.cpp:154 engines/mohawk/myst.cpp:568
+#: gui/gui-manager.cpp:154 engines/mohawk/myst.cpp:574
 #: engines/mohawk/riven.cpp:838
 msgid "Interact"
 msgstr "作用"
@@ -605,10 +611,10 @@ msgstr "閉じる"
 #: engines/dragons/metaengine.cpp:163 engines/glk/scott/scott.cpp:412
 #: engines/griffon/metaengine.cpp:96 engines/grim/grim.cpp:448
 #: engines/grim/grim.cpp:525 engines/twine/metaengine.cpp:430
-#: engines/twine/metaengine.cpp:497 engines/wintermute/keymapper_tables.h:1252
-#: engines/wintermute/keymapper_tables.h:1362
-#: engines/wintermute/keymapper_tables.h:1822
-#: engines/wintermute/keymapper_tables.h:2053
+#: engines/twine/metaengine.cpp:497 engines/wintermute/keymapper_tables.h:1263
+#: engines/wintermute/keymapper_tables.h:1373
+#: engines/wintermute/keymapper_tables.h:1844
+#: engines/wintermute/keymapper_tables.h:2078
 msgid "Up"
 msgstr "上"
 
@@ -616,10 +622,10 @@ msgstr "上"
 #: engines/dragons/metaengine.cpp:169 engines/glk/scott/scott.cpp:412
 #: engines/griffon/metaengine.cpp:102 engines/grim/grim.cpp:453
 #: engines/grim/grim.cpp:530 engines/twine/metaengine.cpp:437
-#: engines/twine/metaengine.cpp:505 engines/wintermute/keymapper_tables.h:1258
-#: engines/wintermute/keymapper_tables.h:1369
-#: engines/wintermute/keymapper_tables.h:1828
-#: engines/wintermute/keymapper_tables.h:2059
+#: engines/twine/metaengine.cpp:505 engines/wintermute/keymapper_tables.h:1269
+#: engines/wintermute/keymapper_tables.h:1380
+#: engines/wintermute/keymapper_tables.h:1850
+#: engines/wintermute/keymapper_tables.h:2084
 msgid "Down"
 msgstr "下"
 
@@ -627,11 +633,11 @@ msgstr "下"
 #: engines/dragons/metaengine.cpp:175 engines/griffon/metaengine.cpp:108
 #: engines/grim/grim.cpp:458 engines/grim/grim.cpp:535
 #: engines/twine/metaengine.cpp:452 engines/twine/metaengine.cpp:520
-#: engines/wintermute/keymapper_tables.h:320
-#: engines/wintermute/keymapper_tables.h:1264
-#: engines/wintermute/keymapper_tables.h:1810
-#: engines/wintermute/keymapper_tables.h:1919
-#: engines/wintermute/keymapper_tables.h:2041
+#: engines/wintermute/keymapper_tables.h:321
+#: engines/wintermute/keymapper_tables.h:1275
+#: engines/wintermute/keymapper_tables.h:1832
+#: engines/wintermute/keymapper_tables.h:1942
+#: engines/wintermute/keymapper_tables.h:2066
 msgid "Left"
 msgstr "左"
 
@@ -639,33 +645,33 @@ msgstr "左"
 #: engines/dragons/metaengine.cpp:181 engines/griffon/metaengine.cpp:114
 #: engines/grim/grim.cpp:463 engines/grim/grim.cpp:540
 #: engines/twine/metaengine.cpp:444 engines/twine/metaengine.cpp:513
-#: engines/wintermute/keymapper_tables.h:326
-#: engines/wintermute/keymapper_tables.h:1270
-#: engines/wintermute/keymapper_tables.h:1816
-#: engines/wintermute/keymapper_tables.h:1927
-#: engines/wintermute/keymapper_tables.h:2047
+#: engines/wintermute/keymapper_tables.h:327
+#: engines/wintermute/keymapper_tables.h:1281
+#: engines/wintermute/keymapper_tables.h:1838
+#: engines/wintermute/keymapper_tables.h:1950
+#: engines/wintermute/keymapper_tables.h:2072
 msgid "Right"
 msgstr "右"
 
 #: gui/gui-manager.cpp:185 engines/pegasus/pegasus.cpp:2807
-#: engines/wintermute/keymapper_tables.h:305
-#: engines/wintermute/keymapper_tables.h:346
-#: engines/wintermute/keymapper_tables.h:379
-#: engines/wintermute/keymapper_tables.h:489
-#: engines/wintermute/keymapper_tables.h:518
-#: engines/wintermute/keymapper_tables.h:622
-#: engines/wintermute/keymapper_tables.h:771
-#: engines/wintermute/keymapper_tables.h:798
-#: engines/wintermute/keymapper_tables.h:838
-#: engines/wintermute/keymapper_tables.h:976
-#: engines/wintermute/keymapper_tables.h:1184
-#: engines/wintermute/keymapper_tables.h:1231
-#: engines/wintermute/keymapper_tables.h:1484
-#: engines/wintermute/keymapper_tables.h:1691
-#: engines/wintermute/keymapper_tables.h:1744
-#: engines/wintermute/keymapper_tables.h:1792
-#: engines/wintermute/keymapper_tables.h:1846
-#: engines/wintermute/keymapper_tables.h:1904
+#: engines/wintermute/keymapper_tables.h:306
+#: engines/wintermute/keymapper_tables.h:347
+#: engines/wintermute/keymapper_tables.h:382
+#: engines/wintermute/keymapper_tables.h:492
+#: engines/wintermute/keymapper_tables.h:521
+#: engines/wintermute/keymapper_tables.h:625
+#: engines/wintermute/keymapper_tables.h:780
+#: engines/wintermute/keymapper_tables.h:807
+#: engines/wintermute/keymapper_tables.h:847
+#: engines/wintermute/keymapper_tables.h:987
+#: engines/wintermute/keymapper_tables.h:1195
+#: engines/wintermute/keymapper_tables.h:1242
+#: engines/wintermute/keymapper_tables.h:1498
+#: engines/wintermute/keymapper_tables.h:1708
+#: engines/wintermute/keymapper_tables.h:1762
+#: engines/wintermute/keymapper_tables.h:1813
+#: engines/wintermute/keymapper_tables.h:1868
+#: engines/wintermute/keymapper_tables.h:1926
 msgid "???"
 msgstr "???"
 
@@ -717,7 +723,7 @@ msgstr "記録..."
 msgid "~A~dd Game..."
 msgstr "ゲームを追加(~A~)..."
 
-#: gui/launcher.cpp:157 gui/launcher.cpp:167
+#: gui/launcher.cpp:157 gui/launcher.cpp:166
 msgid "Add games to the list"
 msgstr "リストにゲームを追加する"
 
@@ -725,58 +731,58 @@ msgstr "リストにゲームを追加する"
 msgid "Mass Add..."
 msgstr "一括に追加..."
 
-#: gui/launcher.cpp:162
+#: gui/launcher.cpp:161
 msgid "~E~dit Game..."
 msgstr "ゲームを編集(~E~)..."
 
-#: gui/launcher.cpp:162 gui/launcher.cpp:172
+#: gui/launcher.cpp:161 gui/launcher.cpp:170
 msgid "Change game options"
 msgstr "ゲームの設定を変える"
 
-#: gui/launcher.cpp:164
+#: gui/launcher.cpp:163
 msgid "~R~emove Game"
 msgstr "ゲームを削除(~R~)"
 
-#: gui/launcher.cpp:164 gui/launcher.cpp:174
+#: gui/launcher.cpp:163 gui/launcher.cpp:172
 msgid "Remove game from the list. The game data files stay intact"
 msgstr "リストからゲームを削除する。ゲームのデータファイルは削除されません"
 
-#: gui/launcher.cpp:167
+#: gui/launcher.cpp:166
 msgctxt "lowres"
 msgid "~A~dd Game..."
 msgstr "ゲームを追加(~A~)..."
 
-#: gui/launcher.cpp:168
+#: gui/launcher.cpp:167
 msgctxt "lowres"
 msgid "Mass Add..."
 msgstr "一括に追加..."
 
-#: gui/launcher.cpp:172
+#: gui/launcher.cpp:170
 msgctxt "lowres"
 msgid "~E~dit Game..."
 msgstr "ゲームを編集(~E~)..."
 
-#: gui/launcher.cpp:174
+#: gui/launcher.cpp:172
 msgctxt "lowres"
 msgid "~R~emove Game"
 msgstr "ゲームを削除(~R~)"
 
-#: gui/launcher.cpp:182
+#: gui/launcher.cpp:180
 msgid "Search in game list"
 msgstr "ゲームリストを検索する"
 
-#: gui/launcher.cpp:186 gui/launcher.cpp:785
+#: gui/launcher.cpp:184 gui/launcher.cpp:783
 msgid "Search:"
 msgstr "検索："
 
-#: gui/launcher.cpp:211 engines/dialogs.cpp:98 engines/engine.cpp:801
+#: gui/launcher.cpp:209 engines/dialogs.cpp:98 engines/engine.cpp:795
 #: engines/buried/saveload.cpp:515 engines/pegasus/pegasus.cpp:384
 #: engines/trecision/saveload.cpp:253 engines/tsage/scenes.cpp:631
 #: engines/wage/saveload.cpp:742 engines/xeen/saves.cpp:256
 msgid "Load game:"
 msgstr "ゲームをロード："
 
-#: gui/launcher.cpp:211 engines/dialogs.cpp:98 engines/engine.cpp:801
+#: gui/launcher.cpp:209 engines/dialogs.cpp:98 engines/engine.cpp:795
 #: engines/buried/saveload.cpp:515 engines/parallaction/metaengine.cpp:118
 #: engines/parallaction/saveload.cpp:194 engines/pegasus/pegasus.cpp:384
 #: engines/scumm/dialogs.cpp:178 engines/trecision/saveload.cpp:253
@@ -785,41 +791,41 @@ msgstr "ゲームをロード："
 msgid "Load"
 msgstr "ロート"
 
-#: gui/launcher.cpp:383
+#: gui/launcher.cpp:381
 msgid "This directory cannot be used yet, it is being downloaded into!"
 msgstr "このフォルダーはダウンロード中の為使えません！"
 
-#: gui/launcher.cpp:394
+#: gui/launcher.cpp:392
 msgid ""
 "Do you really want to run the mass game detector? This could potentially add "
 "a huge number of games."
 msgstr "一括にゲームを追加してもよろしいですか？大量に追加することもあります。"
 
-#: gui/launcher.cpp:417
+#: gui/launcher.cpp:415
 msgid "Do you really want to remove this game configuration?"
 msgstr "このゲームはリストから削除してもよろしいですか？"
 
-#: gui/launcher.cpp:459
+#: gui/launcher.cpp:457
 msgid "Do you want to load saved game?"
 msgstr "セーブデータをロードしますか？"
 
-#: gui/launcher.cpp:516
+#: gui/launcher.cpp:514
 msgid "This game does not support loading games from the launcher."
 msgstr "このゲームはランチャーからロードができません。"
 
-#: gui/launcher.cpp:520
+#: gui/launcher.cpp:518
 msgid "ScummVM could not find any engine capable of running the selected game!"
 msgstr "選択されたゲームを実行できるエンジンは見つかりませんでした！"
 
-#: gui/launcher.cpp:585
+#: gui/launcher.cpp:583
 msgid "ScummVM could not find any game in the specified directory!"
 msgstr "選択されたフォルダー内ゲームが認識できませんでした！"
 
-#: gui/launcher.cpp:600
+#: gui/launcher.cpp:598
 msgid "Unknown variant"
 msgstr "未認識バージョン"
 
-#: gui/launcher.cpp:606
+#: gui/launcher.cpp:604
 msgid "Pick the game:"
 msgstr "ゲームを選択してください："
 
@@ -1050,7 +1056,7 @@ msgstr "3Dレンダラー："
 msgid "3D Anti-aliasing:"
 msgstr "3Dアンチエイリアス："
 
-#: gui/options.cpp:1466 engines/mohawk/dialogs.cpp:352
+#: gui/options.cpp:1466 engines/mohawk/dialogs.cpp:364
 msgid "Disabled"
 msgstr "無効"
 
@@ -1675,12 +1681,6 @@ msgstr ""
 "\n"
 "設定を復元します。"
 
-#: gui/options.cpp:2696
-msgid "The chosen directory cannot be written to. Please select another one."
-msgstr ""
-"選択されたフォルダーに保存できませんでした。保存ができるフォルダーを選択して"
-"ください。"
-
 #: gui/options.cpp:2705
 msgid "Select directory for GUI themes"
 msgstr "GUIテーマのフォルダーを選択してください"
@@ -1806,13 +1806,13 @@ msgstr "再生"
 msgid "Edit"
 msgstr "編集"
 
-#: gui/recorderdialog.cpp:84 gui/recorderdialog.cpp:240
-#: gui/recorderdialog.cpp:250
+#: gui/recorderdialog.cpp:84 gui/recorderdialog.cpp:241
+#: gui/recorderdialog.cpp:251
 msgid "Author: "
 msgstr "製作者： "
 
-#: gui/recorderdialog.cpp:85 gui/recorderdialog.cpp:241
-#: gui/recorderdialog.cpp:251
+#: gui/recorderdialog.cpp:85 gui/recorderdialog.cpp:242
+#: gui/recorderdialog.cpp:252
 msgid "Notes: "
 msgstr "メモ： "
 
@@ -1918,7 +1918,7 @@ msgstr "レンダラー無効"
 msgid "Standard renderer"
 msgstr "標準レンダラー"
 
-#: gui/ThemeEngine.cpp:274 engines/scumm/dialogs.cpp:672
+#: gui/ThemeEngine.cpp:274 engines/scumm/dialogs.cpp:677
 msgid "Standard"
 msgstr "標準"
 
@@ -1995,7 +1995,7 @@ msgstr "ゲームを実行のエラー："
 msgid "Could not find any engine capable of running the selected game"
 msgstr "選択されたゲームに対応するエンジンが見つかりません"
 
-#: common/achievements.cpp:229
+#: common/achievements.cpp:231
 msgid "Achievement unlocked!"
 msgstr "実績がアンロックされました!"
 
@@ -2084,12 +2084,17 @@ msgstr "PC-9821（256色）"
 msgid "PC-9801 (16 Colors)"
 msgstr "PC-9801（16色）"
 
-#: common/rendermode.cpp:73
+#. I18N: Macintosh black-and-white
+#: common/rendermode.cpp:48
+msgid "Macintosh b/w"
+msgstr "Macintosh 白/黒"
+
+#: common/rendermode.cpp:75
 msgctxt "lowres"
 msgid "Hercules Green"
 msgstr "Herculesの緑"
 
-#: common/rendermode.cpp:74
+#: common/rendermode.cpp:76
 msgctxt "lowres"
 msgid "Hercules Amber"
 msgstr "Herculesの琥珀"
@@ -2191,7 +2196,7 @@ msgctxt "lowres"
 msgid "~R~eturn to Launcher"
 msgstr "メインメニューに戻る(~R~)"
 
-#: engines/dialogs.cpp:99 engines/engine.cpp:830 engines/agi/saveload.cpp:768
+#: engines/dialogs.cpp:99 engines/engine.cpp:824 engines/agi/saveload.cpp:767
 #: engines/avalanche/parser.cpp:1919 engines/buried/saveload.cpp:534
 #: engines/cine/various.cpp:350 engines/dm/loadsave.cpp:199
 #: engines/drascula/saveload.cpp:383 engines/dreamweb/saveload.cpp:262
@@ -2210,7 +2215,7 @@ msgstr "メインメニューに戻る(~R~)"
 msgid "Save game:"
 msgstr "ゲームをセーブ："
 
-#: engines/dialogs.cpp:99 engines/engine.cpp:830 engines/agi/saveload.cpp:768
+#: engines/dialogs.cpp:99 engines/engine.cpp:824 engines/agi/saveload.cpp:767
 #: engines/avalanche/parser.cpp:1919 engines/buried/saveload.cpp:534
 #: engines/cine/various.cpp:350 engines/dm/loadsave.cpp:199
 #: engines/drascula/saveload.cpp:383 engines/dreamweb/saveload.cpp:262
@@ -2255,42 +2260,42 @@ msgstr "OK(~O~)"
 msgid "~C~ancel"
 msgstr "キャンセル(~C~)"
 
-#: engines/engine.cpp:320
+#: engines/engine.cpp:318
 #, c-format
 msgid "Could not switch to resolution '%dx%d'."
 msgstr "解像度'%dx%d'に切り替えられませんでした。"
 
-#: engines/engine.cpp:329
+#: engines/engine.cpp:327
 msgid "Could not initialize color format."
 msgstr "カラーフォーマットを初期化できませんでした。"
 
-#: engines/engine.cpp:338
+#: engines/engine.cpp:336
 #, c-format
 msgid "Could not switch to video mode '%s'."
 msgstr "映像モード'%s'に切り替えられませんでした。"
 
-#: engines/engine.cpp:346
+#: engines/engine.cpp:344
 #, c-format
 msgid "Could not switch to stretch mode '%s'."
 msgstr "ストレッチモード'%s'に切り替えられませんでした。"
 
-#: engines/engine.cpp:353
+#: engines/engine.cpp:351
 msgid "Could not apply aspect ratio setting."
 msgstr "アスペクト比の設定を適用できませんでした。"
 
-#: engines/engine.cpp:358
+#: engines/engine.cpp:356
 msgid "Could not apply fullscreen setting."
 msgstr "フルスクリーンの設定を適用できませんでした。"
 
-#: engines/engine.cpp:363
+#: engines/engine.cpp:361
 msgid "Could not apply filtering setting."
 msgstr "フィルターの設定を適用できませんでした。"
 
-#: engines/engine.cpp:421
+#: engines/engine.cpp:419
 msgid "Error"
 msgstr "エラー"
 
-#: engines/engine.cpp:507
+#: engines/engine.cpp:500
 msgid ""
 "You appear to be playing this game directly\n"
 "from the CD. This is known to cause problems,\n"
@@ -2304,7 +2309,7 @@ msgstr ""
 "代わりに、データファイルをハードディスクに保存します。\n"
 "詳細については、ドキュメント（CDオーディオ）を参照してください。"
 
-#: engines/engine.cpp:519
+#: engines/engine.cpp:512
 msgid ""
 "This game has audio tracks in its disk. These\n"
 "tracks need to be ripped from the disk using\n"
@@ -2318,32 +2323,32 @@ msgstr ""
 "ゲームの音楽を聴くため。\n"
 "詳細については、ドキュメント（CDオーディオ）を参照してください。"
 
-#: engines/engine.cpp:550 engines/metaengine.cpp:340 engines/savestate.cpp:81
+#: engines/engine.cpp:548 engines/metaengine.cpp:345 engines/savestate.cpp:81
 #: backends/platform/ios7/ios7_osys_main.cpp:253 engines/sky/metaengine.cpp:176
 #: engines/xeen/saves.cpp:290
 msgid "Autosave"
 msgstr "自動セーブ"
 
-#: engines/engine.cpp:552
+#: engines/engine.cpp:550
 msgid "Error occurred making autosave"
 msgstr "オートセーブ中にエラーが発生しました"
 
-#: engines/engine.cpp:629
+#: engines/engine.cpp:623
 #, c-format
 msgid ""
 "Failed to load saved game (%s)! Please consult the README for basic "
 "information, and for instructions on how to obtain further assistance."
 msgstr "セーブ%sのロードに失敗しました! 詳細はREADMEを参照してください。"
 
-#: engines/engine.cpp:647
+#: engines/engine.cpp:641
 msgid "WARNING: "
 msgstr "警告： "
 
-#: engines/engine.cpp:647
+#: engines/engine.cpp:641
 msgid " Shall we still run the game?"
 msgstr " ゲームを続けますか?"
 
-#: engines/engine.cpp:648
+#: engines/engine.cpp:642
 msgid ""
 "WARNING: The game you are about to start is not yet fully supported by "
 "ScummVM. As such, it is likely to be unstable, and any saved game you make "
@@ -2352,15 +2357,15 @@ msgstr ""
 "警告：このゲームはまだ完全なサポートがなされていません。動作が安定せず、また"
 "将来的にセーブデータの互換性が失われる可能性があります。"
 
-#: engines/engine.cpp:651 engines/wintermute/wintermute.cpp:199
+#: engines/engine.cpp:645 engines/wintermute/wintermute.cpp:183
 msgid "Start anyway"
 msgstr "承知して開始"
 
-#: engines/engine.cpp:658
+#: engines/engine.cpp:652
 msgid "This game is not supported."
 msgstr "未対応のゲームID。"
 
-#: engines/engine.cpp:658
+#: engines/engine.cpp:652
 msgid ""
 "This game is not supported for the following reason:\n"
 "\n"
@@ -2368,11 +2373,11 @@ msgstr ""
 "このゲームはランチャーからロードができません：\n"
 "\n"
 
-#: engines/engine.cpp:797
+#: engines/engine.cpp:791
 msgid "Loading game is currently unavailable"
 msgstr "ロードされたゲームは現在使用できません"
 
-#: engines/engine.cpp:826
+#: engines/engine.cpp:820
 msgid "Saving game is currently unavailable"
 msgstr "セーブされているゲームは現在使用できません"
 
@@ -2404,9 +2409,9 @@ msgid "Left Click"
 msgstr "左クリック"
 
 #: engines/metaengine.cpp:65 backends/platform/maemo/maemo.cpp:166
-#: engines/wintermute/keymapper_tables.h:256
-#: engines/wintermute/keymapper_tables.h:300
-#: engines/wintermute/keymapper_tables.h:2065
+#: engines/wintermute/keymapper_tables.h:257
+#: engines/wintermute/keymapper_tables.h:301
+#: engines/wintermute/keymapper_tables.h:2090
 msgid "Middle Click"
 msgstr "中クリック"
 
@@ -2417,9 +2422,9 @@ msgid "Right Click"
 msgstr "右クリック"
 
 #: engines/metaengine.cpp:76 engines/hdb/metaengine.cpp:238
-#: engines/mohawk/myst.cpp:591 engines/mohawk/riven.cpp:861
+#: engines/mohawk/myst.cpp:597 engines/mohawk/riven.cpp:861
 #: engines/sky/metaengine.cpp:113 engines/twine/metaengine.cpp:210
-#: engines/wintermute/keymapper_tables.h:1517
+#: engines/wintermute/keymapper_tables.h:1532
 msgid "Pause"
 msgstr "一時停止"
 
@@ -2428,12 +2433,13 @@ msgid "Game menu"
 msgstr "ゲームメニュー"
 
 #: engines/metaengine.cpp:87 engines/grim/grim.cpp:499
-#: engines/grim/grim.cpp:591 engines/mohawk/myst.cpp:562
-#: engines/mohawk/riven.cpp:832 engines/wintermute/keymapper_tables.h:220
-#: engines/wintermute/keymapper_tables.h:1238
-#: engines/wintermute/keymapper_tables.h:1510
-#: engines/wintermute/keymapper_tables.h:1623
-#: engines/wintermute/keymapper_tables.h:2009
+#: engines/grim/grim.cpp:591 engines/mohawk/myst.cpp:568
+#: engines/mohawk/riven.cpp:832 engines/wintermute/keymapper_tables.h:221
+#: engines/wintermute/keymapper_tables.h:1093
+#: engines/wintermute/keymapper_tables.h:1249
+#: engines/wintermute/keymapper_tables.h:1525
+#: engines/wintermute/keymapper_tables.h:1640
+#: engines/wintermute/keymapper_tables.h:2034
 msgid "Skip"
 msgstr "スキップ"
 
@@ -2537,7 +2543,7 @@ msgstr ""
 msgid "Starting MIDI dump"
 msgstr "MIDIダンプを開始しています"
 
-#: audio/mods/paula.cpp:303
+#: audio/mods/paula.cpp:304
 msgid "Amiga Audio emulator"
 msgstr "AMIGAオーディオエミュレーター"
 
@@ -2760,27 +2766,27 @@ msgid "Resolution: %dx%d"
 msgstr "解像度: %dx%d"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:687
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2413
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2409
 msgid "Enabled aspect ratio correction"
 msgstr "縦横比修正適用"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:689
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2419
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2415
 msgid "Disabled aspect ratio correction"
 msgstr "縦横比修正無効"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:710
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2435
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2431
 msgid "Filtering enabled"
 msgstr "フィルター適用"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:712
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2437
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2433
 msgid "Filtering disabled"
 msgstr "フィルター無効"
 
 #: backends/graphics/openglsdl/openglsdl-graphics.cpp:741
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2464
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2460
 msgid "Stretch mode"
 msgstr "ストレッチモード"
 
@@ -2788,7 +2794,7 @@ msgstr "ストレッチモード"
 msgid "SDL Surface"
 msgstr "SDLサーフェス"
 
-#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2379
+#: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2375
 msgid "Active graphics filter:"
 msgstr "適用中の映像フィルター："
 
@@ -2801,20 +2807,20 @@ msgid "Toggle fullscreen"
 msgstr "全面モードの切替"
 
 #: backends/graphics/sdl/sdl-graphics.cpp:419 engines/scumm/help.cpp:99
-#: engines/wintermute/keymapper_tables.h:951
+#: engines/wintermute/keymapper_tables.h:961
 msgid "Toggle mouse capture"
 msgstr "マウスキャプチャーの切替"
 
 #: backends/graphics/sdl/sdl-graphics.cpp:424
-#: engines/wintermute/keymapper_tables.h:644
-#: engines/wintermute/keymapper_tables.h:692
-#: engines/wintermute/keymapper_tables.h:1088
-#: engines/wintermute/keymapper_tables.h:1302
-#: engines/wintermute/keymapper_tables.h:1391
-#: engines/wintermute/keymapper_tables.h:1548
-#: engines/wintermute/keymapper_tables.h:1750
-#: engines/wintermute/keymapper_tables.h:1767
-#: engines/wintermute/keymapper_tables.h:1798
+#: engines/wintermute/keymapper_tables.h:647
+#: engines/wintermute/keymapper_tables.h:696
+#: engines/wintermute/keymapper_tables.h:1099
+#: engines/wintermute/keymapper_tables.h:1313
+#: engines/wintermute/keymapper_tables.h:1403
+#: engines/wintermute/keymapper_tables.h:1563
+#: engines/wintermute/keymapper_tables.h:1768
+#: engines/wintermute/keymapper_tables.h:1786
+#: engines/wintermute/keymapper_tables.h:1819
 msgid "Save screenshot"
 msgstr "スクショを保存する"
 
@@ -3011,7 +3017,7 @@ msgstr "仮想マウス右"
 msgid "Slow down virtual mouse"
 msgstr "仮想マウスをゆっくりにする"
 
-#: backends/midi/windows.cpp:167
+#: backends/midi/windows.cpp:169
 msgid "Windows MIDI"
 msgstr "ウインドーズMIDI"
 
@@ -3717,7 +3723,7 @@ msgstr "テキストをNTSCコンポジットでエミュレートしない"
 #: engines/neverhood/detection.cpp:124 engines/sci/detection.cpp:236
 #: engines/sherlock/detection.cpp:59 engines/toltecs/detection.cpp:213
 #: engines/trecision/detection.cpp:208 engines/ultima/detection.cpp:55
-#: engines/ultima/ultima8/meta_engine.cpp:163
+#: engines/ultima/ultima8/meta_engine.cpp:169
 #: engines/zvision/detection_tables.h:50
 msgid "Use original save/load screens"
 msgstr "オリジナルのセーブ/ロード画面を使用する"
@@ -3727,7 +3733,7 @@ msgstr "オリジナルのセーブ/ロード画面を使用する"
 #: engines/neverhood/detection.cpp:125 engines/sci/detection.cpp:237
 #: engines/sherlock/detection.cpp:60 engines/toltecs/detection.cpp:214
 #: engines/trecision/detection.cpp:209 engines/ultima/detection.cpp:56
-#: engines/ultima/ultima8/meta_engine.cpp:164
+#: engines/ultima/ultima8/meta_engine.cpp:170
 #: engines/zvision/detection_tables.h:51
 msgid "Use the original save/load screens instead of the ScummVM ones"
 msgstr "ScummVMの代わりに、オリジナルのセーブ/ロード画面を使用する"
@@ -3791,7 +3797,7 @@ msgstr ""
 "他のAGI(Sierra)ゲームにそのファイルが存在する場合、ゲームディレクトリーにコ"
 "ピーできます"
 
-#: engines/agi/saveload.cpp:781 engines/avalanche/parser.cpp:1907
+#: engines/agi/saveload.cpp:780 engines/avalanche/parser.cpp:1907
 #: engines/cine/various.cpp:361 engines/dm/dm.cpp:274
 #: engines/dm/loadsave.cpp:187 engines/drascula/saveload.cpp:396
 #: engines/dreamweb/saveload.cpp:170 engines/glk/streams.cpp:1442
@@ -3807,7 +3813,7 @@ msgstr ""
 msgid "Restore game:"
 msgstr "ゲームを復元する:"
 
-#: engines/agi/saveload.cpp:781 engines/avalanche/parser.cpp:1907
+#: engines/agi/saveload.cpp:780 engines/avalanche/parser.cpp:1907
 #: engines/cine/various.cpp:361 engines/dm/dm.cpp:274
 #: engines/dm/loadsave.cpp:187 engines/drascula/saveload.cpp:396
 #: engines/dreamweb/saveload.cpp:170 engines/glk/streams.cpp:1442
@@ -3829,7 +3835,7 @@ msgid "Quick load or save game isn't supported in this location"
 msgstr ""
 "このロケーションでは、セーブまたはクイックロードはサポートされていません"
 
-#: engines/agos/saveload.cpp:159 engines/scumm/scumm.cpp:2602
+#: engines/agos/saveload.cpp:159 engines/scumm/scumm.cpp:2693
 #, c-format
 msgid ""
 "Failed to load saved game from file:\n"
@@ -3840,7 +3846,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: engines/agos/saveload.cpp:194 engines/scumm/scumm.cpp:2592
+#: engines/agos/saveload.cpp:194 engines/scumm/scumm.cpp:2683
 #, c-format
 msgid ""
 "Failed to save game to file:\n"
@@ -3851,7 +3857,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: engines/agos/saveload.cpp:202 engines/scumm/scumm.cpp:2615
+#: engines/agos/saveload.cpp:202 engines/scumm/scumm.cpp:2706
 #, c-format
 msgid ""
 "Successfully saved game in file:\n"
@@ -3905,11 +3911,11 @@ msgstr "ゲームが要求していない場合でも、テキストにアンチ
 msgid "Show version"
 msgstr "バージョンを表示"
 
-#: engines/asylum/metaengine.cpp:73 engines/wintermute/keymapper_tables.h:941
+#: engines/asylum/metaengine.cpp:73 engines/wintermute/keymapper_tables.h:951
 msgid "Quick load"
 msgstr "クイックロード"
 
-#: engines/asylum/metaengine.cpp:78 engines/wintermute/keymapper_tables.h:921
+#: engines/asylum/metaengine.cpp:78 engines/wintermute/keymapper_tables.h:931
 msgid "Quick save"
 msgstr "クイックセーブ"
 
@@ -3933,7 +3939,7 @@ msgstr "リソースの初期化に失敗しました"
 msgid "A required game resource was not found"
 msgstr "必要なゲームリソースが見つかりませんでした"
 
-#: engines/bladerunner/bladerunner.cpp:2292
+#: engines/bladerunner/bladerunner.cpp:2301
 msgid ""
 "WARNING: This game was saved in Restored Cut Content mode, but you are "
 "playing in Original Content mode. The mode will be adjusted to Restored Cut "
@@ -3943,7 +3949,7 @@ msgstr ""
 "ナルモードでプレイ中です。ゲームを完全に終了するまで、ディレクターズカット"
 "モードとして調整されます。"
 
-#: engines/bladerunner/bladerunner.cpp:2294
+#: engines/bladerunner/bladerunner.cpp:2303
 msgid ""
 "WARNING: This game was saved in Original Content mode, but you are playing "
 "in Restored Cut Content mode. The mode will be adjusted to Original Content "
@@ -3953,7 +3959,7 @@ msgstr ""
 "カットモードでプレイ中です。ゲームを完全に終了するまで、オリジナルモードとし"
 "て調整されます。"
 
-#: engines/bladerunner/bladerunner.cpp:2296
+#: engines/bladerunner/bladerunner.cpp:2305
 msgid "Continue"
 msgstr "つづく"
 
@@ -4012,14 +4018,14 @@ msgid ""
 "ScummVM."
 msgstr "ファンの翻訳者は、ScummVMに翻訳が組み込まれる事を望んでいません。"
 
-#: engines/bladerunner/detection_tables.h:129 engines/cge/detection.cpp:56
-#: engines/cge/detection.cpp:62 engines/kyra/detection_tables.h:303
+#: engines/bladerunner/detection_tables.h:129 engines/cge/detection.cpp:57
+#: engines/cge/detection.cpp:63 engines/kyra/detection_tables.h:303
 #: engines/kyra/detection_tables.h:983 engines/lure/detection.cpp:233
 #: engines/mohawk/detection_tables.h:954 engines/mohawk/detection_tables.h:1045
 #: engines/mohawk/detection_tables.h:1060 engines/neverhood/detection.cpp:110
 #: engines/saga/detection_tables.h:187 engines/saga/detection_tables.h:985
-#: engines/saga/detection_tables.h:1044 engines/sci/detection_tables.h:4871
-#: engines/sci/detection_tables.h:4879 engines/sherlock/detection_tables.h:214
+#: engines/saga/detection_tables.h:1044 engines/sci/detection_tables.h:4880
+#: engines/sci/detection_tables.h:4888 engines/sherlock/detection_tables.h:214
 #: engines/stark/detection.cpp:305 engines/teenagent/detection.cpp:118
 #: engines/zvision/detection_tables.h:190
 #: engines/zvision/detection_tables.h:210
@@ -4030,7 +4036,7 @@ msgstr "ゲームコードがありません"
 msgid "Your game is now Paused.  Click OK to continue."
 msgstr "ゲームが一時停止しました。OKをクリックして続行してください。"
 
-#: engines/buried/buried.cpp:533
+#: engines/buried/buried.cpp:530
 msgid "Are you sure you want to quit?"
 msgstr "終了してもよろしいですか?"
 
@@ -4038,13 +4044,21 @@ msgstr "終了してもよろしいですか?"
 msgid "Invalid save file name"
 msgstr "無効なセーブファイル名です"
 
-#: engines/cge/detection.cpp:107
+#: engines/cge/detection.cpp:108
 msgid "Color Blind Mode"
 msgstr "色覚特性モード"
 
-#: engines/cge/detection.cpp:108
+#: engines/cge/detection.cpp:109
 msgid "Enable Color Blind Mode by default"
 msgstr "デフォルトで色覚多様性モードを有効化"
+
+#: engines/cge/detection.cpp:119 engines/glk/detection.cpp:239
+msgid "Enable Text to Speech"
+msgstr "音声合成をオンにする"
+
+#: engines/cge/detection.cpp:120
+msgid "Use TTS to read text in the game (if TTS is available)"
+msgstr "音声合成を使用してゲーム内のテキストを読み上げる(利用可能な場合のみ)"
 
 #: engines/cine/detection.cpp:61
 msgid "Use transparent dialog boxes in 16 color scenes"
@@ -4172,10 +4186,6 @@ msgstr "明るいパレットモードを使用する"
 #: engines/dreamweb/detection.cpp:62
 msgid "Display graphics using the game's bright palette"
 msgstr "ゲームの明るいパレットモードを使用してグラフィックを表示する"
-
-#: engines/glk/detection.cpp:239
-msgid "Enable Text to Speech"
-msgstr "音声合成をオンにする"
 
 #: engines/glk/detection.cpp:240
 msgid "Use TTS to read the text"
@@ -4726,7 +4736,7 @@ msgstr "右に行く"
 #: engines/scumm/help.cpp:198 engines/scumm/help.cpp:213
 #: engines/scumm/help.cpp:224 engines/scumm/help.cpp:250
 #: engines/sky/metaengine.cpp:82 engines/wintermute/keymapper_tables.h:141
-#: engines/wintermute/keymapper_tables.h:1464
+#: engines/wintermute/keymapper_tables.h:1476
 msgid "Use"
 msgstr "使用"
 
@@ -4864,13 +4874,13 @@ msgstr "Eye of Beholderのサポートはコンパイルされていません"
 
 #: engines/kyra/engine/eobcommon.cpp:368 engines/kyra/engine/lol.cpp:473
 #: engines/ultima/ultima4/meta_engine.cpp:225
-#: engines/ultima/ultima8/meta_engine.cpp:198
+#: engines/ultima/ultima8/meta_engine.cpp:204
 msgid "Interact via Left Click"
 msgstr "左クリックでインタラクト"
 
 #: engines/kyra/engine/eobcommon.cpp:369 engines/kyra/engine/lol.cpp:474
 #: engines/ultima/ultima4/meta_engine.cpp:231
-#: engines/ultima/ultima8/meta_engine.cpp:204
+#: engines/ultima/ultima8/meta_engine.cpp:210
 msgid "Interact via Right Click"
 msgstr "右クリックでインタラクト"
 
@@ -5137,32 +5147,35 @@ msgid "Naughty game mode"
 msgstr "いたずらゲームモード"
 
 #. I18N: Option for fast scene switching
-#: engines/mohawk/dialogs.cpp:113 engines/mohawk/dialogs.cpp:345
+#: engines/mohawk/dialogs.cpp:114 engines/mohawk/dialogs.cpp:357
 msgid "~Z~ip Mode Activated"
 msgstr "高速モードを有効化しました(~Z~)"
 
-#: engines/mohawk/dialogs.cpp:114
+#: engines/mohawk/dialogs.cpp:115
 msgid ""
 "When activated, clicking on an item or area with the lightning bolt cursor "
 "takes you directly there, skipping intermediate screens. You can only 'Zip' "
 "to a precise area you've already been."
-msgstr "有効な場合、稲妻のカーソルでアイテムやエリアをクリックすると、直接移動できます。行った事のある場所のみ\"Zip\"できます。"
+msgstr ""
+"有効な場合、稲妻のカーソルでアイテムやエリアをクリックすると、直接移動できま"
+"す。行った事のある場所のみ\"Zip\"できます。"
 
-#: engines/mohawk/dialogs.cpp:117
+#: engines/mohawk/dialogs.cpp:118
 msgid "~T~ransitions Enabled"
 msgstr "トランジションを有効化しました"
 
-#: engines/mohawk/dialogs.cpp:118
+#: engines/mohawk/dialogs.cpp:119
 msgid ""
 "Toggle screen transitions on or off. Turning off screen transitions will "
 "enable you to navigate more quickly through the game."
-msgstr "画面遷移のON/OFFを切り替えます。OFFにすると、ゲームの速度が上がります。"
+msgstr ""
+"画面遷移のON/OFFを切り替えます。OFFにすると、ゲームの速度が上がります。"
 
-#: engines/mohawk/dialogs.cpp:121
+#: engines/mohawk/dialogs.cpp:122
 msgid "Play the Myst fly by movie"
 msgstr "the Myst flyをムービーで再生する"
 
-#: engines/mohawk/dialogs.cpp:122
+#: engines/mohawk/dialogs.cpp:123
 msgid "The Myst fly by movie was not played by the original engine."
 msgstr ""
 "オリジナル版のエンジンにおいて、the Myst flyはムービーではありませんでした。"
@@ -5174,44 +5187,48 @@ msgstr ""
 #. We change it to use fuzzy logic.
 #. By default the option is off.
 #.
-#: engines/mohawk/dialogs.cpp:134
+#: engines/mohawk/dialogs.cpp:135
 msgid "~F~uzzy Logic in SpaceShip Active"
 msgstr "SpaceShipパズルについてファジィ理論を有効化"
 
+#: engines/mohawk/dialogs.cpp:138
+msgid "Simulate loading times of old CD drives"
+msgstr "古いCDドライブの読み込み時間をシミュレート"
+
 #. I18N: Drop book page
-#: engines/mohawk/dialogs.cpp:142
+#: engines/mohawk/dialogs.cpp:145
 msgid "~D~rop Page"
 msgstr "本のページをドロップ(~D~)"
 
-#: engines/mohawk/dialogs.cpp:146
+#: engines/mohawk/dialogs.cpp:149
 msgid "Show ~M~ap"
 msgstr "地図を見る(~M~)"
 
-#: engines/mohawk/dialogs.cpp:151
+#: engines/mohawk/dialogs.cpp:154
 msgid "Main Men~u~"
 msgstr "メインメニュー(~u~)"
 
-#: engines/mohawk/dialogs.cpp:274
+#: engines/mohawk/dialogs.cpp:286
 msgid "The new language will be applied after restarting the game."
 msgstr "ゲームを再起動すると、新しい言語が適用されます。"
 
-#: engines/mohawk/dialogs.cpp:346
+#: engines/mohawk/dialogs.cpp:358
 msgid "~W~ater Effect Enabled"
 msgstr "水のエフェクトを有効にする(~W~)"
 
-#: engines/mohawk/dialogs.cpp:348
+#: engines/mohawk/dialogs.cpp:360
 msgid "Transitions:"
 msgstr "トランジション："
 
-#: engines/mohawk/dialogs.cpp:353
+#: engines/mohawk/dialogs.cpp:365
 msgid "Fastest"
 msgstr "早め"
 
-#: engines/mohawk/dialogs.cpp:354
+#: engines/mohawk/dialogs.cpp:366
 msgid "Normal"
 msgstr "標準"
 
-#: engines/mohawk/dialogs.cpp:355
+#: engines/mohawk/dialogs.cpp:367
 msgid "Best"
 msgstr "良質"
 
@@ -5235,32 +5252,32 @@ msgstr "CSTimeのサポートはコンパイルされていません"
 msgid "The game is paused. Press any key to continue."
 msgstr "ゲームはポーズされます。何かキーを押すと続行します。"
 
-#: engines/mohawk/myst.cpp:550 engines/mohawk/riven.cpp:820
+#: engines/mohawk/myst.cpp:556 engines/mohawk/riven.cpp:820
 msgid "Open main menu"
 msgstr "メインメニューを開く"
 
-#: engines/mohawk/myst.cpp:574 engines/mohawk/riven.cpp:844
+#: engines/mohawk/myst.cpp:580 engines/mohawk/riven.cpp:844
 msgid "Load game state"
 msgstr "ゲームステートをロード"
 
-#: engines/mohawk/myst.cpp:579 engines/mohawk/riven.cpp:849
+#: engines/mohawk/myst.cpp:585 engines/mohawk/riven.cpp:849
 msgid "Save game state"
 msgstr "ゲームステートをセーブ"
 
-#: engines/mohawk/myst.cpp:584 engines/mohawk/riven.cpp:854
+#: engines/mohawk/myst.cpp:590 engines/mohawk/riven.cpp:854
 msgid "Show options menu"
 msgstr "オプションメニューを表示"
 
-#: engines/mohawk/myst.cpp:596
+#: engines/mohawk/myst.cpp:602
 msgid "Drop page"
 msgstr "ページをドロップ"
 
-#: engines/mohawk/myst.cpp:602 engines/wintermute/keymapper_tables.h:1438
-#: engines/wintermute/keymapper_tables.h:1580
-#: engines/wintermute/keymapper_tables.h:1629
-#: engines/wintermute/keymapper_tables.h:1652
-#: engines/wintermute/keymapper_tables.h:1671
-#: engines/wintermute/keymapper_tables.h:1704
+#: engines/mohawk/myst.cpp:608 engines/wintermute/keymapper_tables.h:1450
+#: engines/wintermute/keymapper_tables.h:1597
+#: engines/wintermute/keymapper_tables.h:1646
+#: engines/wintermute/keymapper_tables.h:1669
+#: engines/wintermute/keymapper_tables.h:1688
+#: engines/wintermute/keymapper_tables.h:1721
 msgid "Show map"
 msgstr "地図を表示"
 
@@ -5273,7 +5290,7 @@ msgstr "ロードしてもよろしいですか? 保存していない状況は�
 
 #: engines/mohawk/myst_stacks/menu.cpp:284
 #: engines/mohawk/riven_stacks/aspit.cpp:350
-#: engines/wintermute/keymapper_tables.h:916
+#: engines/wintermute/keymapper_tables.h:926
 msgid "Load game"
 msgstr "ゲームをロード"
 
@@ -5344,16 +5361,16 @@ msgid "Move backwards"
 msgstr "後退"
 
 #: engines/mohawk/riven.cpp:886 engines/wintermute/keymapper_tables.h:162
-#: engines/wintermute/keymapper_tables.h:734
-#: engines/wintermute/keymapper_tables.h:2021
-#: engines/wintermute/keymapper_tables.h:2128
+#: engines/wintermute/keymapper_tables.h:742
+#: engines/wintermute/keymapper_tables.h:2046
+#: engines/wintermute/keymapper_tables.h:2147
 msgid "Turn left"
 msgstr "左へ"
 
 #: engines/mohawk/riven.cpp:892 engines/wintermute/keymapper_tables.h:168
-#: engines/wintermute/keymapper_tables.h:739
-#: engines/wintermute/keymapper_tables.h:2027
-#: engines/wintermute/keymapper_tables.h:2135
+#: engines/wintermute/keymapper_tables.h:747
+#: engines/wintermute/keymapper_tables.h:2052
+#: engines/wintermute/keymapper_tables.h:2154
 msgid "Turn right"
 msgstr "右へ"
 
@@ -5751,11 +5768,7 @@ msgstr "Windows試用版はサポートされていません"
 msgid "I Have No Mouth support not compiled in"
 msgstr "I Have No Mouthのサポートはコンパイルされていません"
 
-#: engines/saga/metaengine.cpp:120
-msgid "SAGA2 support not compiled in"
-msgstr "SAGA2のサポートはコンパイルされていません"
-
-#: engines/saga/saga.cpp:247
+#: engines/saga/saga.cpp:229
 msgid "Error loading game resources."
 msgstr "リソースのロード中にエラーが発生しました。"
 
@@ -5887,7 +5900,7 @@ msgstr "ローランド D-110 / D-10 / D-20"
 msgid "Yamaha FB-01"
 msgstr "ヤマハ FB-01"
 
-#: engines/sci/detection_tables.h:4227
+#: engines/sci/detection_tables.h:4236
 msgid "Incomplete game detected. You have to copy data from all the CDs."
 msgstr ""
 "不完全なゲームが検出されました。全てのCDからデータをコピーする必要がありま"
@@ -5902,7 +5915,7 @@ msgstr "(自動セーブ)"
 msgid "Please use an external viewer to open the game's help file: %s"
 msgstr "ゲームのヘルプファイル%sを開くには、外部のビューアーを使用してください"
 
-#: engines/sci/engine/kmisc.cpp:871
+#: engines/sci/engine/kmisc.cpp:872
 msgid ""
 "The Poker logic is hardcoded in an external DLL, and is not implemented yet. "
 "There exists some dummy logic for now, where opponent actions are chosen "
@@ -6181,36 +6194,36 @@ msgstr "前(~P~)"
 msgid "~N~ext"
 msgstr "次(~N~)"
 
-#: engines/scumm/dialogs.cpp:611
+#: engines/scumm/dialogs.cpp:616
 msgid "Speech Only"
 msgstr "音声のみ"
 
-#: engines/scumm/dialogs.cpp:612
+#: engines/scumm/dialogs.cpp:617
 msgid "Speech and Subtitles"
 msgstr "音声と字幕"
 
-#: engines/scumm/dialogs.cpp:613
+#: engines/scumm/dialogs.cpp:618
 msgid "Subtitles Only"
 msgstr "字幕のみ"
 
-#: engines/scumm/dialogs.cpp:621
+#: engines/scumm/dialogs.cpp:626
 msgctxt "lowres"
 msgid "Speech & Subs"
 msgstr "喋り&字幕"
 
-#: engines/scumm/dialogs.cpp:667
+#: engines/scumm/dialogs.cpp:672
 msgid "Select a Proficiency Level."
 msgstr "習熟度を選択してください。"
 
-#: engines/scumm/dialogs.cpp:669
+#: engines/scumm/dialogs.cpp:674
 msgid "Refer to your Loom(TM) manual for help."
 msgstr "ヘルプについては、Loom(TM)のマニュアルを参照してください。"
 
-#: engines/scumm/dialogs.cpp:673
+#: engines/scumm/dialogs.cpp:678
 msgid "Practice"
 msgstr "練習"
 
-#: engines/scumm/dialogs.cpp:674
+#: engines/scumm/dialogs.cpp:679
 msgid "Expert"
 msgstr "エキスパート"
 
@@ -6234,7 +6247,7 @@ msgstr "Esc"
 msgid "Skip cutscene"
 msgstr "ムービーをスキップ"
 
-#: engines/scumm/help.cpp:78 engines/wintermute/keymapper_tables.h:2035
+#: engines/scumm/help.cpp:78 engines/wintermute/keymapper_tables.h:2060
 msgid "Space"
 msgstr "スペース"
 
@@ -6276,7 +6289,7 @@ msgstr "テキスト表示速度を下げる/上げる"
 msgid "Simulate left mouse button"
 msgstr "マウスの左ボタンをシミュレート"
 
-#: engines/scumm/help.cpp:90 engines/wintermute/keymapper_tables.h:2090
+#: engines/scumm/help.cpp:90 engines/wintermute/keymapper_tables.h:2115
 msgid "Tab"
 msgstr "Tab"
 
@@ -6393,14 +6406,14 @@ msgid "Turn off"
 msgstr "消す"
 
 #: engines/scumm/help.cpp:142 engines/scumm/help.cpp:167
-#: engines/scumm/help.cpp:194 engines/wintermute/keymapper_tables.h:1452
+#: engines/scumm/help.cpp:194 engines/wintermute/keymapper_tables.h:1464
 msgid "Walk to"
 msgstr "歩く"
 
 #: engines/scumm/help.cpp:143 engines/scumm/help.cpp:168
 #: engines/scumm/help.cpp:195 engines/scumm/help.cpp:210
 #: engines/scumm/help.cpp:227 engines/wintermute/keymapper_tables.h:135
-#: engines/wintermute/keymapper_tables.h:1458
+#: engines/wintermute/keymapper_tables.h:1470
 msgid "Pick up"
 msgstr "拾う"
 
@@ -6487,13 +6500,13 @@ msgstr "引く"
 
 #: engines/scumm/help.cpp:196 engines/scumm/help.cpp:212
 #: engines/scumm/help.cpp:248 engines/wintermute/keymapper_tables.h:129
-#: engines/wintermute/keymapper_tables.h:1470
+#: engines/wintermute/keymapper_tables.h:1482
 msgid "Talk to"
 msgstr "話す"
 
 #: engines/scumm/help.cpp:199 engines/scumm/help.cpp:211
 #: engines/wintermute/keymapper_tables.h:123
-#: engines/wintermute/keymapper_tables.h:1446
+#: engines/wintermute/keymapper_tables.h:1458
 msgid "Look at"
 msgstr "見る"
 
@@ -6761,7 +6774,7 @@ msgstr "HE v71+のサポートはコンパイルされていません"
 msgid "SCUMM v7-8 support is not compiled in"
 msgstr "SCUMM v7-8のサポートはコンパイルされていません"
 
-#: engines/scumm/scumm.cpp:539
+#: engines/scumm/scumm.cpp:540
 msgid ""
 "You have enabled 'aspect ratio correction'. However, FM-TOWNS' natural "
 "resolution is 320x240, which doesn't allow aspect ratio correction.\n"
@@ -6773,7 +6786,15 @@ msgstr ""
 "アスペクト比の補正は、[エンジン]タブで解像度を320x200にトリミングすることで実"
 "現できます。"
 
-#: engines/scumm/scumm.cpp:1326
+#: engines/scumm/scumm.cpp:1341
+msgid ""
+"Could not find the 'Indy' Macintosh executable. High-resolution fonts will\n"
+"be disabled."
+msgstr ""
+"「Indy」のMacintosh用実行ファイルが見つかりません。\n"
+"高解像度のフォントは使用できません。"
+
+#: engines/scumm/scumm.cpp:1367
 msgid ""
 "Could not find the 'Loom' Macintosh executable. Music and high-resolution\n"
 "versions of font and cursor will be disabled."
@@ -6781,7 +6802,7 @@ msgstr ""
 "Macintosh用実行ファイル「Loom」が見つかりません。\n"
 "音楽、高解像度のフォントやカーソルは使えなくなります。"
 
-#: engines/scumm/scumm.cpp:1348
+#: engines/scumm/scumm.cpp:1389
 msgid ""
 "Could not find the 'Monkey Island' Macintosh executable to read the\n"
 "instruments from. Music will be disabled."
@@ -6790,7 +6811,7 @@ msgstr ""
 "ん。\n"
 "音楽は無効になります。"
 
-#: engines/scumm/scumm.cpp:2022
+#: engines/scumm/scumm.cpp:2081
 #, c-format
 msgid ""
 "Native MIDI support requires the Roland Upgrade from LucasArts,\n"
@@ -6799,7 +6820,7 @@ msgstr ""
 "ネイティブMIDIのサポートには、LucasArts提供のthe Roland Upgradeが必要です。\n"
 "しかし%sがありません。代わりにAdLibを使用します。"
 
-#: engines/scumm/scumm.cpp:2900
+#: engines/scumm/scumm.cpp:3008
 msgid ""
 "Usually, Maniac Mansion would start now. But for that to work, the game "
 "files for Maniac Mansion have to be in the 'Maniac' directory inside the "
@@ -6922,11 +6943,11 @@ msgstr ""
 "リニアフィルタリングを有効にすると、フルスクリーンで背景がより滑らかになりま"
 "すが、一部のディテールは損なわれます。"
 
-#: engines/stark/detection.cpp:379 engines/ultima/ultima8/meta_engine.cpp:175
+#: engines/stark/detection.cpp:379 engines/ultima/ultima8/meta_engine.cpp:181
 msgid "Enable font anti-aliasing"
 msgstr "フォントのアンチエイリアスを有効化"
 
-#: engines/stark/detection.cpp:380 engines/ultima/ultima8/meta_engine.cpp:176
+#: engines/stark/detection.cpp:380 engines/ultima/ultima8/meta_engine.cpp:182
 msgid "When font anti-aliasing is enabled, the text is smoother."
 msgstr ""
 "フォントにアンチエイリアスが有効である場合、テキストはより滑らかに表示されま"
@@ -7221,11 +7242,11 @@ msgstr "北米版を使用する"
 msgid "Enable the USA specific version flags"
 msgstr "北米版のバージョンフラグを有効にする"
 
-#: engines/twine/metaengine.cpp:151
+#: engines/twine/metaengine.cpp:151 engines/ultima/ultima8/meta_engine.cpp:147
 msgid "Enable high resolution"
 msgstr "ハイレゾを有効化"
 
-#: engines/twine/metaengine.cpp:152
+#: engines/twine/metaengine.cpp:152 engines/ultima/ultima8/meta_engine.cpp:148
 msgid "Enable a higher resolution for the game"
 msgstr "ゲームのハイレゾを有効化"
 
@@ -7428,44 +7449,44 @@ msgstr "チートを有効化"
 msgid "Allow cheats by commands and a menu when player is clicked."
 msgstr "プレイヤーがクリックされた時、コマンドやメニューでチートが行えます。"
 
-#: engines/ultima/ultima8/meta_engine.cpp:151
+#: engines/ultima/ultima8/meta_engine.cpp:157
 msgid "Play foot step sounds"
 msgstr "フットステップサウンドを再生"
 
-#: engines/ultima/ultima8/meta_engine.cpp:152
+#: engines/ultima/ultima8/meta_engine.cpp:158
 msgid "Plays sound when the player moves."
 msgstr "プレイヤーが動いた時に音を再生します。"
 
-#: engines/ultima/ultima8/meta_engine.cpp:157
+#: engines/ultima/ultima8/meta_engine.cpp:163
 msgid "Enable jump to mouse position"
 msgstr "マウス位置へのジャンプを有効化"
 
-#: engines/ultima/ultima8/meta_engine.cpp:158
+#: engines/ultima/ultima8/meta_engine.cpp:164
 msgid ""
 "Jumping while not moving targets the mouse cursor rather than direction only."
 msgstr "静止中のジャンプは、一方向ではなくマウスカーソルをターゲットします。"
 
-#: engines/ultima/ultima8/meta_engine.cpp:169
+#: engines/ultima/ultima8/meta_engine.cpp:175
 msgid "Enable font replacement"
 msgstr "フォントの置き換えを有効化"
 
-#: engines/ultima/ultima8/meta_engine.cpp:170
+#: engines/ultima/ultima8/meta_engine.cpp:176
 msgid "Replaces game fonts with rendered fonts"
 msgstr "ゲームフォントをレンダリングフォントで置き換える"
 
-#: engines/ultima/ultima8/meta_engine.cpp:191
+#: engines/ultima/ultima8/meta_engine.cpp:197
 msgid "Ultima VIII"
 msgstr "ウルティマ VIII"
 
-#: engines/ultima/ultima8/meta_engine.cpp:191
+#: engines/ultima/ultima8/meta_engine.cpp:197
 msgid "Crusader"
 msgstr "クルセイダー"
 
-#: engines/ultima/ultima8/meta_engine.cpp:238
+#: engines/ultima/ultima8/meta_engine.cpp:244
 msgid "Ultima VIII Cheats"
 msgstr "Ultima VIIIのチート"
 
-#: engines/ultima/ultima8/meta_engine.cpp:255
+#: engines/ultima/ultima8/meta_engine.cpp:261
 msgid "Ultima VIII Debug"
 msgstr "Ultima VIIIのデバッグ"
 
@@ -7509,583 +7530,595 @@ msgstr "Hero Craftのサポートは組み込まれていません"
 msgid "Wintermute3D support is not compiled in"
 msgstr "Wintermute3Dのサポートは組み込まれていません"
 
-#: engines/wintermute/wintermute.cpp:165
+#: engines/wintermute/wintermute.cpp:149
 msgid "This game requires PNG, JPEG and Vorbis support."
 msgstr "このゲームはPNG, JPEG, Vorbisのサポートが必要です。"
 
-#: engines/wintermute/wintermute.cpp:176
+#: engines/wintermute/wintermute.cpp:160
 msgid "This game requires the FoxTail subengine, which is not compiled in."
 msgstr ""
 "このゲームはFoxTailサブエンジンが必要ですが、コンパイルされていません。"
 
-#: engines/wintermute/wintermute.cpp:187
+#: engines/wintermute/wintermute.cpp:171
 msgid "This game requires the HeroCraft subengine, which is not compiled in."
 msgstr ""
 "このゲームはHeroCraftサブエンジンが必要ですが、コンパイルされていません。"
 
-#: engines/wintermute/wintermute.cpp:198
+#: engines/wintermute/wintermute.cpp:182
 msgid ""
-"This game requires 3D capabilities that are out ScummVM scope. As such, it "
-"is likely to be unplayable totally or partially."
+"This game requires 3D capabilities, which is not compiled in. As such, it is "
+"likely to be unplayable totally or partially."
 msgstr ""
-"このゲームは、ScummVMの範囲外の3D機能を必要とします。そのため、全部または一部"
-"がプレイできない可能性があります。"
+"このゲームは3D機能を必要としますが、ScummVMには組み込まれていません。そのた"
+"め、全部または一部がプレイできない可能性があります。"
 
 #: engines/wintermute/keymapper_tables.h:150
-#: engines/wintermute/keymapper_tables.h:724
-#: engines/wintermute/keymapper_tables.h:2015
-#: engines/wintermute/keymapper_tables.h:2114
+#: engines/wintermute/keymapper_tables.h:732
+#: engines/wintermute/keymapper_tables.h:2040
+#: engines/wintermute/keymapper_tables.h:2140
 msgid "Walk forward"
 msgstr "前に歩く"
 
 #: engines/wintermute/keymapper_tables.h:156
-#: engines/wintermute/keymapper_tables.h:729
-#: engines/wintermute/keymapper_tables.h:2121
+#: engines/wintermute/keymapper_tables.h:737
+#: engines/wintermute/keymapper_tables.h:2162
 msgid "Walk backward"
 msgstr "後ろに歩く"
 
-#: engines/wintermute/keymapper_tables.h:174
-#: engines/wintermute/keymapper_tables.h:682
-#: engines/wintermute/keymapper_tables.h:1760
+#. I18N: Debug feature to draw lines of scene geometry: walls, walking areas, etc
+#: engines/wintermute/keymapper_tables.h:175
+#: engines/wintermute/keymapper_tables.h:686
+#: engines/wintermute/keymapper_tables.h:1779
 msgid "Show scene geometry"
 msgstr "シーンのジオメトリーを表示"
 
-#: engines/wintermute/keymapper_tables.h:183
-#: engines/wintermute/keymapper_tables.h:199
-#: engines/wintermute/keymapper_tables.h:628
-#: engines/wintermute/keymapper_tables.h:897
-#: engines/wintermute/keymapper_tables.h:1093
-#: engines/wintermute/keymapper_tables.h:1221
+#: engines/wintermute/keymapper_tables.h:184
+#: engines/wintermute/keymapper_tables.h:200
+#: engines/wintermute/keymapper_tables.h:631
+#: engines/wintermute/keymapper_tables.h:907
+#: engines/wintermute/keymapper_tables.h:1104
+#: engines/wintermute/keymapper_tables.h:1232
 msgid "Previous page"
 msgstr "前のページ"
 
-#: engines/wintermute/keymapper_tables.h:190
-#: engines/wintermute/keymapper_tables.h:207
-#: engines/wintermute/keymapper_tables.h:636
-#: engines/wintermute/keymapper_tables.h:904
-#: engines/wintermute/keymapper_tables.h:1100
-#: engines/wintermute/keymapper_tables.h:1226
+#: engines/wintermute/keymapper_tables.h:191
+#: engines/wintermute/keymapper_tables.h:208
+#: engines/wintermute/keymapper_tables.h:639
+#: engines/wintermute/keymapper_tables.h:914
+#: engines/wintermute/keymapper_tables.h:1111
+#: engines/wintermute/keymapper_tables.h:1237
 msgid "Next page"
 msgstr "次のページ"
 
-#: engines/wintermute/keymapper_tables.h:239
-#: engines/wintermute/keymapper_tables.h:262
-#: engines/wintermute/keymapper_tables.h:313
-#: engines/wintermute/keymapper_tables.h:352
-#: engines/wintermute/keymapper_tables.h:387
-#: engines/wintermute/keymapper_tables.h:497
-#: engines/wintermute/keymapper_tables.h:524
-#: engines/wintermute/keymapper_tables.h:649
-#: engines/wintermute/keymapper_tables.h:777
-#: engines/wintermute/keymapper_tables.h:804
-#: engines/wintermute/keymapper_tables.h:825
-#: engines/wintermute/keymapper_tables.h:849
-#: engines/wintermute/keymapper_tables.h:876
-#: engines/wintermute/keymapper_tables.h:1035
-#: engines/wintermute/keymapper_tables.h:1281
-#: engines/wintermute/keymapper_tables.h:1328
-#: engines/wintermute/keymapper_tables.h:1384
-#: engines/wintermute/keymapper_tables.h:1410
-#: engines/wintermute/keymapper_tables.h:1567
-#: engines/wintermute/keymapper_tables.h:1616
-#: engines/wintermute/keymapper_tables.h:1664
-#: engines/wintermute/keymapper_tables.h:1697
-#: engines/wintermute/keymapper_tables.h:1885
-#: engines/wintermute/keymapper_tables.h:2002
+#: engines/wintermute/keymapper_tables.h:240
+#: engines/wintermute/keymapper_tables.h:263
+#: engines/wintermute/keymapper_tables.h:314
+#: engines/wintermute/keymapper_tables.h:353
+#: engines/wintermute/keymapper_tables.h:390
+#: engines/wintermute/keymapper_tables.h:500
+#: engines/wintermute/keymapper_tables.h:527
+#: engines/wintermute/keymapper_tables.h:652
+#: engines/wintermute/keymapper_tables.h:786
+#: engines/wintermute/keymapper_tables.h:813
+#: engines/wintermute/keymapper_tables.h:834
+#: engines/wintermute/keymapper_tables.h:859
+#: engines/wintermute/keymapper_tables.h:886
+#: engines/wintermute/keymapper_tables.h:1046
+#: engines/wintermute/keymapper_tables.h:1292
+#: engines/wintermute/keymapper_tables.h:1339
+#: engines/wintermute/keymapper_tables.h:1396
+#: engines/wintermute/keymapper_tables.h:1422
+#: engines/wintermute/keymapper_tables.h:1584
+#: engines/wintermute/keymapper_tables.h:1633
+#: engines/wintermute/keymapper_tables.h:1681
+#: engines/wintermute/keymapper_tables.h:1714
+#: engines/wintermute/keymapper_tables.h:1907
+#: engines/wintermute/keymapper_tables.h:2027
 msgid "Show hints"
 msgstr "ヒントを表示"
 
-#: engines/wintermute/keymapper_tables.h:249
-#: engines/wintermute/keymapper_tables.h:394
-#: engines/wintermute/keymapper_tables.h:656
-#: engines/wintermute/keymapper_tables.h:855
-#: engines/wintermute/keymapper_tables.h:1355
-#: engines/wintermute/keymapper_tables.h:1431
-#: engines/wintermute/keymapper_tables.h:1574
-#: engines/wintermute/keymapper_tables.h:1586
-#: engines/wintermute/keymapper_tables.h:1595
-#: engines/wintermute/keymapper_tables.h:1852
+#: engines/wintermute/keymapper_tables.h:250
+#: engines/wintermute/keymapper_tables.h:397
+#: engines/wintermute/keymapper_tables.h:659
+#: engines/wintermute/keymapper_tables.h:865
+#: engines/wintermute/keymapper_tables.h:1366
+#: engines/wintermute/keymapper_tables.h:1443
+#: engines/wintermute/keymapper_tables.h:1591
+#: engines/wintermute/keymapper_tables.h:1603
+#: engines/wintermute/keymapper_tables.h:1612
+#: engines/wintermute/keymapper_tables.h:1874
 msgid "Show inventory"
 msgstr "インベントリーを表示"
 
-#: engines/wintermute/keymapper_tables.h:269
-#: engines/wintermute/keymapper_tables.h:332
-#: engines/wintermute/keymapper_tables.h:365
-#: engines/wintermute/keymapper_tables.h:400
-#: engines/wintermute/keymapper_tables.h:504
-#: engines/wintermute/keymapper_tables.h:531
-#: engines/wintermute/keymapper_tables.h:1834
-#: engines/wintermute/keymapper_tables.h:1892
+#: engines/wintermute/keymapper_tables.h:270
+#: engines/wintermute/keymapper_tables.h:333
+#: engines/wintermute/keymapper_tables.h:368
+#: engines/wintermute/keymapper_tables.h:403
+#: engines/wintermute/keymapper_tables.h:507
+#: engines/wintermute/keymapper_tables.h:534
+#: engines/wintermute/keymapper_tables.h:1856
+#: engines/wintermute/keymapper_tables.h:1914
 msgid "GUI variant A"
 msgstr "GUI(Aタイプ)"
 
-#: engines/wintermute/keymapper_tables.h:276
-#: engines/wintermute/keymapper_tables.h:339
-#: engines/wintermute/keymapper_tables.h:372
-#: engines/wintermute/keymapper_tables.h:406
-#: engines/wintermute/keymapper_tables.h:511
-#: engines/wintermute/keymapper_tables.h:538
-#: engines/wintermute/keymapper_tables.h:1840
-#: engines/wintermute/keymapper_tables.h:1898
+#: engines/wintermute/keymapper_tables.h:277
+#: engines/wintermute/keymapper_tables.h:340
+#: engines/wintermute/keymapper_tables.h:375
+#: engines/wintermute/keymapper_tables.h:409
+#: engines/wintermute/keymapper_tables.h:514
+#: engines/wintermute/keymapper_tables.h:541
+#: engines/wintermute/keymapper_tables.h:1862
+#: engines/wintermute/keymapper_tables.h:1920
 msgid "GUI variant B"
 msgstr "GUI(Bタイプ)"
 
-#: engines/wintermute/keymapper_tables.h:283
-#: engines/wintermute/keymapper_tables.h:412
-#: engines/wintermute/keymapper_tables.h:545
-#: engines/wintermute/keymapper_tables.h:1107
+#: engines/wintermute/keymapper_tables.h:284
+#: engines/wintermute/keymapper_tables.h:415
+#: engines/wintermute/keymapper_tables.h:548
+#: engines/wintermute/keymapper_tables.h:1118
 msgid "Phone cancel button"
 msgstr "通話終了ボタン"
 
-#: engines/wintermute/keymapper_tables.h:288
-#: engines/wintermute/keymapper_tables.h:417
-#: engines/wintermute/keymapper_tables.h:550
-#: engines/wintermute/keymapper_tables.h:1112
+#: engines/wintermute/keymapper_tables.h:289
+#: engines/wintermute/keymapper_tables.h:420
+#: engines/wintermute/keymapper_tables.h:553
+#: engines/wintermute/keymapper_tables.h:1123
 msgid "Phone up button"
 msgstr "電話の上ボタン"
 
-#: engines/wintermute/keymapper_tables.h:294
-#: engines/wintermute/keymapper_tables.h:423
-#: engines/wintermute/keymapper_tables.h:556
-#: engines/wintermute/keymapper_tables.h:1118
+#: engines/wintermute/keymapper_tables.h:295
+#: engines/wintermute/keymapper_tables.h:426
+#: engines/wintermute/keymapper_tables.h:559
+#: engines/wintermute/keymapper_tables.h:1129
 msgid "Phone down button"
 msgstr "電話の上ボタン"
 
-#: engines/wintermute/keymapper_tables.h:358
-msgid "Alt use item"
-msgstr "Altでアイテムを使用"
+#. I18N: Some items are scripted to have alternative "Use" action, when MiddleClick is used
+#. It may result in actor saying different text or item being decomposed to it's parts
+#: engines/wintermute/keymapper_tables.h:361
+msgid "Alternative action"
+msgstr "ミドルクリック時のアクション"
 
-#: engines/wintermute/keymapper_tables.h:429
-#: engines/wintermute/keymapper_tables.h:562
-#: engines/wintermute/keymapper_tables.h:1124
+#: engines/wintermute/keymapper_tables.h:432
+#: engines/wintermute/keymapper_tables.h:565
+#: engines/wintermute/keymapper_tables.h:1135
 msgid "Phone 0 button"
 msgstr "電話の0ボタン"
 
-#: engines/wintermute/keymapper_tables.h:434
-#: engines/wintermute/keymapper_tables.h:567
-#: engines/wintermute/keymapper_tables.h:1129
-#: engines/wintermute/keymapper_tables.h:1724
+#: engines/wintermute/keymapper_tables.h:437
+#: engines/wintermute/keymapper_tables.h:570
+#: engines/wintermute/keymapper_tables.h:1140
+#: engines/wintermute/keymapper_tables.h:1741
 msgid "Phone 1 button"
 msgstr "電話の1ボタン"
 
-#: engines/wintermute/keymapper_tables.h:439
-#: engines/wintermute/keymapper_tables.h:572
-#: engines/wintermute/keymapper_tables.h:1134
-#: engines/wintermute/keymapper_tables.h:1729
+#: engines/wintermute/keymapper_tables.h:442
+#: engines/wintermute/keymapper_tables.h:575
+#: engines/wintermute/keymapper_tables.h:1145
+#: engines/wintermute/keymapper_tables.h:1746
 msgid "Phone 2 button"
 msgstr "電話の2ボタン"
 
-#: engines/wintermute/keymapper_tables.h:444
-#: engines/wintermute/keymapper_tables.h:577
-#: engines/wintermute/keymapper_tables.h:1139
-#: engines/wintermute/keymapper_tables.h:1734
+#: engines/wintermute/keymapper_tables.h:447
+#: engines/wintermute/keymapper_tables.h:580
+#: engines/wintermute/keymapper_tables.h:1150
+#: engines/wintermute/keymapper_tables.h:1751
 msgid "Phone 3 button"
 msgstr "電話の3ボタン"
 
-#: engines/wintermute/keymapper_tables.h:449
-#: engines/wintermute/keymapper_tables.h:582
-#: engines/wintermute/keymapper_tables.h:1144
+#: engines/wintermute/keymapper_tables.h:452
+#: engines/wintermute/keymapper_tables.h:585
+#: engines/wintermute/keymapper_tables.h:1155
 msgid "Phone 4 button"
 msgstr "電話の4ボタン"
 
-#: engines/wintermute/keymapper_tables.h:454
-#: engines/wintermute/keymapper_tables.h:587
-#: engines/wintermute/keymapper_tables.h:1149
+#: engines/wintermute/keymapper_tables.h:457
+#: engines/wintermute/keymapper_tables.h:590
+#: engines/wintermute/keymapper_tables.h:1160
 msgid "Phone 5 button"
 msgstr "電話の5ボタン"
 
-#: engines/wintermute/keymapper_tables.h:459
-#: engines/wintermute/keymapper_tables.h:592
-#: engines/wintermute/keymapper_tables.h:1154
+#: engines/wintermute/keymapper_tables.h:462
+#: engines/wintermute/keymapper_tables.h:595
+#: engines/wintermute/keymapper_tables.h:1165
 msgid "Phone 6 button"
 msgstr "電話の6ボタン"
 
-#: engines/wintermute/keymapper_tables.h:464
-#: engines/wintermute/keymapper_tables.h:597
-#: engines/wintermute/keymapper_tables.h:1159
+#: engines/wintermute/keymapper_tables.h:467
+#: engines/wintermute/keymapper_tables.h:600
+#: engines/wintermute/keymapper_tables.h:1170
 msgid "Phone 7 button"
 msgstr "電話の7ボタン"
 
-#: engines/wintermute/keymapper_tables.h:469
-#: engines/wintermute/keymapper_tables.h:602
-#: engines/wintermute/keymapper_tables.h:1164
+#: engines/wintermute/keymapper_tables.h:472
+#: engines/wintermute/keymapper_tables.h:605
+#: engines/wintermute/keymapper_tables.h:1175
 msgid "Phone 8 button"
 msgstr "電話の8ボタン"
 
-#: engines/wintermute/keymapper_tables.h:474
-#: engines/wintermute/keymapper_tables.h:607
-#: engines/wintermute/keymapper_tables.h:1169
+#: engines/wintermute/keymapper_tables.h:477
+#: engines/wintermute/keymapper_tables.h:610
+#: engines/wintermute/keymapper_tables.h:1180
 msgid "Phone 9 button"
 msgstr "電話の9ボタン"
 
-#: engines/wintermute/keymapper_tables.h:479
-#: engines/wintermute/keymapper_tables.h:612
-#: engines/wintermute/keymapper_tables.h:1174
+#: engines/wintermute/keymapper_tables.h:482
+#: engines/wintermute/keymapper_tables.h:615
+#: engines/wintermute/keymapper_tables.h:1185
 msgid "Phone * button"
 msgstr "電話の*ボタン"
 
-#: engines/wintermute/keymapper_tables.h:484
-#: engines/wintermute/keymapper_tables.h:617
-#: engines/wintermute/keymapper_tables.h:1179
+#: engines/wintermute/keymapper_tables.h:487
+#: engines/wintermute/keymapper_tables.h:620
+#: engines/wintermute/keymapper_tables.h:1190
 msgid "Phone # button"
 msgstr "電話の#ボタン"
 
-#: engines/wintermute/keymapper_tables.h:662
-#: engines/wintermute/keymapper_tables.h:1335
+#: engines/wintermute/keymapper_tables.h:665
+#: engines/wintermute/keymapper_tables.h:1346
 msgid "Show help"
 msgstr "ヘルプを表示"
 
-#: engines/wintermute/keymapper_tables.h:668
-#: engines/wintermute/keymapper_tables.h:862
-#: engines/wintermute/keymapper_tables.h:883
-#: engines/wintermute/keymapper_tables.h:1288
-#: engines/wintermute/keymapper_tables.h:1314
-#: engines/wintermute/keymapper_tables.h:1341
-#: engines/wintermute/keymapper_tables.h:1396
-#: engines/wintermute/keymapper_tables.h:1417
-#: engines/wintermute/keymapper_tables.h:1602
-#: engines/wintermute/keymapper_tables.h:1871
-#: engines/wintermute/keymapper_tables.h:2070
+#: engines/wintermute/keymapper_tables.h:671
+#: engines/wintermute/keymapper_tables.h:872
+#: engines/wintermute/keymapper_tables.h:893
+#: engines/wintermute/keymapper_tables.h:1299
+#: engines/wintermute/keymapper_tables.h:1325
+#: engines/wintermute/keymapper_tables.h:1352
+#: engines/wintermute/keymapper_tables.h:1408
+#: engines/wintermute/keymapper_tables.h:1429
+#: engines/wintermute/keymapper_tables.h:1619
+#: engines/wintermute/keymapper_tables.h:1893
+#: engines/wintermute/keymapper_tables.h:2095
 msgid "Scroll up"
 msgstr "上にスクロール"
 
-#: engines/wintermute/keymapper_tables.h:675
-#: engines/wintermute/keymapper_tables.h:869
-#: engines/wintermute/keymapper_tables.h:890
-#: engines/wintermute/keymapper_tables.h:1295
-#: engines/wintermute/keymapper_tables.h:1321
-#: engines/wintermute/keymapper_tables.h:1348
-#: engines/wintermute/keymapper_tables.h:1403
-#: engines/wintermute/keymapper_tables.h:1424
-#: engines/wintermute/keymapper_tables.h:1609
-#: engines/wintermute/keymapper_tables.h:1878
-#: engines/wintermute/keymapper_tables.h:2075
+#: engines/wintermute/keymapper_tables.h:678
+#: engines/wintermute/keymapper_tables.h:879
+#: engines/wintermute/keymapper_tables.h:900
+#: engines/wintermute/keymapper_tables.h:1306
+#: engines/wintermute/keymapper_tables.h:1332
+#: engines/wintermute/keymapper_tables.h:1359
+#: engines/wintermute/keymapper_tables.h:1415
+#: engines/wintermute/keymapper_tables.h:1436
+#: engines/wintermute/keymapper_tables.h:1626
+#: engines/wintermute/keymapper_tables.h:1900
+#: engines/wintermute/keymapper_tables.h:2100
 msgid "Scroll down"
 msgstr "下にスクロール"
 
-#: engines/wintermute/keymapper_tables.h:687
+#: engines/wintermute/keymapper_tables.h:691
 msgid "Change shadow type"
 msgstr "影の付き方を変更"
 
-#: engines/wintermute/keymapper_tables.h:697
-#: engines/wintermute/keymapper_tables.h:811
+#: engines/wintermute/keymapper_tables.h:701
+#: engines/wintermute/keymapper_tables.h:820
 msgid "Volume max"
 msgstr "ボリュームMAX"
 
-#: engines/wintermute/keymapper_tables.h:702
+#. I18N: Displays a debug interface with a CLI for various features
+#: engines/wintermute/keymapper_tables.h:707
 msgid "Show debug parser"
 msgstr "デバッグパーサーを表示"
 
-#: engines/wintermute/keymapper_tables.h:709
-#: engines/wintermute/keymapper_tables.h:844
-#: engines/wintermute/keymapper_tables.h:1490
-#: engines/wintermute/keymapper_tables.h:1739
-#: engines/wintermute/keymapper_tables.h:1782
+#. I18N: Displays a debug text message
+#: engines/wintermute/keymapper_tables.h:715
+#: engines/wintermute/keymapper_tables.h:854
+#: engines/wintermute/keymapper_tables.h:1505
+#: engines/wintermute/keymapper_tables.h:1757
+#: engines/wintermute/keymapper_tables.h:1802
 msgid "Debug print"
 msgstr "デバッグを表示"
 
-#: engines/wintermute/keymapper_tables.h:714
-#: engines/wintermute/keymapper_tables.h:1755
+#. I18N: Exits the game
+#: engines/wintermute/keymapper_tables.h:721
+#: engines/wintermute/keymapper_tables.h:1773
 msgid "Exit"
 msgstr "終了"
 
-#: engines/wintermute/keymapper_tables.h:719
+#. I18N: Displays a debug interface that changes light settings
+#: engines/wintermute/keymapper_tables.h:727
 msgid "Light helper window"
 msgstr "ヘルパーウィンドウを明るくする"
 
-#: engines/wintermute/keymapper_tables.h:744
+#: engines/wintermute/keymapper_tables.h:752
 msgid "Run forward"
 msgstr "前進"
 
-#: engines/wintermute/keymapper_tables.h:749
+#: engines/wintermute/keymapper_tables.h:757
 msgid "Run backward"
 msgstr "後退"
 
-#: engines/wintermute/keymapper_tables.h:754
+#: engines/wintermute/keymapper_tables.h:762
 msgid "Turn left fast"
 msgstr "高速で左折"
 
-#: engines/wintermute/keymapper_tables.h:759
+#: engines/wintermute/keymapper_tables.h:767
 msgid "Turn right fast"
 msgstr "高速で右折"
 
-#: engines/wintermute/keymapper_tables.h:764
+#. I18N: Displays a blueprint with robot parts
+#: engines/wintermute/keymapper_tables.h:773
 msgid "Show blueprint"
 msgstr "設計図を表示"
 
-#: engines/wintermute/keymapper_tables.h:784
-#: engines/wintermute/keymapper_tables.h:1496
-#: engines/wintermute/keymapper_tables.h:1677
-#: engines/wintermute/keymapper_tables.h:1710
-#: engines/wintermute/keymapper_tables.h:1988
+#: engines/wintermute/keymapper_tables.h:793
+#: engines/wintermute/keymapper_tables.h:1511
+#: engines/wintermute/keymapper_tables.h:1694
+#: engines/wintermute/keymapper_tables.h:1727
+#: engines/wintermute/keymapper_tables.h:2013
 msgid "Next action"
 msgstr "次の行動"
 
-#: engines/wintermute/keymapper_tables.h:791
-#: engines/wintermute/keymapper_tables.h:1504
-#: engines/wintermute/keymapper_tables.h:1684
-#: engines/wintermute/keymapper_tables.h:1717
-#: engines/wintermute/keymapper_tables.h:1996
+#: engines/wintermute/keymapper_tables.h:800
+#: engines/wintermute/keymapper_tables.h:1519
+#: engines/wintermute/keymapper_tables.h:1701
+#: engines/wintermute/keymapper_tables.h:1734
+#: engines/wintermute/keymapper_tables.h:2021
 msgid "Previous action"
 msgstr "前の行動"
 
-#: engines/wintermute/keymapper_tables.h:818
+#: engines/wintermute/keymapper_tables.h:827
 msgid "Volume off"
 msgstr "ボリュームOFF"
 
-#: engines/wintermute/keymapper_tables.h:832
+#: engines/wintermute/keymapper_tables.h:841
 msgid "Change font size"
 msgstr "フォントサイズの変更"
 
-#: engines/wintermute/keymapper_tables.h:911
+#: engines/wintermute/keymapper_tables.h:921
 msgid "Save game"
 msgstr "ゲームをセーブ"
 
-#: engines/wintermute/keymapper_tables.h:926
+#: engines/wintermute/keymapper_tables.h:936
 msgid "Walking speed: Low"
 msgstr "歩く速さ：ゆっくり"
 
-#: engines/wintermute/keymapper_tables.h:931
+#: engines/wintermute/keymapper_tables.h:941
 msgid "Walking speed: Medium"
 msgstr "歩く速さ：ふつう"
 
-#: engines/wintermute/keymapper_tables.h:936
+#: engines/wintermute/keymapper_tables.h:946
 msgid "Walking speed: High"
 msgstr "歩く速さ：せかせか"
 
-#: engines/wintermute/keymapper_tables.h:946
-#: engines/wintermute/keymapper_tables.h:1276
-#: engines/wintermute/keymapper_tables.h:1777
+#: engines/wintermute/keymapper_tables.h:956
+#: engines/wintermute/keymapper_tables.h:1287
+#: engines/wintermute/keymapper_tables.h:1796
 msgid "Cancel waiting"
 msgstr "キャンセル待機中"
 
-#: engines/wintermute/keymapper_tables.h:956
+#: engines/wintermute/keymapper_tables.h:966
 msgid "First page"
 msgstr "最初のページ"
 
-#: engines/wintermute/keymapper_tables.h:961
+#: engines/wintermute/keymapper_tables.h:971
 msgid "Last page"
 msgstr "最後のページ"
 
-#: engines/wintermute/keymapper_tables.h:968
+#. I18N: ultra_super_mega_fast_walk is the name of the variable used at game script for this speed
+#: engines/wintermute/keymapper_tables.h:979
 msgid "Walking speed: Ultra Super Mega Fast"
 msgstr "歩く速さ：超ド級極限最高速"
 
-#: engines/wintermute/keymapper_tables.h:984
+#: engines/wintermute/keymapper_tables.h:995
 msgid "Show game credits"
 msgstr "ゲームクレジットを表示"
 
-#: engines/wintermute/keymapper_tables.h:989
+#: engines/wintermute/keymapper_tables.h:1000
 msgid "Play selected music record"
 msgstr "選択したレコードを再生"
 
-#: engines/wintermute/keymapper_tables.h:994
+#: engines/wintermute/keymapper_tables.h:1005
 msgid "Select next music record"
 msgstr "次のレコードを選択"
 
-#: engines/wintermute/keymapper_tables.h:999
+#: engines/wintermute/keymapper_tables.h:1010
 msgid "Play note 1: A"
 msgstr "音の再生：A"
 
-#: engines/wintermute/keymapper_tables.h:1004
+#: engines/wintermute/keymapper_tables.h:1015
 msgid "Play note 2: F#"
 msgstr "音の再生：F#"
 
-#: engines/wintermute/keymapper_tables.h:1009
+#: engines/wintermute/keymapper_tables.h:1020
 msgid "Play note 3: D#"
 msgstr "音の再生：D#"
 
-#: engines/wintermute/keymapper_tables.h:1014
+#: engines/wintermute/keymapper_tables.h:1025
 msgid "Play note 4: C#"
 msgstr "音の再生：C#"
 
-#: engines/wintermute/keymapper_tables.h:1019
+#: engines/wintermute/keymapper_tables.h:1030
 msgid "Play note 5: E"
 msgstr "音の再生：E"
 
-#: engines/wintermute/keymapper_tables.h:1024
+#: engines/wintermute/keymapper_tables.h:1035
 msgid "Play note 6: G#"
 msgstr "音の再生：G#"
 
-#: engines/wintermute/keymapper_tables.h:1029
+#: engines/wintermute/keymapper_tables.h:1040
 msgid "Play note 7: B"
 msgstr "音の再生：B"
 
-#: engines/wintermute/keymapper_tables.h:1042
+#: engines/wintermute/keymapper_tables.h:1053
 msgid "Ability: Telekinesis"
 msgstr "アビリティ：念動"
 
-#: engines/wintermute/keymapper_tables.h:1047
+#: engines/wintermute/keymapper_tables.h:1058
 msgid "Ability: Push"
 msgstr "アビリティ：押す"
 
-#: engines/wintermute/keymapper_tables.h:1052
+#: engines/wintermute/keymapper_tables.h:1063
 msgid "Ability: Lightning"
 msgstr "アビリティ：電撃"
 
-#: engines/wintermute/keymapper_tables.h:1057
+#: engines/wintermute/keymapper_tables.h:1068
 msgid "Ability: Light"
 msgstr "アビリティ：光"
 
-#: engines/wintermute/keymapper_tables.h:1062
+#: engines/wintermute/keymapper_tables.h:1073
 msgid "Ability: Wind"
 msgstr "アビリティ：風"
 
-#: engines/wintermute/keymapper_tables.h:1067
+#: engines/wintermute/keymapper_tables.h:1078
 msgid "Ability: Sound"
 msgstr "アビリティ：音"
 
-#: engines/wintermute/keymapper_tables.h:1072
+#: engines/wintermute/keymapper_tables.h:1083
 msgid "Ability: Esence"
 msgstr "アビリティ：エッセンス"
 
-#: engines/wintermute/keymapper_tables.h:1077
+#: engines/wintermute/keymapper_tables.h:1088
 msgid "Ability: Exorcist"
 msgstr "アビリティ：祈祷師"
 
-#: engines/wintermute/keymapper_tables.h:1082
-msgid "Skip minigame"
-msgstr "ミニゲームをスキップ"
-
-#: engines/wintermute/keymapper_tables.h:1190
+#: engines/wintermute/keymapper_tables.h:1201
 msgid "Show hints / Dance move"
 msgstr "ヒントを表示 / ダンスの動き"
 
-#: engines/wintermute/keymapper_tables.h:1197
+#: engines/wintermute/keymapper_tables.h:1208
 msgid "Dance move up"
 msgstr "ダンス速度アップ"
 
-#: engines/wintermute/keymapper_tables.h:1203
+#: engines/wintermute/keymapper_tables.h:1214
 msgid "Dance move down"
 msgstr "ダンス速度ダウン"
 
-#: engines/wintermute/keymapper_tables.h:1209
+#: engines/wintermute/keymapper_tables.h:1220
 msgid "Dance move left"
 msgstr "左へダンス"
 
-#: engines/wintermute/keymapper_tables.h:1215
+#: engines/wintermute/keymapper_tables.h:1226
 msgid "Dance move right"
 msgstr "右へダンス"
 
-#: engines/wintermute/keymapper_tables.h:1245
+#: engines/wintermute/keymapper_tables.h:1256
 msgid "Cancel input"
 msgstr "入力をキャンセル"
 
-#: engines/wintermute/keymapper_tables.h:1307
+#: engines/wintermute/keymapper_tables.h:1318
 msgid "Toggle subtitles"
 msgstr "字幕の切替"
 
-#: engines/wintermute/keymapper_tables.h:1376
-msgid "Shift"
-msgstr "シフト"
+#. I18N: At one of the puzzles game asks to press Up key / Shift key / Down key
+#: engines/wintermute/keymapper_tables.h:1388
+msgid "Shift key"
+msgstr "Shiftキー"
 
-#: engines/wintermute/keymapper_tables.h:1476
-msgid "Use Chapayev"
-msgstr "Chapayevを使用"
+#. I18N: Chapayev is the name of game character, Vasily Chapayev
+#. This action makes Chapayev interact with item instead of Petka
+#: engines/wintermute/keymapper_tables.h:1490
+msgid "Chapayev's action"
+msgstr "Chapayevのアクション"
 
-#: engines/wintermute/keymapper_tables.h:1523
-#: engines/wintermute/keymapper_tables.h:1772
+#: engines/wintermute/keymapper_tables.h:1538
+#: engines/wintermute/keymapper_tables.h:1791
+#: engines/wintermute/keymapper_tables.h:1887
 msgid "Settings"
 msgstr "設定"
 
-#: engines/wintermute/keymapper_tables.h:1528
+#: engines/wintermute/keymapper_tables.h:1543
 msgid "Dialogue answer 1"
 msgstr "回答ダイアログ1"
 
-#: engines/wintermute/keymapper_tables.h:1533
+#: engines/wintermute/keymapper_tables.h:1548
 msgid "Dialogue answer 2"
 msgstr "回答ダイアログ2"
 
-#: engines/wintermute/keymapper_tables.h:1538
+#: engines/wintermute/keymapper_tables.h:1553
 msgid "Dialogue answer 3"
 msgstr "回答ダイアログ3"
 
-#: engines/wintermute/keymapper_tables.h:1543
+#: engines/wintermute/keymapper_tables.h:1558
 msgid "Dialogue answer 4"
 msgstr "回答ダイアログ4"
 
-#: engines/wintermute/keymapper_tables.h:1553
-msgid "Spin slower"
-msgstr "回転速度を下げる"
+#. I18N: This game is called "Pole Chudes" and it features a wheel similar to "Wheel of Fortune" TV show
+#: engines/wintermute/keymapper_tables.h:1569
+msgid "Spin wheel slower"
+msgstr "ホイールをゆっくり回す"
 
-#: engines/wintermute/keymapper_tables.h:1560
-msgid "Spin faster"
-msgstr "回転速度を上げる"
+#. I18N: This game is called "Pole Chudes" and it features a wheel similar to "Wheel of Fortune" TV show
+#: engines/wintermute/keymapper_tables.h:1577
+msgid "Spin wheel faster"
+msgstr "ホイールを速く回す"
 
-#: engines/wintermute/keymapper_tables.h:1638
+#: engines/wintermute/keymapper_tables.h:1655
 msgid "Zoom out"
 msgstr "ズームアウト"
 
-#: engines/wintermute/keymapper_tables.h:1645
+#: engines/wintermute/keymapper_tables.h:1662
 msgid "Zoom in"
 msgstr "ズームイン"
 
-#: engines/wintermute/keymapper_tables.h:1658
-#: engines/wintermute/keymapper_tables.h:1859
+#: engines/wintermute/keymapper_tables.h:1675
+#: engines/wintermute/keymapper_tables.h:1881
 msgid "Show journal"
 msgstr "日記を表示"
 
-#: engines/wintermute/keymapper_tables.h:1787
+#. I18N: Displays a debug interface with Bezier curves
+#: engines/wintermute/keymapper_tables.h:1808
 msgid "Bezier window"
 msgstr "ベジエウィンドウ"
 
-#: engines/wintermute/keymapper_tables.h:1803
-msgid "Droid action"
-msgstr "ドロイドアクション"
+#. I18N: Use droid to perform an action
+#: engines/wintermute/keymapper_tables.h:1825
+msgid "Droid's action"
+msgstr "ドロイドのアクション"
 
-#: engines/wintermute/keymapper_tables.h:1865
-msgid "Music menu"
-msgstr "ミュージックメニュー"
-
-#: engines/wintermute/keymapper_tables.h:1910
+#. I18N: It's a Tetris game clone, this action rotates current tetris item
+#: engines/wintermute/keymapper_tables.h:1933
 msgid "Rotate"
 msgstr "回す"
 
-#: engines/wintermute/keymapper_tables.h:1935
+#. I18N: It's a Tetris game clone, this action drops current tetris item
+#: engines/wintermute/keymapper_tables.h:1959
 msgid "Drop"
 msgstr "落とす"
 
-#: engines/wintermute/keymapper_tables.h:1943
+#: engines/wintermute/keymapper_tables.h:1967
 msgid "Player 1: Up"
 msgstr "1P：上"
 
-#: engines/wintermute/keymapper_tables.h:1948
+#: engines/wintermute/keymapper_tables.h:1972
 msgid "Player 1: Left"
 msgstr "1P：左"
 
-#: engines/wintermute/keymapper_tables.h:1953
+#: engines/wintermute/keymapper_tables.h:1977
 msgid "Player 1: Down"
 msgstr "1P：下"
 
-#: engines/wintermute/keymapper_tables.h:1958
+#: engines/wintermute/keymapper_tables.h:1982
 msgid "Player 1: Right"
 msgstr "1P：右"
 
-#: engines/wintermute/keymapper_tables.h:1963
+#: engines/wintermute/keymapper_tables.h:1987
 msgid "Player 2: Up"
 msgstr "2P：上"
 
-#: engines/wintermute/keymapper_tables.h:1968
+#: engines/wintermute/keymapper_tables.h:1992
 msgid "Player 2: Left"
 msgstr "2P：左"
 
-#: engines/wintermute/keymapper_tables.h:1973
+#: engines/wintermute/keymapper_tables.h:1997
 msgid "Player 2: Down"
 msgstr "2P：下"
 
-#: engines/wintermute/keymapper_tables.h:1978
+#: engines/wintermute/keymapper_tables.h:2002
 msgid "Player 2: Right"
 msgstr "2P：右"
 
-#: engines/wintermute/keymapper_tables.h:1983
+#. I18N: Displays a debug FPS counter
+#: engines/wintermute/keymapper_tables.h:2008
 msgid "Debug FPS"
 msgstr "FPSを表示"
 
-#: engines/wintermute/keymapper_tables.h:2080
+#: engines/wintermute/keymapper_tables.h:2105
 msgid "F1"
 msgstr "F1"
 
-#: engines/wintermute/keymapper_tables.h:2085
+#: engines/wintermute/keymapper_tables.h:2110
 msgid "Key i"
 msgstr "iキー"
 
@@ -8198,6 +8231,21 @@ msgstr ""
 "Arialが必要です。LiberationFontsを使用する場合、LiberationMono、"
 "LiberationSans、LiberationSerifが必要です。GNUFreeFontを使用する場合、"
 "FreeMono、FreeSans、FreeSerifが必要です。"
+
+#~ msgid "SAGA2 support not compiled in"
+#~ msgstr "SAGA2のサポートはコンパイルされていません"
+
+#~ msgid "Alt use item"
+#~ msgstr "Altでアイテムを使用"
+
+#~ msgid "Skip minigame"
+#~ msgstr "ミニゲームをスキップ"
+
+#~ msgid "Use Chapayev"
+#~ msgstr "Chapayevを使用"
+
+#~ msgid "Music menu"
+#~ msgstr "ミュージックメニュー"
 
 #~ msgctxt "lowres"
 #~ msgid "Normal (no scaling)"

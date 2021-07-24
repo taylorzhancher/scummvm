@@ -1060,15 +1060,9 @@ void ScummEngine_v5::o5_getActorY() {
 	int a;
 	getResultPos();
 
-	if ((_game.id == GID_INDY3) && !(_game.platform == Common::kPlatformMacintosh)) {
+	if ((_game.id == GID_INDY3) && !(_game.platform == Common::kPlatformMacintosh))
 		a = getVarOrDirectByte(PARAM_1);
-
-		// WORKAROUND bug #560 (can't get into Zeppelin)
-		if (_roomResource == 36) {
-			setResult(getObjY(a) - 1);
-			return;
-		}
-	} else
+	else
 		a = getVarOrDirectWord(PARAM_1);
 
 	setResult(getObjY(a));
@@ -1704,7 +1698,15 @@ void ScummEngine_v5::o5_roomOps() {
 			}
 			assertRange(0, a, 256, "o5_roomOps: 4: room color slot");
 			_shadowPalette[b] = a;
-			setDirtyColors(b, b);
+
+			// In b/w Mac rendering mode, the shadow palette is
+			// handled by the renderer itself. See comment in
+			// mac_drawStripToScreen().
+
+			if (_renderMode == Common::kRenderMacintoshBW) {
+				_fullRedraw = true;
+			} else
+				setDirtyColors(b, b);
 		} else {
 			a = getVarOrDirectWord(PARAM_1);
 			b = getVarOrDirectWord(PARAM_2);
@@ -2073,11 +2075,19 @@ void ScummEngine_v5::o5_startSound() {
 	const byte *oldaddr = _scriptPointer - 1;
 	int sound = getVarOrDirectByte(PARAM_1);
 
-	// WORKAROUND: In the scene where Largo is talking to Mad Marty, the
-	// Woodtick music often resumes before Largo's theme has finished. As
-	// far as I can tell, this is a script bug.
-	if (_game.id == GID_MONKEY2 && sound == 110 && _sound->isSoundRunning(151)) {
-		debug(1, "Delaying Woodtick music until Largo's theme has finished");
+	// WORKAROUND: There are times when Largo's theme is playing. Once it
+	// has finished, the old music should resume. But the scripts don't
+	// actually check that, they just wait for the scene to end. So it may
+	// work fine, if the subtitles are timed correctly, but it may not.
+	//
+	// The Amiga version cut much of the music, so it shouldn't be needed
+	// for that version.
+	//
+	// Sound 103 is Largo talking to the bartender.
+	// Sound 110 is Largo talking to Mad Marty.
+
+	if (_game.id == GID_MONKEY2 && _game.platform != Common::kPlatformAmiga && (sound == 103 || sound == 110) && _sound->isSoundRunning(151)) {
+		debug(1, "Delaying music until Largo's theme has finished");
 		_scriptPointer = oldaddr;
 		o5_breakHere();
 		return;
@@ -2377,7 +2387,25 @@ void ScummEngine_v5::o5_verbOps() {
 			vs->origLeft = vs->curRect.left;
 			break;
 		case 6:		// SO_VERB_ON
-			vs->curmode = 1;
+			// It seems that the Mac version of Indiana Jones and
+			// the Last Crusade treats the entire inventory as a
+			// single verb, or at least that's my guess as far as
+			// script 12 is concerned. In the 256-color DOS
+			// version (I don't have the EGA version), the script
+			// enables all inventory verbs, and possibly the
+			// inventory arrows. Well, that's what the hard-coded
+			// inventory script does, so this should be fine.
+			//
+			// This fixes a problem where if you offer an object
+			// to someone and then press "Never mind", the next
+			// time you try you see only one inventory object.
+			//
+			// I don't know if it has to be limited to this
+			// particular script, but that's what I'll do for now.
+			if (_game.id == GID_INDY3 && _game.platform == Common::kPlatformMacintosh && verb == 101 && vm.slot[_currentScript].number == 12 && vm.slot[_currentScript].where == WIO_GLOBAL) {
+				inventoryScriptIndy3Mac();
+			} else
+				vs->curmode = 1;
 			break;
 		case 7:		// SO_VERB_OFF
 			vs->curmode = 0;

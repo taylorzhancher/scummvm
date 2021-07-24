@@ -86,6 +86,8 @@ DirectorEngine::DirectorEngine(OSystem *syst, const DirectorGameDescription *gam
 	// Meet Mediaband could have up to 5 levels of directories
 	SearchMan.addDirectory(_gameDataDir.getPath(), _gameDataDir, 0, 5);
 
+	SearchMan.addSubDirectoryMatching(_gameDataDir, "win_data", 0, 2);
+
 	for (uint i = 0; Director::directoryGlobs[i]; i++) {
 		Common::String directoryGlob = directoryGlobs[i];
 		SearchMan.addSubDirectoryMatching(_gameDataDir, directoryGlob);
@@ -153,7 +155,7 @@ Common::Error DirectorEngine::run() {
 	if (debugChannelSet(-1, kDebug32bpp))
 		wmMode |= Graphics::kWMMode32bpp;
 
-	_wm = new Graphics::MacWindowManager(wmMode, &_director3QuickDrawPatterns);
+	_wm = new Graphics::MacWindowManager(wmMode, &_director3QuickDrawPatterns, getLanguage());
 	_wm->setEngine(this);
 
 	_pixelformat = _wm->_pixelformat;
@@ -185,20 +187,6 @@ Common::Error DirectorEngine::run() {
 	if (getPlatform() == Common::kPlatformWindows)
 		_machineType = 256; // IBM PC-type machine
 
-	if (getVersion() < 400) {
-		if (getPlatform() == Common::kPlatformWindows) {
-			_sharedCastFile = "SHARDCST.MMM";
-		} else {
-			_sharedCastFile = "Shared Cast";
-		}
-	} else if (getVersion() == 500) {
-		if (getPlatform() == Common::kPlatformWindows) {
-			_sharedCastFile = "SHARED.Cxt";
-		}
-	} else {
-		_sharedCastFile = "Shared.dir";
-	}
-
 	Common::Error err = _currentWindow->loadInitialMovie();
 	if (err.getCode() != Common::kNoError)
 		return err;
@@ -227,6 +215,10 @@ Common::Error DirectorEngine::run() {
 	}
 
 	return Common::kNoError;
+}
+
+Common::CodePage DirectorEngine::getPlatformEncoding() {
+	return getEncoding(getPlatform(), getLanguage());
 }
 
 } // End of namespace Director

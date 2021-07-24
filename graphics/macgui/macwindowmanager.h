@@ -141,7 +141,7 @@ typedef void (* MacDrawPixPtr)(int, int, int, void *);
  */
 class MacWindowManager {
 public:
-	MacWindowManager(uint32 mode = 0, MacPatterns *patterns = nullptr);
+	MacWindowManager(uint32 mode = 0, MacPatterns *patterns = nullptr, Common::Language language = Common::UNK_LANG);
 	~MacWindowManager();
 
 	MacDrawPixPtr getDrawPixel();
@@ -272,6 +272,8 @@ public:
 	 */
 	void setActiveWidget(MacWidget *widget);
 
+	MacPatterns  &getBuiltinPatterns() { return _builtinPatterns; }
+
 	MacWidget *getActiveWidget() { return _activeWidget; }
 
 	Common::Rect getScreenBounds() { return _screen ? _screen->getBounds() : _screenDims; }
@@ -300,6 +302,7 @@ public:
 
 	void passPalette(const byte *palette, uint size);
 	uint findBestColor(byte cr, byte cg, byte cb);
+	uint findBestColor(uint32 color);
 	void decomposeColor(uint32 color, byte &r, byte &g, byte &b);
 
 	const byte *getPalette() { return _palette; }
@@ -324,9 +327,17 @@ public:
 	 */
 	Common::U32String getTextFromClipboard(const Common::U32String &format = Common::U32String(), int *size = nullptr);
 
+	/**
+	 * reset events for current widgets. i.e. we reset those variables which are used for handling events for macwidgets.
+	 * e.g. we clear the active widget, set mouse down false, clear the hoveredWidget
+	 * this function should be called when we are going to other level to handling events. thus wm may not handle events correctly.
+	 */
+	void clearHandlingWidgets();
+
 public:
 	MacFontManager *_fontMan;
 	uint32 _mode;
+	Common::Language _language;
 
 	Common::Point _lastClickPos;
 	Common::Point _lastMousePos;
@@ -375,6 +386,7 @@ private:
 	bool _inEditableArea;
 
 	MacPatterns _patterns;
+	MacPatterns _builtinPatterns;
 	byte *_palette;
 	uint _paletteSize;
 

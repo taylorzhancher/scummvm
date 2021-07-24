@@ -65,11 +65,13 @@ Movie::Movie(Window *window) {
 	_currentHiliteChannelId = 0;
 	_currentHandlingChannelId = 0;
 
+	_version = 0;
+	_platform = Common::kPlatformMacintosh;
 	_allowOutdatedLingo = false;
 
 	_movieArchive = nullptr;
 
-	_cast = new Cast(this);
+	_cast = new Cast(this, 0);
 	_sharedCast = nullptr;
 	_score = new Score(this);
 
@@ -113,6 +115,7 @@ bool Movie::loadArchive() {
 		return false;
 
 	_version = _cast->_version;
+	_platform = _cast->_platform;
 	_movieRect = _cast->_movieRect;
 	// Wait to handle _stageColor until palette is loaded in loadCast...
 
@@ -172,10 +175,10 @@ bool Movie::loadArchive() {
 
 Common::Rect Movie::readRect(Common::ReadStreamEndian &stream) {
 	Common::Rect rect;
-	rect.top = stream.readUint16();
-	rect.left = stream.readUint16();
-	rect.bottom = stream.readUint16();
-	rect.right = stream.readUint16();
+	rect.top = stream.readSint16();
+	rect.left = stream.readSint16();
+	rect.bottom = stream.readSint16();
+	rect.right = stream.readSint16();
 
 	return rect;
 }
@@ -230,12 +233,11 @@ void Movie::loadFileInfo(Common::SeekableReadStreamEndian &stream) {
 	_script = fileInfo.strings[0].readString(false);
 
 	if (!_script.empty() && ConfMan.getBool("dump_scripts"))
-		_cast->dumpScript(_script.c_str(), kMovieScript, _cast->_movieScriptCount);
+		_cast->dumpScript(_script.c_str(), kMovieScript, 0);
 
 	if (!_script.empty())
-		_cast->_lingoArchive->addCode(_script.c_str(), kMovieScript, _cast->_movieScriptCount);
+		_cast->_lingoArchive->addCode(_script, kMovieScript, 0);
 
-	_cast->_movieScriptCount++;
 	_changedBy = fileInfo.strings[1].readString();
 	_createdBy = fileInfo.strings[2].readString();
 	_createdBy = fileInfo.strings[3].readString();
@@ -291,47 +293,59 @@ void Movie::loadSharedCastsFrom(Common::String filename) {
 	debug(0, "@@@@   Loading shared cast '%s'", filename.c_str());
 	debug(0, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 
-	_sharedCast = new Cast(this, true);
+	_sharedCast = new Cast(this, 0, true);
 	_sharedCast->setArchive(sharedCast);
 	_sharedCast->loadArchive();
 }
 
-CastMember *Movie::getCastMember(int castId) {
-	CastMember *result = _cast->getCastMember(castId);
-	if (result == nullptr && _sharedCast) {
-		result = _sharedCast->getCastMember(castId);
+CastMember *Movie::getCastMember(CastMemberID memberID) {
+	CastMember *result = nullptr;
+	if (memberID.castLib == 0) {
+		result = _cast->getCastMember(memberID.member);
+		if (result == nullptr && _sharedCast) {
+			result = _sharedCast->getCastMember(memberID.member);
+		}
+	} else {
+		warning("Movie::getCastMember: Unknown castLib %d", memberID.castLib);
 	}
 	return result;
 }
 
-CastMember *Movie::getCastMemberByName(const Common::String &name) {
-	CastMember *result = _cast->getCastMemberByName(name);
-	if (result == nullptr && _sharedCast) {
-		result = _sharedCast->getCastMemberByName(name);
+CastMember *Movie::getCastMemberByName(const Common::String &name, int castLib) {
+	CastMember *result = nullptr;
+	if (castLib == 0) {
+		result = _cast->getCastMemberByName(name);
+		if (result == nullptr && _sharedCast) {
+			result = _sharedCast->getCastMemberByName(name);
+		}
+	} else {
+		warning("Movie::getCastMemberByName: Unknown castLib %d", castLib);
 	}
 	return result;
 }
 
-CastMember *Movie::getCastMemberByScriptId(int scriptId) {
-	CastMember *result = _cast->getCastMemberByScriptId(scriptId);
-	if (result == nullptr && _sharedCast) {
-		result = _sharedCast->getCastMemberByScriptId(scriptId);
+CastMemberInfo *Movie::getCastMemberInfo(CastMemberID memberID) {
+	CastMemberInfo *result = nullptr;
+	if (memberID.castLib == 0) {
+		result = _cast->getCastMemberInfo(memberID.member);
+		if (result == nullptr && _sharedCast) {
+			result = _sharedCast->getCastMemberInfo(memberID.member);
+		}
+	} else {
+		warning("Movie::getCastMemberInfo: Unknown castLib %d", memberID.castLib);
 	}
 	return result;
 }
 
-CastMemberInfo *Movie::getCastMemberInfo(int castId) {
-	CastMemberInfo *result = _cast->getCastMemberInfo(castId);
-	if (result == nullptr && _sharedCast) {
-		result = _sharedCast->getCastMemberInfo(castId);
-	}
-	return result;
-}
-
-const Stxt *Movie::getStxt(int castId) {
-	const Stxt *result = _cast->getStxt(castId);
-	if (result == nullptr && _sharedCast) {
-		result = _sharedCast->getStxt(castId);
+const Stxt *Movie::getStxt(CastMemberID memberID) {
+	const Stxt *result = nullptr;
+	if (memberID.castLib == 0) {
+		result = _cast->getStxt(memberID.member);
+		if (result == nullptr && _sharedCast) {
+			result = _sharedCast->getStxt(memberID.member);
+		}
+	} else {
+		warning("Movie::getStxt: Unknown castLib %d", memberID.castLib);
 	}
 	return result;
 }
@@ -344,10 +358,15 @@ LingoArchive *Movie::getSharedLingoArch() {
 	return _sharedCast ? _sharedCast->_lingoArchive : nullptr;
 }
 
-ScriptContext *Movie::getScriptContext(ScriptType type, uint16 id) {
-	ScriptContext *result = _cast->_lingoArchive->getScriptContext(type, id);
-	if (result == nullptr && _sharedCast) {
-		result = _sharedCast->_lingoArchive->getScriptContext(type, id);
+ScriptContext *Movie::getScriptContext(ScriptType type, CastMemberID id) {
+	ScriptContext *result = nullptr;
+	if (id.castLib == 0) {
+		result = _cast->_lingoArchive->getScriptContext(type, id.member);
+		if (result == nullptr && _sharedCast) {
+			result = _sharedCast->_lingoArchive->getScriptContext(type, id.member);
+		}
+	} else {
+		warning("Movie::getScriptContext: Unknown castLib %d", id.castLib);
 	}
 	return result;
 }
@@ -361,6 +380,24 @@ Symbol Movie::getHandler(const Common::String &name) {
 			return _sharedCast->_lingoArchive->functionHandlers[name];
 	}
 	return Symbol();
+}
+
+Common::String InfoEntry::readString(bool pascal) {
+	Common::String res;
+
+	if (len == 0)
+		return res;
+
+	uint start = pascal ? 1 : 0; // skip length for Pascal string
+
+	Common::String encodedStr;
+	for (uint i = start; i < len; i++) {
+		if (!Common::isCntrl(data[i]) || Common::isSpace(data[i]))
+			encodedStr += data[i];
+	}
+
+	// FIXME: Use the case which contains this string, not the main cast.
+	return g_director->getCurrentMovie()->getCast()->decodeString(encodedStr).encode(Common::kUtf8);
 }
 
 } // End of namespace Director
