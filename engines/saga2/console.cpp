@@ -53,15 +53,27 @@ Console::Console(Saga2Engine *vm) : GUI::Debugger() {
 
 	registerCmd("obj_name", WRAP_METHOD(Console, cmdObjName));
 
-	registerCmd("name2id", WRAP_METHOD(Console, cmdObjNameToID));
+	registerCmd("nid2id", WRAP_METHOD(Console, cmdObjNameIndexToID));
 
-	registerCmd("search_obj", WRAP_METHOD(Console, cmdSearchObj));
+	registerCmd("search", WRAP_METHOD(Console, cmdSearchObj));
 
 	registerCmd("add_obj", WRAP_METHOD(Console, cmdAddObj));
 
 	registerCmd("position", WRAP_METHOD(Console, cmdPosition));
 
+	registerCmd("teleport_on_click", WRAP_METHOD(Console, cmdTeleportOnClick));
+
 	registerCmd("teleport", WRAP_METHOD(Console, cmdTeleport));
+
+	registerCmd("teleport_to_npc", WRAP_METHOD(Console, cmdTeleportToNPC));
+
+	registerCmd("teleport_npc", WRAP_METHOD(Console, cmdTeleportNPC));
+
+	registerCmd("teleport_npc_here", WRAP_METHOD(Console, cmdTeleportNPCHere));
+
+	registerCmd("save_loc", WRAP_METHOD(Console, cmdSaveLoc));
+
+	registerCmd("load_loc", WRAP_METHOD(Console, cmdLoadLoc));
 
 	registerCmd("goto_place", WRAP_METHOD(Console, cmdGotoPlace));
 
@@ -121,7 +133,7 @@ bool Console::cmdObjName(int argc, const char **argv) {
 	return true;
 }
 
-bool Console::cmdObjNameToID(int argc, const char **argv) {
+bool Console::cmdObjNameIndexToID(int argc, const char **argv) {
 	if (argc != 2)
 		debugPrintf("Usage: %s <Name index>\n", argv[0]);
 	else {
@@ -139,11 +151,29 @@ bool Console::cmdSearchObj(int argc, const char **argv) {
 	if (argc != 2)
 		debugPrintf("Usage: %s <Object name>\n", argv[0]);
 	else {
-		for (int i = 0; i < objectCount; ++i) {
-			Common::String objName = objectList[i].objName();
-			objName.toLowercase();
-			if (objName.contains(argv[1]))
-				debugPrintf("%d: %s\n", i, objectList[i].objName());
+		Common::String name = argv[1];
+		Common::Array<ObjectID> array = GameObject::nameToID(name);
+		Common::String type;
+
+		if (array.size() == 0)
+			debugPrintf("No objects found!\n");
+		else {
+			for (uint i = 0; i < array.size(); ++i) {
+				ObjectID id = array[i];
+
+				GameObject *obj = GameObject::objectAddress(id);
+
+				if (isObject(obj))
+					type = "OBJECT";
+				else if (isActor(obj))
+					type = "ACTOR";
+				else if (isWorld(obj))
+					type = "WORLD";
+				else
+					type = "???";
+
+				debugPrintf("%s: %d (%s)\n", obj->objName(), id, type.c_str());
+			}
 		}
 	}
 
@@ -183,6 +213,17 @@ bool Console::cmdStats(int argc, const char **argv) {
 	return true;
 }
 
+bool Console::cmdTeleportOnClick(int argc, const char **argv) {
+	if (argc != 2)
+		debugPrintf("Usage: %s <1/0>\n", argv[0]);
+	else {
+		bool teleport = atoi(argv[1]);
+		_vm->_teleportOnClick = teleport;
+	}
+
+	return true;
+}
+
 bool Console::cmdTeleport(int argc, const char **argv) {
 	if (argc != 4)
 		debugPrintf("Usage: %s <u> <v> <z>\n", argv[0]);
@@ -193,6 +234,77 @@ bool Console::cmdTeleport(int argc, const char **argv) {
 
 		Actor *a = getCenterActor();
 		a->setLocation(TilePoint(u, v, z));
+	}
+
+	return true;
+}
+
+bool Console::cmdTeleportToNPC(int argc, const char **argv) {
+	if (argc != 2)
+		debugPrintf("Usage: %s <Actor ID>\n", argv[0]);
+	else {
+		ObjectID id = atoi(argv[1]);
+		Actor *a = getCenterActor();
+		Actor *b = (Actor *)GameObject::objectAddress(id);
+
+		a->setLocation(b->getLocation());
+	}
+
+	return true;
+}
+
+bool Console::cmdTeleportNPC(int argc, const char **argv) {
+	if (argc != 5)
+		debugPrintf("Usage: %s <Actor ID> <u> <v> <z>\n", argv[0]);
+	else {
+		ObjectID id = atoi(argv[1]);
+		Actor *a = (Actor *)GameObject::objectAddress(id);
+
+		TilePoint loc;
+		loc.u = atoi(argv[2]);
+		loc.v = atoi(argv[3]);
+		loc.z = atoi(argv[4]);
+
+		a->setLocation(loc);
+	}
+
+	return true;
+}
+
+bool Console::cmdTeleportNPCHere(int argc, const char **argv) {
+	if (argc != 2)
+		debugPrintf("Usage: %s <Actor ID>\n", argv[0]);
+	else {
+		ObjectID id = atoi(argv[1]);
+		Actor *a = (Actor *)GameObject::objectAddress(id);
+
+		a->setLocation(getCenterActor()->getLocation());
+	}
+
+	return true;
+}
+
+bool Console::cmdSaveLoc(int argc, const char **argv) {
+	if (argc != 1)
+		debugPrintf("Usage: %s\n", argv[0]);
+	else {
+		Actor *a = getCenterActor();
+		_savedLoc = a->getLocation();
+	}
+
+	return true;
+}
+
+bool Console::cmdLoadLoc(int argc, const char **argv) {
+	if (argc != 1)
+		debugPrintf("Usage: %s\n", argv[0]);
+	else {
+		Actor *a = getCenterActor();
+
+		if (_savedLoc.u != 0 || _savedLoc.v != 0 || _savedLoc.z != 0)
+			a->setLocation(_savedLoc);
+		else
+			debugPrintf("Location not saved!\n");
 	}
 
 	return true;
