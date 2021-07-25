@@ -1795,21 +1795,40 @@ void LB::b_puppetSound(int nargs) {
 	}
 
 	DirectorSound *sound = g_director->getSoundManager();
-	Datum castMember = g_lingo->pop();
 	Score *score = g_director->getCurrentMovie()->getScore();
-
-	int channel = 1;
-	if (nargs == 2) {
-		channel = g_lingo->pop().asInt();
-	}
 
 	if (!score) {
 		warning("b_puppetSound(): no score");
 		return;
 	}
 
-	CastMemberID castId = castMember.asMemberID();
-	sound->playCastMember(castId, channel);
+	sound->_puppet = true;
+	if (nargs == 1 || g_director->getVersion() >= 400) {
+		Datum castMember = g_lingo->pop();
+
+		// in D2 manual p206, puppetSound 0 will turn off the puppet status of sound
+		if (castMember.asInt() == 0)
+			sound->_puppet = false;
+
+		uint channel = 1;
+		if (nargs == 2)
+			channel = g_lingo->pop().asInt();
+
+		sound->playCastMember(castMember.asMemberID(), channel);
+	} else {
+		// in D2/3/3.1 interactivity manual, 2 args represent the menu and submenu sounds
+		uint submenu = g_lingo->pop().asInt();
+		uint menu = g_lingo->pop().asInt();
+
+		if (menu <= 9 || menu >= 16)
+			warning("LB::puppetSound: menu number is not available");
+
+		if (score->_sampleSounds.empty())
+			score->loadSampleSounds(menu);
+
+		if (submenu <= score->_sampleSounds.size())
+			sound->playExternalSound(score->_sampleSounds[submenu - 1], 1, submenu);
+	}
 }
 
 void LB::b_immediateSprite(int nargs) {
