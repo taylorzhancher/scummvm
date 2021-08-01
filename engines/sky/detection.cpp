@@ -40,6 +40,13 @@ static const ExtraGuiOption skyExtraGuiOption = {
 	false
 };
 
+static const ExtraGuiOption ttsExtraGuiOption = {
+	_s("Enable Text to Speech"),
+	_s("Use TTS to read the descriptions (if TTS is available)"),
+	"tts_enabled",
+	false
+};
+
 struct SkyVersion {
 	int dinnerTableEntries;
 	int dataDiskSize;
@@ -98,6 +105,7 @@ const ExtraGuiOptions SkyMetaEngineDetection::getExtraGuiOptions(const Common::S
 
 	if (target.empty()) {
 		options.push_back(skyExtraGuiOption);
+		options.push_back(ttsExtraGuiOption);
 		return options;
 	}
 
@@ -108,6 +116,8 @@ const ExtraGuiOptions SkyMetaEngineDetection::getExtraGuiOptions(const Common::S
 
 	if (!guiOptions.contains(GUIO_NOSPEECH))
 		options.push_back(skyExtraGuiOption);
+
+	options.push_back(ttsExtraGuiOption);
 	return options;
 }
 
