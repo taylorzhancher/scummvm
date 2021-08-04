@@ -21,6 +21,9 @@
  */
 
 #include "common/file.h"
+#include "common/system.h"
+#include "common/text-to-speech.h"
+#include "common/config-manager.h"
 
 #include "draci/draci.h"
 #include "draci/font.h"
@@ -219,6 +222,12 @@ void Font::drawString(Surface *dst, const Common::String &str,
 	assert(y >= 0);
 
 	uint widest = getStringWidth(str, spacing);
+
+	Common::TextToSpeechManager *ttsMan = g_system->getTextToSpeechManager();
+	if (str != "") {
+		// if (ttsMan != nullptr && ConfMan.getBool("tts_enabled"))
+			ttsMan->say(str, Common::TextToSpeechManager::INTERRUPT_NO_REPEAT);
+	}
 
 	int curx = x + (widest - getLineWidth(str, 0, spacing)) / 2;
 	int cury = y;
